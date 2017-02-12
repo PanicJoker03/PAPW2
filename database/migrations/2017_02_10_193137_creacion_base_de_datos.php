@@ -19,7 +19,7 @@ class CreacionBaseDeDatos extends Migration
         */
         //Tablas de entidades
         Schema::create('usuario', function(Blueprint $table){
-            $table->increments('idUsuario');
+            $table->increments('id');
             $table->string('correo', 255);
             $table->string('contrasenia', 255);
             $table->string('nombreUsuario', 255);
@@ -32,9 +32,9 @@ class CreacionBaseDeDatos extends Migration
             $table->boolean('activo')->default('1');
         });
         Schema::create('club', function(Blueprint $table){
-            $table->increments('idClub');
+            $table->increments('id');
             $table->integer('creador')->unsigned();
-            $table->foreign('creador')->references('idUsuario')->on('usuario');
+            $table->foreign('creador')->references('id')->on('usuario');
             $table->string('nombreClub', 255);
             $table->string('descripcion', 255)->nullable();
             $table->string('avatarRuta', 255);
@@ -44,11 +44,11 @@ class CreacionBaseDeDatos extends Migration
             $table->boolean('activo')->default('1');
         });
         Schema::create('publicacion', function(Blueprint $table){
-            $table->increments('idPublicacion');
+            $table->increments('id');
             $table->integer('autor')->unsigned();
-            $table->foreign('autor')->references('idUsuario')->on('usuario');
+            $table->foreign('autor')->references('id')->on('usuario');
             $table->integer('club')->unsigned();
-            $table->foreign('club')->references('idClub')->on('club');
+            $table->foreign('club')->references('id')->on('club');
             $table->string('contenidoRuta', 255);
             $table->string('contenidoMinRuta', 255);
             $table->string('titulo', 255);
@@ -60,42 +60,42 @@ class CreacionBaseDeDatos extends Migration
         });
         //Tablas relacionales
         Schema::create('visita', function(Blueprint $table){
-            $table->increments('idVisita');
+            $table->increments('id');
             $table->integer('usuario')->unsigned();
-            $table->foreign('usuario')->references('idUsuario')->on('usuario');
+            $table->foreign('usuario')->references('id')->on('usuario');
             $table->integer('publicacion')->unsigned();
-            $table->foreign('publicacion')->references('idPublicacion')->on('publicacion');
+            $table->foreign('publicacion')->references('id')->on('publicacion');
             //$table->datetime('fechaVisita');
             $table->timestamps();
             $table->boolean('activo')->default('1');
         });
         Schema::create('comentario', function(Blueprint $table){
-            $table->increments('idComentario');
+            $table->increments('id');
             $table->integer('usuario')->unsigned();
-            $table->foreign('usuario')->references('idUsuario')->on('usuario');
+            $table->foreign('usuario')->references('id')->on('usuario');
             $table->integer('publicacion')->unsigned();
-            $table->foreign('publicacion')->references('idPublicacion')->on('publicacion');
+            $table->foreign('publicacion')->references('id')->on('publicacion');
             $table->string('comentario', 255);
             //$table->datetime('fechaComentario');
             $table->timestamps();
             $table->boolean('activo')->default('1');
         });
         Schema::create('meGusta', function(Blueprint $table){
-            $table->increments('idMeGusta');
+            $table->increments('id');
             $table->integer('usuario')->unsigned();
-            $table->foreign('usuario')->references('idUsuario')->on('usuario');
+            $table->foreign('usuario')->references('id')->on('usuario');
             $table->integer('publicacion')->unsigned();
-            $table->foreign('publicacion')->references('idPublicacion')->on('publicacion');
+            $table->foreign('publicacion')->references('id')->on('publicacion');
             //$table->datetime('fechaMeGusta');
             $table->timestamps();
             $table->boolean('activo')->default('1');
         });
         Schema::create('subscripcion', function(Blueprint $table){
-            $table->increments('idSubscripcion');
+            $table->increments('id');
             $table->integer('usuario')->unsigned();
-            $table->foreign('usuario')->references('idUsuario')->on('usuario');
+            $table->foreign('usuario')->references('id')->on('usuario');
             $table->integer('club')->unsigned();
-            $table->foreign('club')->references('idClub')->on('club');
+            $table->foreign('club')->references('id')->on('club');
             //$table->datetime('fechaSubscripcion');
             $table->timestamps();
             $table->boolean('activo')->default('1');
