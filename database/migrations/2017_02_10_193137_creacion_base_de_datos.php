@@ -27,7 +27,9 @@ class CreacionBaseDeDatos extends Migration
             $table->string('avatarMinRuta', 255);
             $table->enum('genero', array('Hombre','Mujer'));
             $table->date('fechaNacimiento');
-            $table->boolean('activo')->default("1");
+            //$table->datetime('fechaRegistro');
+            $table->timestamps();
+            $table->boolean('activo')->default('1');
         });
         Schema::create('club', function(Blueprint $table){
             $table->increments('idClub');
@@ -37,8 +39,9 @@ class CreacionBaseDeDatos extends Migration
             $table->string('descripcion', 255)->nullable();
             $table->string('avatarRuta', 255);
             $table->string('avatarMinRuta', 255);
-            $table->datetime('fechaCreacion');
-            $table->boolean('activo')->default("1");
+            //$table->datetime('fechaCreacion');
+            $table->timestamps();
+            $table->boolean('activo')->default('1');
         });
         Schema::create('publicacion', function(Blueprint $table){
             $table->increments('idPublicacion');
@@ -50,11 +53,22 @@ class CreacionBaseDeDatos extends Migration
             $table->string('contenidoMinRuta', 255);
             $table->string('titulo', 255);
             $table->string('descripcion', 255)->nullable();
-            $table->datetime('fechaPublicacion');
+            //$table->datetime('fechaPublicacion');
+            $table->timestamps();
             $table->boolean('aprobado')->default("0");
-            $table->boolean('activo')->default("1");
+            $table->boolean('activo')->default('1');
         });
         //Tablas relacionales
+        Schema::create('visita', function(Blueprint $table){
+            $table->increments('idVisita');
+            $table->integer('usuario')->unsigned();
+            $table->foreign('usuario')->references('idUsuario')->on('usuario');
+            $table->integer('publicacion')->unsigned();
+            $table->foreign('publicacion')->references('idPublicacion')->on('publicacion');
+            //$table->datetime('fechaVisita');
+            $table->timestamps();
+            $table->boolean('activo')->default('1');
+        });
         Schema::create('comentario', function(Blueprint $table){
             $table->increments('idComentario');
             $table->integer('usuario')->unsigned();
@@ -62,8 +76,9 @@ class CreacionBaseDeDatos extends Migration
             $table->integer('publicacion')->unsigned();
             $table->foreign('publicacion')->references('idPublicacion')->on('publicacion');
             $table->string('comentario', 255);
-            $table->datetime('fechaComentario');
-            $table->boolean('activo')->default("1");
+            //$table->datetime('fechaComentario');
+            $table->timestamps();
+            $table->boolean('activo')->default('1');
         });
         Schema::create('meGusta', function(Blueprint $table){
             $table->increments('idMeGusta');
@@ -71,8 +86,9 @@ class CreacionBaseDeDatos extends Migration
             $table->foreign('usuario')->references('idUsuario')->on('usuario');
             $table->integer('publicacion')->unsigned();
             $table->foreign('publicacion')->references('idPublicacion')->on('publicacion');
-            $table->datetime('fechaMeGusta');
-            $table->boolean('activo')->default("1");
+            //$table->datetime('fechaMeGusta');
+            $table->timestamps();
+            $table->boolean('activo')->default('1');
         });
         Schema::create('subscripcion', function(Blueprint $table){
             $table->increments('idSubscripcion');
@@ -80,8 +96,9 @@ class CreacionBaseDeDatos extends Migration
             $table->foreign('usuario')->references('idUsuario')->on('usuario');
             $table->integer('club')->unsigned();
             $table->foreign('club')->references('idClub')->on('club');
-            $table->datetime('fechaSubscripcion');
-            $table->boolean('activo')->default("1");
+            //$table->datetime('fechaSubscripcion');
+            $table->timestamps();
+            $table->boolean('activo')->default('1');
         });
     }
 
@@ -92,11 +109,14 @@ class CreacionBaseDeDatos extends Migration
      */
     public function down()
     {
-        Schema::drop('usuario');
-        Schema::drop('club');
-        Schema::drop('publicacion');
-        Schema::drop('comentario');
-        Schema::drop('meGusta');
+        //Borrar las tablas en orden inverso de creación para no tener
+        //problemas con los rollbacks de las migraciones
         Schema::drop('subscripcion');
+        Schema::drop('meGusta');
+        Schema::drop('comentario');
+        Schema::drop('visita');
+        Schema::drop('publicacion');
+        Schema::drop('club');
+        Schema::drop('usuario');
     }
 }
