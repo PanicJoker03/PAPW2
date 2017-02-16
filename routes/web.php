@@ -11,5 +11,6 @@
 |
 */
 Route::get('/', 'InicioControl@indice');
-Route::post('/registrar', 'UsuarioControl@registrar');
-Route::post('/iniciarSesion', 'UsuarioControl@iniciarSesion');
+Route::post('/registrar', 'InicioControl@registrar');
+Route::post('/iniciarSesion', 'InicioControl@iniciarSesion');
+Route::get('/cerrarSesion', 'InicioControl@cerrarSesion');
