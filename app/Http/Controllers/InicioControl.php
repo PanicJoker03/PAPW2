@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
 use Auth;
 class InicioControl extends Controller
 {
     public function indice(Request $request)
     {
     	if(Auth::check()){
-    		return view('inicio');
+            $misClubes = Auth::user()->clubs();
+    		return view('inicio',[
+                'misClubes' => $misClubes
+                ]);
     	}
     	else {
     		return view('inicioSesion');
@@ -21,13 +23,13 @@ class InicioControl extends Controller
     {
         //TODO: 
         //  *validación de campos
-        $usuario = Usuario::create([
-            'nombreUsuario' => $request->usuario,
-            'correo' => $request->correo,
-            'contrasenia' => bcrypt($request->contraseña),
-            'genero' => $request->genero,
-            'fechaNacimiento' => $request->nacimiento
-        ]);
+        $usuario = new Usuario();
+        $usuario->nombreUsuario = $request->usuario;
+        $usuario->correo = $request->correo;
+        $usuario->contrasenia = bcrypt($request->contraseña);
+        $usuario->genero = $request->genero;
+        $usuario->fechaNacimiento = $request->nacimiento;
+        $usuario->save();
         Auth::login($usuario);
         return redirect('/');
     }

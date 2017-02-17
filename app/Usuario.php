@@ -7,6 +7,10 @@ use Illuminate\Contracts\Auth\Authenticatable;
 class Usuario extends Model implements Authenticatable
 {
     protected $table = 'usuario';
+    public function clubs()
+    {
+    	return $this->HasMany('App\Club', 'creador');
+    }
     public function getAuthIdentifierName()
     {
     	return $this->nombreUsuario;

@@ -14,3 +14,4 @@ Route::get('/', 'InicioControl@indice');
 Route::post('/registrar', 'InicioControl@registrar');
 Route::post('/iniciarSesion', 'InicioControl@iniciarSesion');
 Route::get('/cerrarSesion', 'InicioControl@cerrarSesion');
+Route::post('/crearClub', 'ClubControl@crearClub');

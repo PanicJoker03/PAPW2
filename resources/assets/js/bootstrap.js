@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -18,6 +17,9 @@ require('bootstrap-sass');
  */
 
 window.Vue = require('vue');
+//Vue.use(require('vue-resource'));
+/*
+Vue.http.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;*/
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -31,6 +33,21 @@ window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': window.Laravel.csrfToken,
     'X-Requested-With': 'XMLHttpRequest'
 };
+
+$(document).on('submit', '.vue-form', function(){
+	$('<input/>')
+	.attr('type', 'hidden')
+	.attr('name', '_token')
+	.attr('value', window.Laravel.csrfToken)
+	.appendTo('.vue-form');
+	return true;
+});
+
+/*$(function () {
+    $.ajaxSetup({
+        headers: { 'X-CSRF-TOKEN': window.Laravel.csrfToken }
+    });
+});*/
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
