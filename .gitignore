@@ -9,4 +9,4 @@ Homestead.yaml
 .env
 /.phpintel
 /public/uploads
-node_modules
+npm-debug.log

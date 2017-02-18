@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Usuario;
 class InicioControl extends Controller
 {
     public function indice(Request $request)
@@ -27,6 +28,8 @@ class InicioControl extends Controller
         $usuario->nombreUsuario = $request->usuario;
         $usuario->correo = $request->correo;
         $usuario->contrasenia = bcrypt($request->contraseña);
+        $usuario->avatarRuta = 'images/defaultAvatar.png';
+        $usuario->avatarMinRuta = 'images/defaultAvatarThumb.png';
         $usuario->genero = $request->genero;
         $usuario->fechaNacimiento = $request->nacimiento;
         $usuario->save();
