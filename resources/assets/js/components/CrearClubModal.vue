@@ -6,7 +6,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
 					<h5 class="modal-title" id="crearClubTitulo">Crear club</h5>
 				</div>
-				<form class="vue-form" action="/crearClub" method="post" enctype="multipart/form-data">
+				<form id="crearClubForm" class="vue-form" @submit.prevent="crearClub" method="post" enctype="multipart/form-data">
 					<div class="modal-body">
 						<h5>Información del club</h5>
 						<div class="form-group">
@@ -19,8 +19,15 @@
 						</div>
 						<div class="form-group">
 							<label for="imagen">Imagen de club</label>
-							<input type="file" name="imagen" id="imagen" class="form-control" accept="image/*" required>
-							<small>Elige la imagen avatar de tu club</small>
+							<div class="row">
+								<div class="col-xs-3">
+									<img class="crop pull-left" id="prevClub" width="100" height="100">
+								</div>
+								<div class="col-xs-9">
+									<input type="file" @change="archivoSeleccionado" name="imagen" id="modalClubInput" class="form-control" accept="image/*" required>
+									<small>Elige la imagen avatar de tu club</small>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -36,8 +43,72 @@
 
 <script>
     export default {
+    	data(){
+    		return {
+                cropX : '',
+                cropY : '',
+                cropW : '',
+                cropH : '',
+    		}
+    	},										
         mounted() {
-            console.log('Component mounted.')
+            //console.log('Component mounted.');
+            var _this = this;
+            var timeStamp = 0;
+            $('#prevClub')
+            .crop({
+                    width : 100,
+                    height: 100,
+                    loading: '',
+                    controls : ''
+                })
+            .click(function(e){
+                e.preventDefault();
+            })
+            .on('crop', function(event){
+                event.stopImmediatePropagation();
+                event.stopPropagation();
+                event.preventDefault();
+                //El hack más grande en la historia de jquery :(
+                if(event.timeStamp - timeStamp > 5)
+                {
+                    //console.log(event);
+                    _this.cropX = event.cropX;
+                    _this.cropY = event.cropY;
+                    _this.cropW = event.cropW;
+                    _this.cropH = event.cropH;
+                    timeStamp = event.timeStamp;
+                }
+                return false;
+            });
+        },
+        methods: {
+            //previsualizar la imagen seleccionada...
+            //http://stackoverflow.com/questions/18457340/how-to-preview-selected-image-in-input-type-file-in-popup-using-jquery
+        	archivoSeleccionado(input){
+            	const files = input.target.files;
+            	if(files && files[0]){
+            		const reader = new FileReader();
+            		reader.onload = function(e){
+            			$('#prevClub').attr('src', e.target.result);
+    					//this.archivo = files[0];
+            		};
+            		reader.readAsDataURL(files[0]);
+            	}
+        	},
+        	crearClub(){
+        		const form = document.getElementById('crearClubForm');
+        		const datosClub = new FormData(form);
+        		datosClub.append('_token', window.Laravel.csrfToken);
+                datosClub.append('cropX', this.cropX);
+                datosClub.append('cropY', this.cropY);
+                datosClub.append('cropW', this.cropW);
+                datosClub.append('cropH', this.cropH);
+        		this.$http.post('/crearClub', datosClub)
+        			.then((response) => {
+        				window.location.replace('./club/' + response.data.id);
+        			});
+        	}
         }
     }
 </script>

@@ -14,7 +14,7 @@
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 				@if (Auth::user()->clubs->count() > 0)
-					<li><a href="#">Administrar</a></li>
+					<li><a href="administrar">Administrar</a></li>
 				@endif
 					<li><a href="/crearClub" data-toggle="modal" data-target="#crearClubModal">Crear club</a></li>
 				</ul>

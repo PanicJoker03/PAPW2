@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+require('./jquery.crop.js');
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -13,6 +14,7 @@ require('./bootstrap');
  */
 
 Vue.component('crear-club-modal', require('./components/CrearClubModal.vue'));
+Vue.component('crear-publicacion-modal', require('./components/CrearPublicacionModal.vue'));
 
 const app = new Vue({
     el: '#app'

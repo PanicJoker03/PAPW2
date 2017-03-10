@@ -4,8 +4,9 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>Inicio</title>
 	{{-- <link rel="stylesheet" type="text/css" href="css/theme.min.css"> --}}
-	<link rel="stylesheet" type="text/css" href="css/app.css">
-	<link rel="stylesheet" type="text/css" href="css/diver.css">
+	<link rel="stylesheet" type="text/css" href="/css/app.css">
+	<link rel="stylesheet" type="text/css" href="/css/jquery.crop.css">
+	<link rel="stylesheet" type="text/css" href="/css/diver.css">
 </head>
 <body>
 <div id="app">
@@ -17,5 +18,5 @@
 <script>
 	window.Laravel = {"csrfToken" : "{{ csrf_token() }}" };
 </script>
-<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="/js/app.js"></script>
 </html>

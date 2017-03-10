@@ -21,8 +21,14 @@
 					'class' => 'navbar-form'
 					))
 			}}
-			{{ Form::text('usuario', null, ['class' => 'form-control', 'placeholder' => 'Nombre de usuario'])}}
-			{{ Form::password('contraseña', ['class' => 'form-control', 'placeholder' => 'Contraseña']) }}
+			<div class="form-group">
+				<label class="text-left" for="usuario">Nombre de usuario</label>
+				{{ Form::text('usuario', null, ['class' => 'form-control', 'placeholder' => 'Nombre de usuario'])}}
+			</div>
+			<div class="form-group">
+				<label class="text-left" for="contraseña">Contraseña</label>
+				{{ Form::password('contraseña', ['class' => 'form-control', 'placeholder' => 'Contraseña']) }}
+			</div>
 			{{ Form::submit('Iniciar sesión', ['class' => 'btn btn-default']) }}
 			{{ Form::close() }}
 		</div>
@@ -34,7 +40,6 @@
 				<div class="panel-heading text-center">
 					Regístrate para seguir clubes y ver todo tipo de contenido
 				</div>
-				<h4></h4>
 				<div class="panel-body">
 					{{ Form::open(
 						array(
@@ -67,9 +72,9 @@
 							</label>
 						</div>
 					</div>
-					<div class="form-group text-center">
+				</div>
+				<div class="panel-footer text-center">
 						{{ Form::submit('Registrarse', ['class' => 'btn btn-default']) }}
-					</div>
 					{{ Form::close() }}
 				</div>
 			</div>

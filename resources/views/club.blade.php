@@ -1,33 +1,26 @@
 @extends('layouts.master')
 @section('content')
 <div class="container">
+	<crear-publicacion-modal></crear-publicacion-modal>
 	<div class="row">
 		<div class="col-sm-3 hidden-xs">
 			<div class="affix panel panel-default sidepanel">
 				<div class="panel-heading">
-					<a href="/usuario">
-						<img src={{ URL::asset($usuario->avatarMinRuta) }}>
-					</a>
-					ID de usuario: {{ Auth::id()}}
+					{{ $club->nombreClub }}
 				</div>
 				<div class="panel-body">
-					Clubes que sigo...
-{{-- 						@foreach ($misClubes as $club)
-						{{$club}}
-					@endforeach --}}
+					<img src={{ URL::asset($club->avatarRuta) }} class="img-rounded">
+					<p> {{ $club->descripcion }} </p>
+				</div>
+				<div class="panel-footer">
+					<a class="btn btn-primary" href="/publicacion/crear" data-toggle="modal" data-target="#crearPublicacionModal"><span class = "glyphicon glyphicon-plus">&nbsp;</span>Compartir imagen</a>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-3 col-sm-push-6 hidden-xs">
 			<div class="affix list-group sidepanel">
-			<li class="list-group-item">Nuevos grupos</li>
-			@foreach ($nuevosClubs as $club)
-			<a href="/club/{{$club->id}}" class="list-group-item">
-				<img src="{{ URL::asset($club->avatarMinRuta) }}" class="pull-left" width="40" height="40">
-				<h4 class="list-group-item-heading"> {{ str_limit($club->nombreClub, 15, '...') }} </h4>
-				<p class="list-group-item-text"> {{ str_limit($club->descripcion, 20,'...') }} </p>
-			</a>
-			@endforeach
+				<li class="list-group-item">Ultima actividad (comenantarios, likes)</li>
+
 			</div>
 		</div>
 		<div class="col-sm-6 col-sm-pull-3">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Usuario;
+use App\Club;
 class InicioControl extends Controller
 {
     public function indice(Request $request)
@@ -12,7 +13,8 @@ class InicioControl extends Controller
     	if(Auth::check()){
             $misClubes = Auth::user()->clubs();
     		return view('inicio',[
-                'misClubes' => $misClubes
+                'misClubes' => $misClubes,
+                'nuevosClubs' => Club::masRecientes()
                 ]);
     	}
     	else {

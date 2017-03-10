@@ -17,7 +17,7 @@ require('bootstrap-sass');
  */
 
 window.Vue = require('vue');
-//Vue.use(require('vue-resource'));
+Vue.use(require('vue-resource'));
 /*
 Vue.http.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;*/
 
@@ -33,6 +33,8 @@ window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': window.Laravel.csrfToken,
     'X-Requested-With': 'XMLHttpRequest'
 };
+
+Vue.http.options.emulateJSON = true;
 
 $(document).on('submit', '.vue-form', function(){
 	$('<input/>')

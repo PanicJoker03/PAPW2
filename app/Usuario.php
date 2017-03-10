@@ -9,8 +9,14 @@ class Usuario extends Model implements Authenticatable
     protected $table = 'usuario';
     public function clubs()
     {
-    	return $this->HasMany('App\Club', 'creador');
+    	return $this->HasMany('App\Club', 'creador')->where('activo', true);
     }
+
+    public function subscripciones()
+    {
+        return $this->HasMany('App\Subscripcion', 'usuario')->where('activo', true);
+    }
+
     public function getAuthIdentifierName()
     {
     	return $this->nombreUsuario;
@@ -25,7 +31,7 @@ class Usuario extends Model implements Authenticatable
     {
     	return $this->contrasenia;
     }
-    //TODO: Poner columna en la entidad
+    //TODO: Poner columna del token en la entidad
     public function getRememberToken()
     {
 

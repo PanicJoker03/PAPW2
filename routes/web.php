@@ -10,8 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'InicioControl@indice');
+//TODO: 
+//	usar '/club/crear' en vez de 'crearClub'
+//VIEWS
+Route::get('/', 'ViewsControl@inicio');
+Route::get('/administrar', 'ViewsControl@administrar');
+Route::get('/club/{id}', 'ViewsControl@club');
+//ACCIONES
+//Sesión
 Route::post('/registrar', 'InicioControl@registrar');
 Route::post('/iniciarSesion', 'InicioControl@iniciarSesion');
 Route::get('/cerrarSesion', 'InicioControl@cerrarSesion');
+//Clubs
 Route::post('/crearClub', 'ClubControl@crearClub');
+//Subscripción
+Route::post('/crearSubscripcion', 'SubscripcionControl@crearSubscripción');
