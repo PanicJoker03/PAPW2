@@ -8,20 +8,6 @@ use App\Usuario;
 use App\Club;
 class InicioControl extends Controller
 {
-    public function indice(Request $request)
-    {
-    	if(Auth::check()){
-            $misClubes = Auth::user()->clubs();
-    		return view('inicio',[
-                'misClubes' => $misClubes,
-                'nuevosClubs' => Club::masRecientes()
-                ]);
-    	}
-    	else {
-    		return view('inicioSesion');
-    	}
-    }
-
     public function registrar(Request $request)
     {
         //TODO: 

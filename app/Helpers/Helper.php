@@ -4,7 +4,13 @@ use Illuminate\Http\Request;
 use Image;
 class Helper
 {
-    public static function guardarImagen($imagen)
+	/**	
+	*	Función para guardar la imagen en formato cuadrado en tamaño
+	*	100x100px y una versión minimalizada de 40x40px
+	*	@return	array Regresa un arreglo con el nombre de la ruta donde se
+	*	guardo el archivo
+	*/
+    public static function guardarImagenAvatar($imagen)
     {
         $extension = str_replace('image/','.',$imagen->mime());
         $nombreImagen = 'uploads/'.uniqid();
@@ -22,7 +28,7 @@ class Helper
         ];
     }
     //Reescalamos la imagen acorde a los parametros enviados del recorte
-    public static function procesarImagen($archivo, int $cropW, int $cropH, int $cropX, int $cropY)
+    public static function recortarImagen($archivo, int $cropW, int $cropH, int $cropX, int $cropY)
     {
         $imagen = Image::make($archivo);
         $imagen->crop($cropW, $cropH, $cropX, $cropY);
