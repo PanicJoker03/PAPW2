@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Helper;
 use Image;
+use Helper;
 use Auth;
 use App\Club;
 use App\Subscripcion;
@@ -12,8 +12,9 @@ class ClubControl extends Controller
 {
     public function crearClub(Request $request)
     {
-        $imagen = Helper::recortarImagen(
-            $request->file('imagen'),
+        $imagen = Image::make($request->file('imagen'));
+        Helper::recortarImagen(
+            $imagen,
             $request->cropW,
             $request->cropH,
             $request->cropX,

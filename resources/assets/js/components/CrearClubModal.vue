@@ -14,8 +14,8 @@
 							<input type="text" name="nombreClub" id="nombreClub" class="form-control" placeholder="¿Como te gustaría nombrar al club?" required>
 						</div>
 						<div class="form-group">
-							<label for="descripcion">Descripción</label>
-							<input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="Cuentanos acerca del club">
+							<label for="descripcionClub">Descripción</label>
+							<input type="text" name="descripcion" id="descripcionClub" class="form-control" placeholder="Cuentanos acerca del club">
 						</div>
 						<div class="form-group">
 							<label for="imagen">Imagen de club</label>
@@ -55,6 +55,7 @@
             //console.log('Component mounted.');
             var _this = this;
             var timeStamp = 0;
+            $('#prevClub').attr('src', '/images/subir-imagen.png');
             $('#prevClub')
             .crop({
                     width : 100,
@@ -95,6 +96,9 @@
             		};
             		reader.readAsDataURL(files[0]);
             	}
+                else{
+                    $('#prevClub').attr('src', '/images/subir-imagen.png');
+                }
         	},
         	crearClub(){
         		const form = document.getElementById('crearClubForm');
@@ -104,9 +108,11 @@
                 datosClub.append('cropY', this.cropY);
                 datosClub.append('cropW', this.cropW);
                 datosClub.append('cropH', this.cropH);
-        		this.$http.post('/crearClub', datosClub)
+        		this.$http.post('/club/crear', datosClub)
         			.then((response) => {
-        				window.location.replace('./club/' + response.data.id);
+                        $('#crearClubModal').modal('hide');
+                        $('#crearClubForm').trigger('reset');
+        				window.location = '/club/' + response.data.id;
         			});
         	}
         }

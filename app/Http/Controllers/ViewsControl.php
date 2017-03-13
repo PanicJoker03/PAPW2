@@ -22,8 +22,10 @@ class ViewsControl extends Controller
 	}
 	public function club(int $id)
 	{
+		$club = Club::find($id);
 		return view('club',[
-			'club' => Club::find($id)
+			'club' => $club,
+			'publicaciones' => $club->publicacionesAprobadas
 			]);
 	}
     public function administrar()

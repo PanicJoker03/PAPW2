@@ -16,7 +16,7 @@
 				@if (Auth::user()->clubs->count() > 0)
 					<li><a href="administrar">Administrar</a></li>
 				@endif
-					<li><a href="/crearClub" data-toggle="modal" data-target="#crearClubModal">Crear club</a></li>
+					<li><a data-toggle="modal" data-target="#crearClubModal">Crear club</a></li>
 				</ul>
 			</li>
 		</ul>

@@ -22,6 +22,8 @@ Route::post('/registrar', 'InicioControl@registrar');
 Route::post('/iniciarSesion', 'InicioControl@iniciarSesion');
 Route::get('/cerrarSesion', 'InicioControl@cerrarSesion');
 //Clubs
-Route::post('/crearClub', 'ClubControl@crearClub');
+Route::post('/club/crear', 'ClubControl@crearClub');
 //Subscripción
-Route::post('/crearSubscripcion', 'SubscripcionControl@crearSubscripción');
+Route::post('subscripcion/crear', 'SubscripcionControl@crearSubscripcion');
+//Publicación
+Route::post('/publicacion/crear', 'PublicacionControl@crearPublicacion');

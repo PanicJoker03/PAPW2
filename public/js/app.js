@@ -12167,6 +12167,7 @@ module.exports = function spread(callback) {
         //console.log('Component mounted.');
         var _this = this;
         var timeStamp = 0;
+        $('#prevClub').attr('src', '/images/subir-imagen.png');
         $('#prevClub').crop({
             width: 100,
             height: 100,
@@ -12203,6 +12204,8 @@ module.exports = function spread(callback) {
                     //this.archivo = files[0];
                 };
                 reader.readAsDataURL(files[0]);
+            } else {
+                $('#prevClub').attr('src', '/images/subir-imagen.png');
             }
         },
         crearClub: function crearClub() {
@@ -12213,8 +12216,10 @@ module.exports = function spread(callback) {
             datosClub.append('cropY', this.cropY);
             datosClub.append('cropW', this.cropW);
             datosClub.append('cropH', this.cropH);
-            this.$http.post('/crearClub', datosClub).then(function (response) {
-                window.location.replace('./club/' + response.data.id);
+            this.$http.post('/club/crear', datosClub).then(function (response) {
+                $('#crearClubModal').modal('hide');
+                $('#crearClubForm').trigger('reset');
+                window.location = '/club/' + response.data.id;
             });
         }
     }
@@ -12273,11 +12278,11 @@ module.exports = function spread(callback) {
 
 /* harmony default export */ __webpack_exports__["default"] = {
     mounted: function mounted() {
-        console.log('Component mounted.');
         var _this = this;
-        //var timeStamp = 0;
+        $('#prevPublicacion').attr('src', '/images/subir-imagen.png');
     },
 
+    props: ['club', 'nombreClub'],
     methods: {
         //previsualizar la imagen seleccionada...
         //http://stackoverflow.com/questions/18457340/how-to-preview-selected-image-in-input-type-file-in-popup-using-jquery
@@ -12287,18 +12292,20 @@ module.exports = function spread(callback) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     $('#prevPublicacion').attr('src', e.target.result);
-                    //this.archivo = files[0];
                 };
                 reader.readAsDataURL(files[0]);
+            } else {
+                $('#prevPublicacion').attr('src', '/images/subir-imagen.png');
             }
         },
         crearPublicacion: function crearPublicacion() {
             var form = document.getElementById('crearPublicacionForm');
             var datosPublicacion = new FormData(form);
             datosPublicacion.append('_token', window.Laravel.csrfToken);
+            datosPublicacion.append('club', this.club);
             this.$http.post('/publicacion/crear', datosPublicacion).then(function (response) {
-                //ocultar modal
-                //window.location.replace('./Publicacion/' + response.data.id);
+                $('#crearPublicacionModal').modal('hide');
+                $('#crearPublicacionForm').trigger('reset');
             });
         }
     }
@@ -32068,7 +32075,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "modal-content"
-  }, [_vm._m(0), _vm._v(" "), _c('form', {
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_vm._v("×")]), _vm._v(" "), _c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "crearPublicacionTitulo"
+    }
+  }, [_vm._v("Subir imagen en " + _vm._s(_vm.nombreClub))])]), _vm._v(" "), _c('form', {
     staticClass: "vue-form",
     attrs: {
       "id": "crearPublicacionForm",
@@ -32083,7 +32104,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "modal-body"
-  }, [_c('h5', [_vm._v("Información de la publicación")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('div', {
+  }, [_c('h5', [_vm._v("Información de la publicación")]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
@@ -32091,7 +32112,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Imagen")]), _vm._v(" "), _c('div', {
     staticClass: "row"
-  }, [_vm._m(3), _vm._v(" "), _c('div', {
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
     staticClass: "col-xs-9"
   }, [_c('input', {
     staticClass: "form-control",
@@ -32105,24 +32126,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "change": _vm.archivoSeleccionado
     }
-  }), _vm._v(" "), _c('small', [_vm._v("Elige una imagen")])])])])]), _vm._v(" "), _vm._m(4)])])])])
+  }), _vm._v(" "), _c('small', [_vm._v("Elige una imagen")])])])])]), _vm._v(" "), _vm._m(3)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "modal-header"
-  }, [_c('button', {
-    staticClass: "close",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "modal",
-      "aria-label": "Close"
-    }
-  }, [_vm._v("×")]), _vm._v(" "), _c('h5', {
-    staticClass: "modal-title",
-    attrs: {
-      "id": "crearPublicacionTitulo"
-    }
-  }, [_vm._v("Subir imagen")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
@@ -32133,7 +32138,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-control",
     attrs: {
       "type": "text",
-      "name": "tituloPublicacion",
+      "name": "titulo",
       "id": "tituloPublicacion",
       "placeholder": "¿Como te gustaría nombrar esta publicación?",
       "required": ""
@@ -32144,14 +32149,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
-      "for": "descripcion"
+      "for": "descripcionPublicacion"
     }
   }, [_vm._v("Descripción")]), _vm._v(" "), _c('input', {
     staticClass: "form-control",
     attrs: {
       "type": "text",
       "name": "descripcion",
-      "id": "descripcion",
+      "id": "descripcionPublicacion",
       "placeholder": "Cuentanos acerca de esta imagen"
     }
   })])
@@ -32162,8 +32167,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "crop pull-left",
     attrs: {
       "id": "prevPublicacion",
-      "width": "100",
-      "height": "100"
+      "width": "100%",
+      "height": "auto"
     }
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32282,14 +32287,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
-      "for": "descripcion"
+      "for": "descripcionClub"
     }
   }, [_vm._v("Descripción")]), _vm._v(" "), _c('input', {
     staticClass: "form-control",
     attrs: {
       "type": "text",
       "name": "descripcion",
-      "id": "descripcion",
+      "id": "descripcionClub",
       "placeholder": "Cuentanos acerca del club"
     }
   })])

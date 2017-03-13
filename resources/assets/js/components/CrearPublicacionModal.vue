@@ -4,24 +4,24 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-					<h5 class="modal-title" id="crearPublicacionTitulo">Subir imagen</h5>
+					<h5 class="modal-title" id="crearPublicacionTitulo">Subir imagen en {{ nombreClub }}</h5>
 				</div>
 				<form id="crearPublicacionForm" class="vue-form" @submit.prevent="crearPublicacion" method="post" enctype="multipart/form-data">
 					<div class="modal-body">
 						<h5>Información de la publicación</h5>
 						<div class="form-group">
 							<label for="tituloPublicacion">Título</label>
-							<input type="text" name="tituloPublicacion" id="tituloPublicacion" class="form-control" placeholder="¿Como te gustaría nombrar esta publicación?" required>
+							<input type="text" name="titulo" id="tituloPublicacion" class="form-control" placeholder="¿Como te gustaría nombrar esta publicación?" required>
 						</div>
 						<div class="form-group">
-							<label for="descripcion">Descripción</label>
-							<input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="Cuentanos acerca de esta imagen">
+							<label for="descripcionPublicacion">Descripción</label>
+							<input type="text" name="descripcion" id="descripcionPublicacion" class="form-control" placeholder="Cuentanos acerca de esta imagen">
 						</div>
 						<div class="form-group">
 							<label for="imagen">Imagen</label>
 							<div class="row">
 								<div class="col-xs-3">
-									<img class="crop pull-left" id="prevPublicacion" width="100" height="100">
+									<img class="crop pull-left" id="prevPublicacion" width="100%" height="auto">
 								</div>
 								<div class="col-xs-9">
 									<input type="file" @change="archivoSeleccionado" name="imagen" id="modalPublicacionInput" class="form-control" accept="image/*" required>
@@ -44,10 +44,10 @@
 <script>
     export default {										
         mounted() {
-            console.log('Component mounted.');
             var _this = this;
-            //var timeStamp = 0;
+            $('#prevPublicacion').attr('src', '/images/subir-imagen.png');
         },
+        props: ['club', 'nombreClub'],
         methods: {
             //previsualizar la imagen seleccionada...
             //http://stackoverflow.com/questions/18457340/how-to-preview-selected-image-in-input-type-file-in-popup-using-jquery
@@ -57,19 +57,22 @@
             		const reader = new FileReader();
             		reader.onload = function(e){
             			$('#prevPublicacion').attr('src', e.target.result);
-    					//this.archivo = files[0];
             		};
             		reader.readAsDataURL(files[0]);
             	}
+                else{
+                    $('#prevPublicacion').attr('src', '/images/subir-imagen.png');
+                }
         	},
         	crearPublicacion(){
         		const form = document.getElementById('crearPublicacionForm');
         		const datosPublicacion = new FormData(form);
         		datosPublicacion.append('_token', window.Laravel.csrfToken);
+                datosPublicacion.append('club', this.club);
         		this.$http.post('/publicacion/crear', datosPublicacion)
         			.then((response) => {
-                        //ocultar modal
-        				//window.location.replace('./Publicacion/' + response.data.id);
+                        $('#crearPublicacionModal').modal('hide');
+                        $('#crearPublicacionForm').trigger('reset');
         			});
         	}
         }

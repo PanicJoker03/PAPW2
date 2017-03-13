@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-3 hidden-xs">
-			<div class="affix panel panel-default sidepanel">
+			<div class=" panel panel-default sidepanel pull-right">
 				<div class="panel-heading">
 					<a href="/usuario">
 						<img src={{ URL::asset($usuario->avatarMinRuta) }}>
@@ -19,7 +19,7 @@
 			</div>
 		</div>
 		<div class="col-sm-3 col-sm-push-6 hidden-xs">
-			<div class="affix list-group sidepanel">
+			<div class=" list-group sidepanel">
 			<li class="list-group-item">Nuevos grupos</li>
 			@foreach ($nuevosClubs as $club)
 			<a href="/club/{{$club->id}}" class="list-group-item">
