@@ -17,7 +17,7 @@ class Club extends Model
         return $this->HasMany('App\Publicacion', 'club')->where([
         		'activo' => true,
         		'aprobado' => true,
-        	]);
+        	])->orderBy('created_at','desc');
     }
 
     public function publicacionesPendientes()

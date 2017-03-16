@@ -10,10 +10,11 @@ class ViewsControl extends Controller
 	public function inicio()
 	{
 		if(Auth::check()){
+			$usuario = Auth::user();
 			return view('inicio',[
-				'usuario' => Auth::user(),
-		        'misClubes' => Auth::user()->clubs(),
-		        'nuevosClubs' => Club::masRecientes()
+				'usuario' => $usuario,
+		        'misClubes' => $usuario->clubs(),
+		        'nuevosClubs' => Club::masRecientes(),
 		        ]);
 		}
 		else {
@@ -30,6 +31,10 @@ class ViewsControl extends Controller
 	}
     public function administrar()
     {
-		return view('administrar');
+    	$usuario = Auth::user();
+		return view('administrar', [
+			'clubs' => $usuario->clubs('nombreClub')->get(),
+			'publicacionesPorAprobar' => $usuario->publicacionesPorAprobar,
+			]);
     }
 }

@@ -11252,6 +11252,7 @@ __webpack_require__(34);
 
 Vue.component('crear-club-modal', __webpack_require__(37));
 Vue.component('crear-publicacion-modal', __webpack_require__(38));
+Vue.component('aprobar-publicacion', __webpack_require__(54));
 
 var app = new Vue({
   el: '#app'
@@ -42477,6 +42478,102 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(9)(
+  /* script */
+  __webpack_require__(55),
+  /* template */
+  __webpack_require__(56),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\w7\\papw2\\resources\\assets\\js\\components\\AprobarPublicacion.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AprobarPublicacion.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7a40e2d0", Component.options)
+  } else {
+    hotAPI.reload("data-v-7a40e2d0", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+	data: function data() {
+		return {
+			titulo: '',
+			descripcion: ''
+		};
+	},
+	mounted: function mounted() {
+		var _this = this;
+
+		this.$http.get('/publicacion/' + this.publicacion).then(function (response) {
+			$("div[publicacion-id='" + _this.publicacion + "']").text(response.data.id);
+		});
+	},
+
+	props: ['publicacion'],
+	methods: {
+		aprobar: function aprobar() {},
+		desaprobar: function desaprobar() {}
+	}
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    attrs: {
+      "publicacion-id": _vm.publicacion
+    }
+  }, [_vm._v("\n\tCargando...\n")])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7a40e2d0", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

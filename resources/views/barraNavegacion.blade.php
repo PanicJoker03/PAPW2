@@ -10,11 +10,20 @@
 	<div class="collapse navbar-collapse" id="barraSesion">
 		<ul class="nav navbar-nav">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mis clubes 
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mis clubes
+				@if($solicitudes > 0)
+					<span class="glyphicon glyphicon-exclamation-sign"></span>
+				@endif 
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-				@if (Auth::user()->clubs->count() > 0)
-					<li><a href="administrar">Administrar</a></li>
+				@if ($clubsCount > 0)
+					<li><a href="/administrar">
+						Administrar
+						@if($solicitudes > 0)
+							({{$solicitudes}})
+						@endif 
+						</a>
+					</li>
 				@endif
 					<li><a data-toggle="modal" data-target="#crearClubModal">Crear club</a></li>
 				</ul>

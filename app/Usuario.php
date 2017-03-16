@@ -4,12 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
+use App\Club;
 class Usuario extends Model implements Authenticatable
 {
     protected $table = 'usuario';
-    public function clubs()
+    public function clubs(string $orderBy = 'id', bool $desc = false)
     {
-    	return $this->HasMany('App\Club', 'creador')->where('activo', true);
+    	return $this->HasMany('App\Club', 'creador')->where('activo', true)->orderBy($orderBy, $desc? 'desc' : 'asc');
     }
 
     public function subscripciones()
@@ -17,6 +18,14 @@ class Usuario extends Model implements Authenticatable
         return $this->HasMany('App\Subscripcion', 'usuario')->where('activo', true);
     }
 
+    public function publicacionesPorAprobar()
+    {
+        return $this->HasManyThrough('App\Publicacion', 'App\Club', 'creador', 'club')
+            ->where([
+                'publicacion.activo' => true,
+                'aprobado' => false,
+            ])->orderBy('publicacion.created_at','desc');
+    }
     public function getAuthIdentifierName()
     {
     	return $this->nombreUsuario;

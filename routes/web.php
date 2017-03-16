@@ -27,3 +27,4 @@ Route::post('/club/crear', 'ClubControl@crearClub');
 Route::post('subscripcion/crear', 'SubscripcionControl@crearSubscripcion');
 //Publicación
 Route::post('/publicacion/crear', 'PublicacionControl@crearPublicacion');
+Route::get('/publicacion/{id}', 'PublicacionControl@publicacion');
