@@ -10,21 +10,27 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//TODO: 
-//	usar '/club/crear' en vez de 'crearClub'
-//VIEWS
+//La consulta se maneja en get
+//La creación/modificacion en post
 Route::get('/', 'ViewsControl@inicio');
 Route::get('/administrar', 'ViewsControl@administrar');
-Route::get('/club/{id}', 'ViewsControl@club');
-//ACCIONES
 //Sesión
 Route::post('/registrar', 'InicioControl@registrar');
 Route::post('/iniciarSesion', 'InicioControl@iniciarSesion');
 Route::get('/cerrarSesion', 'InicioControl@cerrarSesion');
 //Clubs
-Route::post('/club/crear', 'ClubControl@crearClub');
+Route::group(['prefix' => 'club'], function(){
+	Route::post('crear', 'ClubControl@crearClub');
+	Route::get('{id}', 'ViewsControl@club');
+});
 //Subscripción
-Route::post('subscripcion/crear', 'SubscripcionControl@crearSubscripcion');
+Route::group(['prefix' => 'subscripcion'], function(){
+	Route::post('crear', 'SubscripcionControl@crearSubscripcion');
+});
 //Publicación
-Route::post('/publicacion/crear', 'PublicacionControl@crearPublicacion');
-Route::get('/publicacion/{id}', 'PublicacionControl@publicacion');
+Route::group(['prefix' => 'publicacion'], function(){
+	Route::post('crear', 'PublicacionControl@crearPublicacion');
+	Route::post('aprobar/{id}', 'PublicacionControl@aprobarPublicacion');
+	Route::post('rechazar/{id}', 'PublicacionControl@rechazarPublicacion');
+	Route::get('{id}', 'PublicacionControl@publicacion');
+});
