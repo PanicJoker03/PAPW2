@@ -32,17 +32,17 @@
 		</div>
 		<div class="col-sm-6 col-sm-pull-3">
 			<div class="row">
-				@for ($i = 0; $i < 15; $i++)
+			@foreach ($publicaciones as $publicacion)
 				<div class="panel panel-default">
 					<div class="panel panel-heading">
-						Publicación {{$i}}
+						{{$publicacion->titulo}}
 						<br>
 					</div>
 					<div class="panel panel">
-						Aquí va a haber contenido...
+						<img width="100px" height="100px" src={{ URL::asset($publicacion->contenidoMinRuta) }}>
 					</div>
 				</div>
-				@endfor
+			@endforeach
 			</div>
 		</div>
 	</div>

@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Club;
+use App\Http\Middleware\ValidarSesion;
+use App\Publicacion;
 class ViewsControl extends Controller
 {
+	public function __construct(){
+		$this->middleware(ValidarSesion::class, ['except' => ['inicio']]);
+	}
 	public function inicio()
 	{
 		if(Auth::check()){
@@ -15,6 +20,7 @@ class ViewsControl extends Controller
 				'usuario' => $usuario,
 		        'misClubes' => $usuario->clubs(),
 		        'nuevosClubs' => Club::masRecientes(),
+		        'publicaciones' => Publicacion::publicacionesInicio($usuario->id)
 		        ]);
 		}
 		else {

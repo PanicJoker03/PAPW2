@@ -10,12 +10,18 @@ class Usuario extends Model implements Authenticatable
     protected $table = 'usuario';
     public function clubs(string $orderBy = 'id', bool $desc = false)
     {
-    	return $this->HasMany('App\Club', 'creador')->where('activo', true)->orderBy($orderBy, $desc? 'desc' : 'asc');
+        return $this->HasMany('App\Club', 'creador')->where('activo', true)->orderBy($orderBy, $desc? 'desc' : 'asc');
     }
 
-    public function subscripciones()
+    public function clubs_id()
     {
-        return $this->HasMany('App\Subscripcion', 'usuario')->where('activo', true);
+        return $this->HasMany('App\Club', 'creador')->where('activo', true)->pluck('id')->toArray();
+    }
+
+    //Solo regresa los id's
+    public function clubsSubscrito_id()
+    {
+        return $this->HasMany('App\Subscripcion', 'usuario')->where('activo', true)->pluck('id')->toArray();
     }
 
     public function publicacionesPorAprobar()
@@ -26,6 +32,7 @@ class Usuario extends Model implements Authenticatable
                 'aprobado' => false,
             ])->orderBy('publicacion.created_at','desc');
     }
+
     public function getAuthIdentifierName()
     {
     	return $this->nombreUsuario;

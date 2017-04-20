@@ -25,7 +25,7 @@ Route::group(['prefix' => 'club'], function(){
 });
 //Subscripción
 Route::group(['prefix' => 'subscripcion'], function(){
-	Route::post('crear', 'SubscripcionControl@crearSubscripcion');
+	//Route::post('crear', 'SubscripcionControl@crearSubscripcion');
 });
 //Publicación
 Route::group(['prefix' => 'publicacion'], function(){
