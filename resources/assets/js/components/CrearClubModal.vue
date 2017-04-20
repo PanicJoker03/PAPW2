@@ -6,7 +6,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
 					<h5 class="modal-title" id="crearClubTitulo">Crear club</h5>
 				</div>
-				<form id="crearClubForm" class="vue-form" @submit.prevent="crearClub" method="post" enctype="multipart/form-data">
+				<form id="crearClubForm" class="post-action" @submit.prevent="crearClub" method="post" enctype="multipart/form-data">
 					<div class="modal-body">
 						<h5>Información del club</h5>
 						<div class="form-group">

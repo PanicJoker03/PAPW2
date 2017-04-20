@@ -6,7 +6,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
 					<h5 class="modal-title" id="crearPublicacionTitulo">Subir imagen en {{ nombreClub }}</h5>
 				</div>
-				<form id="crearPublicacionForm" class="vue-form" @submit.prevent="crearPublicacion" method="post" enctype="multipart/form-data">
+				<form id="crearPublicacionForm" class="post-action" @submit.prevent="crearPublicacion" method="post" enctype="multipart/form-data">
 					<div class="modal-body">
 						<h5>Información de la publicación</h5>
 						<div class="form-group">

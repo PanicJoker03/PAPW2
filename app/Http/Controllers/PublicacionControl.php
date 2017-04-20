@@ -23,6 +23,7 @@ class PublicacionControl extends Controller
     	$publicacion->contenidoMinRuta = $rutas['imagenMinRuta'];
     	$publicacion->titulo = $request->titulo;
     	$publicacion->descripcion = $request->descripcion;
+        //aprobar instantaneamente si la publicación es del creador
         if($club->creador == Auth::id()){
             $publicacion->aprobado = true;
         }
@@ -32,5 +33,15 @@ class PublicacionControl extends Controller
     public function publicacion($id)
     {
         return Publicacion::find($id);
+    }
+    public function aprobarPublicacion($id){
+        $publicacion = Publicacion::find($id);
+        $publicacion->aprobado = true;
+        $publicacion->save();
+    }
+    public function rechazarPublicacion($id){
+        $publicacion = Publicacion::find($id);
+        $publicacion->activo = false;
+        $publicacion->save();
     }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<meta id="token"name="csrf-token" content="{{ csrf_token() }}">
 	<title>Inicio</title>
 	{{-- <link rel="stylesheet" type="text/css" href="css/theme.min.css"> --}}
 	<link rel="stylesheet" type="text/css" href="/css/app.css">

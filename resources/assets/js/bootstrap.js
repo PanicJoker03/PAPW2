@@ -36,14 +36,15 @@ window.axios.defaults.headers.common = {
 
 Vue.http.options.emulateJSON = true;
 
-$(document).on('submit', '.vue-form', function(){
+/*$(document).on('submit', '.post-action', function(){
 	$('<input/>')
 	.attr('type', 'hidden')
 	.attr('name', '_token')
 	.attr('value', window.Laravel.csrfToken)
-	.appendTo('.vue-form');
+	.appendTo(this);
+	console.log("asdf");
 	return true;
-});
+});*/
 
 /*$(function () {
     $.ajaxSetup({
