@@ -12,3 +12,54 @@
 .sidepanel{
 	width: 200px;
 }
+
+.nav-diver, .nav-diver a, .panel-heading, li.list-group-item, .modal-header, .modal-header>.close, .btn-primary, button[type="submit"] {
+	background-color: #242540 !important;
+	border-color: #090910 !important;
+	color: white !important;
+}
+
+.nav-diver {
+	border-radius: 0px;
+}
+
+.modal-header>.close {
+	opacity: 1;
+}
+
+.modal-body {
+	color: #404272;	
+}
+
+.modal-body label {
+	color: #404272;
+}
+
+.panel-heading {
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+button[type="submit"] {
+	border-radius: 6px;
+	border-width: 1px;
+	min-width: 150px;
+}
+
+input[type="text"] {
+	border: none;
+	border-bottom: #242540 solid 2px;
+	border-radius: 0px;
+	box-shadow: none;
+	color: #090910;
+}
+
+input[type="text"]:focus {
+	outline: none;
+	border-bottom: #7c7eb6 solid 2px;
+	box-shadow: none;
+}
+
+input[type="text"]::placeholder {
+	color: #adaed1;
+}

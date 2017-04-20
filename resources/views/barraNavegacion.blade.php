@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-toggleable-sm">
+<nav class="navbar navbar-default navbar-toggleable-sm nav-diver">
 	<div class="navbar-header">
 		<button class="navbar-toggle navbar-toggler-right" type="button" data-toggle="collapse" data-target="#barraSesion" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="icon-bar"></span>
@@ -29,7 +29,7 @@
 				</ul>
 			</li>
 		</ul>
-		<ul class="nav navbar-nav navbar-right">
+		<ul class="nav navbar-nav navbar-right nav-diver">
 			<li class="nav-item active">
 				<a class="nav-link" href="/cerrarSesion">Cerrar sesión</a>
 			</li>
