@@ -24,6 +24,7 @@ class Club extends Model
     public function publicacionesPaginado($param, $numero)
     {
         $publicaciones = DB::table('publicacion')
+            ->leftJoin('comentario', 'publicacion.id', '=', 'comentario.publicacion')
             ->where('publicacion.club', $this->id)
             ->select(
                 'publicacion.*',

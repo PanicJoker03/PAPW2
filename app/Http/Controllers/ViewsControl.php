@@ -19,8 +19,8 @@ class ViewsControl extends Controller
 			return view('inicio',[
 				'usuario' => $usuario,
 		        'misClubes' => $usuario->clubs(),
-		        'nuevosClubs' => Club::masRecientes(),
-		        'publicaciones' => Publicacion::publicacionesInicio($usuario->id)
+		        'nuevosClubs' => Club::masRecientes()
+		        //'publicaciones' => $usuario->publicacionesInicioPaginado()//Publicacion::publicacionesInicioPaginado($usuario->id, 0)
 		        ]);
 		}
 		else {
@@ -42,5 +42,13 @@ class ViewsControl extends Controller
 			'clubs' => $usuario->clubs('nombreClub')->get(),
 			'publicacionesPorAprobar' => $usuario->publicacionesPorAprobar,
 			]);
+    }
+    public function publicacion($id)
+    {
+    	$publicacion = Publicacion::find($id);
+    	return view('publicacion', [
+    		'publicacion' => $publicacion,
+    		'comentarios' => $publicacion->comentariosVista()
+    		]);
     }
 }

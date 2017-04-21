@@ -11253,6 +11253,8 @@ __webpack_require__(35);
 Vue.component('crear-club-modal', __webpack_require__(39));
 Vue.component('crear-publicacion-modal', __webpack_require__(40));
 Vue.component('aprobar-publicacion', __webpack_require__(38));
+Vue.component('publicacion-scroller', __webpack_require__(61));
+Vue.component('publicacion-miniatura', __webpack_require__(57));
 
 var app = new Vue({
   el: '#app'
@@ -12171,7 +12173,7 @@ module.exports = function spread(callback) {
 			/* envíar aprobacion */
 			//const token = new FormData();
 			//token.append('_token', window.Laravel.csrfToken);
-			this.$http.post('publicacion/aprobar/' + this.publicacion, this.formToken()).then(function (response) {
+			this.$http.post('publicacion/' + this.publicacion + '/aprobar', this.formToken()).then(function (response) {
 				_this2.remover();
 			});
 		},
@@ -12181,7 +12183,7 @@ module.exports = function spread(callback) {
 			/* envíar rechazo */
 			//const token = new FormData();
 			//token.append('_token', window.Laravel.csrfToken);
-			this.$http.post('publicacion/rechazar/' + this.publicacion, this.formToken()).then(function (response) {
+			this.$http.post('publicacion/' + this.publicacion + '/rechazar', this.formToken()).then(function (response) {
 				_this3.remover();
 			});
 		},
@@ -12321,7 +12323,7 @@ module.exports = function spread(callback) {
             this.$http.post('/club/crear', datosClub).then(function (response) {
                 $('#crearClubModal').modal('hide');
                 $('#crearClubForm').trigger('reset');
-                window.location = '/club/' + response.data.id;
+                window.location = '/club/' + response.data.id + '/vista';
             });
         }
     }
@@ -42687,6 +42689,222 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(4)(
+  /* script */
+  __webpack_require__(58),
+  /* template */
+  __webpack_require__(59),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\w7\\papw2\\resources\\assets\\js\\components\\PublicacionMiniatura.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] PublicacionMiniatura.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7e50541f", Component.options)
+  } else {
+    hotAPI.reload("data-v-7e50541f", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+	props: ['publicacion', 'img-source'],
+	mounted: function mounted() {},
+
+	methods: {}
+};
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    attrs: {
+      "publicacion-id": _vm.publicacion
+    }
+  }, [_c('img', {
+    staticClass: "img-responsive center-block",
+    attrs: {
+      "img-source": _vm.src
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7e50541f", module.exports)
+  }
+}
+
+/***/ }),
+/* 60 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+	props: ['publicacion', 'img-source', 'club'],
+	data: function data() {
+		return {
+			parametroOrdenamiento: 'id',
+			paramGuia: Number.MAX_SAFE_INTEGER,
+			items: [],
+			entradasPorPaginacion: 3,
+			cargandoEntradas: false
+		};
+	},
+	mounted: function mounted() {
+		var _this = this;
+		_this.cargarEntradas();
+		//Registramos el evento de cuando terminamos de desplazar la página
+		//código cortesía de http://stackoverflow.com/questions/3898130/check-if-a-user-has-scrolled-to-the-bottom
+		var _window = $(window);
+		var _document = $(document);
+		_window.scroll(function () {
+			if (_window.scrollTop() + _window.height() == _document.height()) {
+				if (!_this.cargandoEntradas) _this.cargarEntradas();
+			}
+		});
+	},
+
+	methods: {
+		cargarEntradas: function cargarEntradas() {
+			var _this = this;
+			_this.cargandoEntradas = true;
+			_this.$http.get('/publicacion/inicio', { params: { paramGuia: _this.paramGuia, cantidad: _this.entradasPorPaginacion } }).then(function (response) {
+				var _data = response.data;
+				for (var object in _data) {
+					_this.items.push(_data[object]);
+				}
+				_this.paramGuia = _this.ultimo(_data).id;
+				_this.cargandoEntradas = false;
+			});
+		},
+		ultimo: function ultimo(_objeto) {
+			return _objeto[Object.keys(_objeto)[Object.keys(_objeto).length - 1]];
+		}
+	}
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(4)(
+  /* script */
+  __webpack_require__(60),
+  /* template */
+  __webpack_require__(62),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\w7\\papw2\\resources\\assets\\js\\components\\PublicacionScroller.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] PublicacionScroller.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-670277f6", Component.options)
+  } else {
+    hotAPI.reload("data-v-670277f6", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    attrs: {
+      "id": "publicacion-scroller"
+    }
+  }, [_vm._l((_vm.items), function(item) {
+    return [_c('div', {
+      staticClass: "col-sm-4"
+    }, [_c('a', {
+      attrs: {
+        "href": '/publicacion/' + item.id + '/vista'
+      }
+    }, [_c('img', {
+      attrs: {
+        "src": item.contenidoMinRuta
+      }
+    })]), _vm._v(" "), _c('p', [_vm._v("Titulo: " + _vm._s(item.titulo))]), _vm._v(" "), _c('p', [_vm._v("Comentarios: " + _vm._s(item.comentarios))])])]
+  })], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-670277f6", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
