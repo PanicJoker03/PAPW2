@@ -165,7 +165,35 @@ input[type="text"]::placeholder {
 	margin-left: 0px;
 }
 
-.container-diver > .row {
+.container-diver {
+	margin-bottom: 20px;
 	padding: 10px 0px 10px;
 	background-color: white;
+}
+
+div.horizontal {
+	display: flex;
+	justify-content: center;
+}
+
+div.vertical {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.post {
+
+}
+
+.post-title {
+	color: #242540;
+	font-size: 14pt;
+	/*text-align: center;*/
+}
+
+.post-img {
+	/*margin: auto;*/
+	max-width: 90%;
+	max-height: 90%;
 }
