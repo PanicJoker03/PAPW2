@@ -20,7 +20,7 @@
 				parametroOrdenamiento: 'id',
 				paramGuia: Number.MAX_SAFE_INTEGER,
 				items: [],
-				entradasPorPaginacion: 3,
+				entradasPorPaginacion: 15,
 				cargandoEntradas: false
 			}
 		},
@@ -46,11 +46,10 @@
 				_this.$http.get(_this.src, {params: {paramGuia : _this.paramGuia, cantidad : _this.entradasPorPaginacion }})
 				.then((response) => {
 					const _data = response.data;
-					console.log(response.data);
 					for(var object in _data){
 						_this.items.push(_data[object]);
 					}
-					_this.paramGuia = _this.ultimo(_data).id;
+					_this.paramGuia = _this.ultimo(_data)[_this.parametroOrdenamiento];
 					_this.cargandoEntradas = false;
 				});
 			},

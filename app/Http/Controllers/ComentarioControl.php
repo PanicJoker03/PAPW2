@@ -14,6 +14,16 @@ class ComentarioControl extends Controller
         $comentario->publicacion = $request->publicacion;
         $comentario->comentario = $request->comentario;
         $comentario->save();
-    	return $comentario;
+    	return $comentario->info();
+    }
+    public function comentariosPaginado(Request $request, $publicacion)
+    {
+        return Comentario::comentariosPaginado($publicacion, $request->paramGuia, $request->cantidad);
+    }
+    public function borrar($id)
+    {
+        $comentario = Comentario::find($id);
+        $comentario->activo = false;
+        $comentario->save();
     }
 }

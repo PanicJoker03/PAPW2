@@ -7,6 +7,7 @@ use Auth;
 use App\Club;
 use App\Http\Middleware\ValidarSesion;
 use App\Publicacion;
+use App\Comentario;
 class ViewsControl extends Controller
 {
 	public function __construct(){
@@ -47,8 +48,8 @@ class ViewsControl extends Controller
     {
     	$publicacion = Publicacion::find($id);
     	return view('publicacion', [
-    		'publicacion' => $publicacion,
-    		'comentarios' => $publicacion->comentariosVista()
+    		'publicacion' => $publicacion
+    		//'comentarios' => Comentario::comentariosPaginado($publicacion->id)//$publicacion->comentariosVista()
     		]);
     }
 }

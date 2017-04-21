@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 48);
+/******/ 	return __webpack_require__(__webpack_require__.s = 54);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10601,6 +10601,59 @@ return jQuery;
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  scopeId,
+  cssModules
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  // inject cssModules
+  if (cssModules) {
+    var computed = options.computed || (options.computed = {})
+    Object.keys(cssModules).forEach(function (key) {
+      var module = cssModules[key]
+      computed[key] = function () { return module }
+    })
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10698,10 +10751,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -10887,59 +10940,6 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  scopeId,
-  cssModules
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  // inject cssModules
-  if (cssModules) {
-    var computed = options.computed || (options.computed = {})
-    Object.keys(cssModules).forEach(function (key) {
-      var module = cssModules[key]
-      computed[key] = function () { return module }
-    })
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11122,7 +11122,7 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 /* 6 */
@@ -11242,18 +11242,19 @@ module.exports = g;
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(34);
-__webpack_require__(35);
+__webpack_require__(36);
+__webpack_require__(37);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('crear-club-modal', __webpack_require__(39));
-Vue.component('crear-publicacion-modal', __webpack_require__(40));
-Vue.component('aprobar-publicacion', __webpack_require__(38));
-Vue.component('publicacion-scroller', __webpack_require__(61));
+Vue.component('crear-club-modal', __webpack_require__(42));
+Vue.component('crear-publicacion-modal', __webpack_require__(43));
+Vue.component('aprobar-publicacion', __webpack_require__(40));
+Vue.component('publicacion-scroller', __webpack_require__(44));
+Vue.component('comentario-scroller', __webpack_require__(41));
 
 var app = new Vue({
   el: '#app'
@@ -11281,7 +11282,7 @@ module.exports = __webpack_require__(14);
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(9);
 var Axios = __webpack_require__(16);
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(3);
 
 /**
  * Create an instance of Axios
@@ -11401,7 +11402,7 @@ module.exports = CancelToken;
 "use strict";
 
 
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(3);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(17);
 var dispatchRequest = __webpack_require__(18);
@@ -11555,7 +11556,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(21);
 var isCancel = __webpack_require__(7);
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(3);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -12241,6 +12242,111 @@ module.exports = function spread(callback) {
 //
 //
 //
+
+/* harmony default export */ __webpack_exports__["default"] = {
+	props: ['src', 'usuario', 'publicacion'],
+	data: function data() {
+		return {
+			parametroOrdenamiento: 'created_at',
+			paramGuia: Number.MAX_SAFE_INTEGER,
+			items: [],
+			entradasPorPaginacion: 5,
+			cargandoEntradas: false
+		};
+	},
+	mounted: function mounted() {
+		var _this = this;
+		_this.cargarEntradas();
+		//Registramos el evento de cuando terminamos de desplazar la página
+		//código cortesía de http://stackoverflow.com/questions/3898130/check-if-a-user-has-scrolled-to-the-bottom
+		var _window = $(window);
+		var _document = $(document);
+		_window.scroll(function () {
+			if (_window.scrollTop() + _window.height() == _document.height()) {
+				if (!_this.cargandoEntradas) _this.cargarEntradas();
+			}
+		});
+	},
+
+	methods: {
+		cargarEntradas: function cargarEntradas() {
+			var _this = this;
+			_this.cargandoEntradas = true;
+			_this.$http.get(_this.src, { params: { paramGuia: _this.paramGuia, cantidad: _this.entradasPorPaginacion } }).then(function (response) {
+				var _data = response.data;
+				for (var object in _data) {
+					_this.items.push(_data[object]);
+				}
+				_this.paramGuia = _this.ultimo(_data)[_this.parametroOrdenamiento];
+				_this.cargandoEntradas = false;
+			});
+		},
+		ultimo: function ultimo(_objeto) {
+			return _objeto[Object.keys(_objeto)[Object.keys(_objeto).length - 1]];
+		},
+		borrarEntrada: function borrarEntrada(event) {
+			var comentario = $(event.target).attr("comentario");
+			var items = this.items;
+			this.$http.post('/comentario/' + comentario + '/borrar', this.formToken()).then(function (response) {
+				//selecciona el contenedor del comentario
+				var selector = "li[comentario=" + comentario + "]";
+				$(selector).hide("fast");
+			});
+			//console.log(comentario);
+		},
+		crearEntrada: function crearEntrada() {
+			var items = this.items;
+			var form = document.getElementById('form-comentar');
+			var datosComentario = new FormData(form);
+			datosComentario.append('_token', window.Laravel.csrfToken);
+			this.$http.post('/comentario/crear', datosComentario).then(function (response) {
+				$('#comentario-textarea').val('');
+				items.unshift(response.data[0]);
+			});
+		},
+		formToken: function formToken() {
+			var token = new FormData();
+			token.append('_token', window.Laravel.csrfToken);
+			return token;
+		}
+	}
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12330,7 +12436,7 @@ module.exports = function spread(callback) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12416,10 +12522,76 @@ module.exports = function spread(callback) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 34 */
+/* 35 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+	props: ['src'],
+	data: function data() {
+		return {
+			parametroOrdenamiento: 'id',
+			paramGuia: Number.MAX_SAFE_INTEGER,
+			items: [],
+			entradasPorPaginacion: 15,
+			cargandoEntradas: false
+		};
+	},
+	mounted: function mounted() {
+		var _this = this;
+		_this.cargarEntradas();
+		//Registramos el evento de cuando terminamos de desplazar la página
+		//código cortesía de http://stackoverflow.com/questions/3898130/check-if-a-user-has-scrolled-to-the-bottom
+		var _window = $(window);
+		var _document = $(document);
+		_window.scroll(function () {
+			if (_window.scrollTop() + _window.height() == _document.height()) {
+				if (!_this.cargandoEntradas) _this.cargarEntradas();
+			}
+		});
+	},
+
+	methods: {
+		cargarEntradas: function cargarEntradas() {
+			var _this = this;
+			_this.cargandoEntradas = true;
+			_this.$http.get(_this.src, { params: { paramGuia: _this.paramGuia, cantidad: _this.entradasPorPaginacion } }).then(function (response) {
+				var _data = response.data;
+				for (var object in _data) {
+					_this.items.push(_data[object]);
+				}
+				_this.paramGuia = _this.ultimo(_data)[_this.parametroOrdenamiento];
+				_this.cargandoEntradas = false;
+			});
+		},
+		ultimo: function ultimo(_objeto) {
+			return _objeto[Object.keys(_objeto)[Object.keys(_objeto).length - 1]];
+		}
+	}
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {window._ = __webpack_require__(37);
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {window._ = __webpack_require__(39);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12429,7 +12601,7 @@ module.exports = function spread(callback) {
 
 window.$ = __webpack_provided_window_dot_jQuery = __webpack_require__(1);
 
-__webpack_require__(36);
+__webpack_require__(38);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -12437,8 +12609,8 @@ __webpack_require__(36);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(45);
-Vue.use(__webpack_require__(44));
+window.Vue = __webpack_require__(51);
+Vue.use(__webpack_require__(50));
 /*
 Vue.http.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;*/
 
@@ -12488,7 +12660,7 @@ Vue.http.options.emulateJSON = true;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* jQuery-crop v1.0.2, based on jWindowCrop v1.0.0
@@ -12619,7 +12791,7 @@ Vue.http.options.emulateJSON = true;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -15003,7 +15175,7 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32092,17 +32264,17 @@ if (typeof jQuery === 'undefined') {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(46)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(52)(module)))
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(4)(
+var Component = __webpack_require__(2)(
   /* script */
   __webpack_require__(31),
   /* template */
-  __webpack_require__(42),
+  __webpack_require__(48),
   /* scopeId */
   null,
   /* cssModules */
@@ -32129,14 +32301,48 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(4)(
+var Component = __webpack_require__(2)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(43),
+  __webpack_require__(46),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\w7\\papw2\\resources\\assets\\js\\components\\ComentarioScroller.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ComentarioScroller.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-45c4ebdd", Component.options)
+  } else {
+    hotAPI.reload("data-v-45c4ebdd", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(33),
+  /* template */
+  __webpack_require__(49),
   /* scopeId */
   null,
   /* cssModules */
@@ -32163,14 +32369,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(4)(
+var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(33),
+  __webpack_require__(34),
   /* template */
-  __webpack_require__(41),
+  __webpack_require__(45),
   /* scopeId */
   null,
   /* cssModules */
@@ -32197,7 +32403,41 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 41 */
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(35),
+  /* template */
+  __webpack_require__(47),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\w7\\papw2\\resources\\assets\\js\\components\\PublicacionScroller.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] PublicacionScroller.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-670277f6", Component.options)
+  } else {
+    hotAPI.reload("data-v-670277f6", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32333,7 +32573,128 @@ if (false) {
 }
 
 /***/ }),
-/* 42 */
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    attrs: {
+      "id": "publicacion-scroller"
+    }
+  }, [_c('form', {
+    staticClass: "form-group",
+    attrs: {
+      "id": "form-comentar",
+      "method": "post"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.crearEntrada($event)
+      }
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "usuario"
+    },
+    domProps: {
+      "value": _vm.usuario
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "publicacion"
+    },
+    domProps: {
+      "value": _vm.publicacion
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "comentario"
+    }
+  }, [_vm._v("Comentar")]), _vm._v(" "), _c('textarea', {
+    staticClass: "form-control",
+    attrs: {
+      "id": "comentario-textarea",
+      "name": "comentario",
+      "form": "form-comentar",
+      "required": ""
+    }
+  }), _vm._v(" "), _c('button', {
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Comentar")])]), _vm._v(" "), _c('ul', {
+    staticClass: "list-group"
+  }, [_vm._l((_vm.items), function(item) {
+    return [_c('li', {
+      staticClass: "list-group-item",
+      attrs: {
+        "comentario": item.id
+      }
+    }, [_c('img', {
+      staticClass: "img-rounded pull-left",
+      attrs: {
+        "src": '/' + item.avatarMinRuta
+      }
+    }), _vm._v(" "), _c('h4', {
+      staticClass: "list-group-item-heading"
+    }, [_vm._v(_vm._s(item.nombreUsuario)), _c('small', [_vm._v(" " + _vm._s(item.created_at))]), _vm._v(" "), (item.usuario == _vm.usuario) ? _c('a', {
+      staticClass: " badge btn btn-default pull-right",
+      attrs: {
+        "comentario": item.id
+      },
+      on: {
+        "click": _vm.borrarEntrada
+      }
+    }, [_vm._v("Borrar")]) : _vm._e()]), _vm._v(" "), _c('p', {
+      staticClass: "list-group-item-text"
+    }, [_vm._v(_vm._s(item.comentario))])])]
+  })], 2)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-45c4ebdd", module.exports)
+  }
+}
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    attrs: {
+      "id": "publicacion-scroller"
+    }
+  }, [_vm._l((_vm.items), function(item) {
+    return [_c('div', {
+      staticClass: "col-sm-4"
+    }, [_c('a', {
+      attrs: {
+        "href": '/publicacion/' + item.id + '/vista'
+      }
+    }, [_c('img', {
+      attrs: {
+        "src": '/' + item.contenidoMinRuta
+      }
+    })]), _vm._v(" "), _c('p', [_vm._v("Titulo: " + _vm._s(item.titulo))]), _vm._v(" "), _c('p', [_vm._v("Comentarios: " + _vm._s(item.comentarios))])])]
+  })], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-670277f6", module.exports)
+  }
+}
+
+/***/ }),
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32402,7 +32763,7 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32540,7 +32901,7 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33618,7 +33979,7 @@ var xhrClient = function (request) {
 
 var nodeClient = function (request) {
 
-    var client = __webpack_require__(47);
+    var client = __webpack_require__(53);
 
     return new PromiseObj(function (resolve) {
 
@@ -34072,7 +34433,7 @@ module.exports = plugin;
 
 
 /***/ }),
-/* 45 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42645,10 +43006,10 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(10)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(10)))
 
 /***/ }),
-/* 46 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -42676,161 +43037,18 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 47 */
+/* 53 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 48 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
-
-/***/ }),
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = {
-	props: ['src'],
-	data: function data() {
-		return {
-			parametroOrdenamiento: 'id',
-			paramGuia: Number.MAX_SAFE_INTEGER,
-			items: [],
-			entradasPorPaginacion: 3,
-			cargandoEntradas: false
-		};
-	},
-	mounted: function mounted() {
-		var _this = this;
-		_this.cargarEntradas();
-		//Registramos el evento de cuando terminamos de desplazar la página
-		//código cortesía de http://stackoverflow.com/questions/3898130/check-if-a-user-has-scrolled-to-the-bottom
-		var _window = $(window);
-		var _document = $(document);
-		_window.scroll(function () {
-			if (_window.scrollTop() + _window.height() == _document.height()) {
-				if (!_this.cargandoEntradas) _this.cargarEntradas();
-			}
-		});
-	},
-
-	methods: {
-		cargarEntradas: function cargarEntradas() {
-			var _this = this;
-			_this.cargandoEntradas = true;
-			_this.$http.get(_this.src, { params: { paramGuia: _this.paramGuia, cantidad: _this.entradasPorPaginacion } }).then(function (response) {
-				var _data = response.data;
-				console.log(response.data);
-				for (var object in _data) {
-					_this.items.push(_data[object]);
-				}
-				_this.paramGuia = _this.ultimo(_data).id;
-				_this.cargandoEntradas = false;
-			});
-		},
-		ultimo: function ultimo(_objeto) {
-			return _objeto[Object.keys(_objeto)[Object.keys(_objeto).length - 1]];
-		}
-	}
-};
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(4)(
-  /* script */
-  __webpack_require__(60),
-  /* template */
-  __webpack_require__(62),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\Users\\w7\\papw2\\resources\\assets\\js\\components\\PublicacionScroller.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] PublicacionScroller.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-670277f6", Component.options)
-  } else {
-    hotAPI.reload("data-v-670277f6", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    attrs: {
-      "id": "publicacion-scroller"
-    }
-  }, [_vm._l((_vm.items), function(item) {
-    return [_c('div', {
-      staticClass: "col-sm-4"
-    }, [_c('a', {
-      attrs: {
-        "href": '/publicacion/' + item.id + '/vista'
-      }
-    }, [_c('img', {
-      attrs: {
-        "src": '/' + item.contenidoMinRuta
-      }
-    })]), _vm._v(" "), _c('p', [_vm._v("Titulo: " + _vm._s(item.titulo))]), _vm._v(" "), _c('p', [_vm._v("Comentarios: " + _vm._s(item.comentarios))])])]
-  })], 2)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-670277f6", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

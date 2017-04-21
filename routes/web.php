@@ -42,4 +42,6 @@ Route::group(['prefix' => 'publicacion'], function(){
 //Comentario
 Route::group(['prefix' => 'comentario'], function(){
 	Route::post('crear', 'ComentarioControl@crearComentario');
+	Route::post('{id}/borrar', 'ComentarioControl@borrar');
+	Route::get('publicacion/{id}/paginado', 'ComentarioControl@comentariosPaginado');
 });

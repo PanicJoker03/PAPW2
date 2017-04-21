@@ -17,6 +17,7 @@ Vue.component('crear-club-modal', require('./components/CrearClubModal.vue'));
 Vue.component('crear-publicacion-modal', require('./components/CrearPublicacionModal.vue'));
 Vue.component('aprobar-publicacion', require('./components/AprobarPublicacion.vue'));
 Vue.component('publicacion-scroller', require('./components/PublicacionScroller.vue'));
+Vue.component('comentario-scroller', require('./components/ComentarioScroller.vue'));
 
 const app = new Vue({
     el: '#app'
