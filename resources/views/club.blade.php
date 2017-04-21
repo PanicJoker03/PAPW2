@@ -6,7 +6,7 @@
 		nombre-club="{{ $club->nombreClub }}">
 	</crear-publicacion-modal>
 	<div class="club-header one-edge-shadow">
-		<img src="{{URL::asset('images/header.jpg')}}">
+		<img src="{{URL::asset($club->avatarRuta)}}">
 		<div class="club-title">
 			<p>{{$club->nombreClub}}</p>
 		</div>
