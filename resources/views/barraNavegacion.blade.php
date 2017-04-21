@@ -1,4 +1,7 @@
-<nav class="navbar navbar-default navbar-toggleable-sm nav-diver">
+<nav class="navbar navbar-default navbar-toggleable-sm nav-diver one-edge-shadow">
+	<div class="navbar-diver-logo">
+		<div class="helper"><img src="{{URL::asset('images/Diver-icon-L.png')}}"></div>
+	</div>
 	<div class="navbar-header">
 		<button class="navbar-toggle navbar-toggler-right" type="button" data-toggle="collapse" data-target="#barraSesion" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="icon-bar"></span>
