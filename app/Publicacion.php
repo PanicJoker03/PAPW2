@@ -11,21 +11,23 @@ class Publicacion extends Model
 {
     protected $table = 'publicacion';
     /* Regresa un numero determinado de publicaciones a partir de cierto parametro*/
-/*    public function publicacionesPaginado($param, $numero)
-    {
+    public static function publicacionesPaginado($clubs, $paramGuía = PHP_INT_MAX, $numero = 4, string $orderBy = 'id' /*, bool $desc = true*/){
+        //$subquery = 'publicacion.' . $orderBy .' > (select '. $orderBy .' from publicacion where publicacion.id >= '. $idGuía .' limit 1)';
         $publicaciones = DB::table('publicacion')
             ->leftJoin('comentario', 'publicacion.id', '=', 'comentario.publicacion')
-            ->where('publicacion.club', $this->id)
+            ->whereIn('club', $clubs)
+            ->where('publicacion.'.$orderBy, "<", $paramGuía)
+            ->where('publicacion.activo', true)
+            //->whereRaw($subquery)
             ->select(
                 'publicacion.*',
-                DB::raw("sum(comentario.activo) as comentarios"))
-                //DB::raw("count(meGusta.id) as meGusta"))
+                DB::raw("sum(ifnull(comentario.activo,0)) as comentarios"))
             ->groupBy('publicacion.id')
-            ->orderBy('publicacion.'.$param)
+            ->orderBy('publicacion.'.$orderBy, 'desc')
             ->take($numero)
             ->get();
         return $publicaciones;
-    }*/
+    }
 
     /*Para los casos en donde se deba de emplear un join es mejor usar el query builder*/
     public function comentariosVista()
@@ -38,10 +40,5 @@ class Publicacion extends Model
     			])
     		->get();
     	return $comentarios;
-    }
-	/* Regresa la publicacion y datos sobre el numero de visitas, likes y comentarios*/
-    public function publicacionInfo()
-    {
-
     }
 }

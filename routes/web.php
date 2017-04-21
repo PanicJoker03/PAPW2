@@ -35,6 +35,7 @@ Route::group(['prefix' => 'publicacion'], function(){
 	Route::post('{id}/rechazar', 'PublicacionControl@rechazarPublicacion');
 	//Route::post('{id}/megusta');
 	Route::get('inicio', 'PublicacionControl@inicio');
+	Route::get('club/{id}/paginado', 'PublicacionControl@publicacionesPaginado');
 	Route::get('{id}', 'PublicacionControl@publicacion');
 	//Route::get('inicio', 'PublicacionControl@inicio');
 });

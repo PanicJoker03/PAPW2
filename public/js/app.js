@@ -11254,7 +11254,6 @@ Vue.component('crear-club-modal', __webpack_require__(39));
 Vue.component('crear-publicacion-modal', __webpack_require__(40));
 Vue.component('aprobar-publicacion', __webpack_require__(38));
 Vue.component('publicacion-scroller', __webpack_require__(61));
-Vue.component('publicacion-miniatura', __webpack_require__(57));
 
 var app = new Vue({
   el: '#app'
@@ -42699,83 +42698,9 @@ module.exports = __webpack_require__(12);
 /* 54 */,
 /* 55 */,
 /* 56 */,
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(4)(
-  /* script */
-  __webpack_require__(58),
-  /* template */
-  __webpack_require__(59),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\Users\\w7\\papw2\\resources\\assets\\js\\components\\PublicacionMiniatura.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] PublicacionMiniatura.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7e50541f", Component.options)
-  } else {
-    hotAPI.reload("data-v-7e50541f", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 58 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = {
-	props: ['publicacion', 'img-source'],
-	mounted: function mounted() {},
-
-	methods: {}
-};
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    attrs: {
-      "publicacion-id": _vm.publicacion
-    }
-  }, [_c('img', {
-    staticClass: "img-responsive center-block",
-    attrs: {
-      "img-source": _vm.src
-    }
-  })])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-7e50541f", module.exports)
-  }
-}
-
-/***/ }),
+/* 57 */,
+/* 58 */,
+/* 59 */,
 /* 60 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -42797,7 +42722,7 @@ if (false) {
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
-	props: ['publicacion', 'img-source', 'club'],
+	props: ['src'],
 	data: function data() {
 		return {
 			parametroOrdenamiento: 'id',
@@ -42825,8 +42750,9 @@ if (false) {
 		cargarEntradas: function cargarEntradas() {
 			var _this = this;
 			_this.cargandoEntradas = true;
-			_this.$http.get('/publicacion/inicio', { params: { paramGuia: _this.paramGuia, cantidad: _this.entradasPorPaginacion } }).then(function (response) {
+			_this.$http.get(_this.src, { params: { paramGuia: _this.paramGuia, cantidad: _this.entradasPorPaginacion } }).then(function (response) {
 				var _data = response.data;
+				console.log(response.data);
 				for (var object in _data) {
 					_this.items.push(_data[object]);
 				}
@@ -42893,7 +42819,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('img', {
       attrs: {
-        "src": item.contenidoMinRuta
+        "src": '/' + item.contenidoMinRuta
       }
     })]), _vm._v(" "), _c('p', [_vm._v("Titulo: " + _vm._s(item.titulo))]), _vm._v(" "), _c('p', [_vm._v("Comentarios: " + _vm._s(item.comentarios))])])]
   })], 2)

@@ -50,4 +50,8 @@ class PublicacionControl extends Controller
     {
         return Auth::user()->publicacionesInicioPaginado($request->paramGuia, $request->cantidad);
     }
+    public function publicacionesPaginado(Request $request, $club)
+    {
+        return Publicacion::publicacionesPaginado([$club], $request->paramGuia, $request->cantidad);
+    }
 }

@@ -4,7 +4,7 @@
 			<!-- Aquí puedes escribir todo el formato que quieras para las entradas de las publicaciones -->
 			<div class="col-sm-4">
 				<a :href="'/publicacion/' + item.id + '/vista'">
-					<img :src="item.contenidoMinRuta">
+					<img :src="'/'+item.contenidoMinRuta">
 				</a>
 				<p>Titulo: {{item.titulo}}</p>
 				<p>Comentarios: {{item.comentarios}}</p>
@@ -14,7 +14,7 @@
 </template>
 <script type="text/javascript">
 	export default{
-		props: ['publicacion', 'img-source', 'club'],
+		props: ['src'],
 		data(){
 			return{
 				parametroOrdenamiento: 'id',
@@ -43,9 +43,10 @@
 			{
         		const _this = this;
         		_this.cargandoEntradas = true;
-				_this.$http.get('/publicacion/inicio', {params: {paramGuia : _this.paramGuia, cantidad : _this.entradasPorPaginacion }})
+				_this.$http.get(_this.src, {params: {paramGuia : _this.paramGuia, cantidad : _this.entradasPorPaginacion }})
 				.then((response) => {
 					const _data = response.data;
+					console.log(response.data);
 					for(var object in _data){
 						_this.items.push(_data[object]);
 					}

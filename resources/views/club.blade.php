@@ -35,13 +35,15 @@
 			</div>
 		</div>
 		<div class="col-sm-9 col-sm-pull-3 container-diver shadow">
-			<div class="row">
+{{-- 			<div class="row">
 				@foreach ($publicaciones as $publicacion)
 				<div class="col-md-3 col-sm-4 col-xs-3 one-edge-shadow">
 					<img src="{{ URL::asset($publicacion->contenidoMinRuta) }}" width="100%" height="auto">
 				</div>
 				@endforeach
-			</div>
+			</div> --}}
+			{{-- El código del formato de la thumbnail de la publicacion se encuentra en PublicacionScroller.vue --}}
+			<publicacion-scroller src="/publicacion/club/{{$club->id}}/paginado"></publicacion-scroller>
 		</div>
 	</div>
 </div>

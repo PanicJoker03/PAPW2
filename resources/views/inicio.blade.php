@@ -32,18 +32,7 @@
 		</div>
 		<div class="col-sm-6 col-sm-pull-3">
 			<div class="row">
-				<publicacion-scroller></publicacion-scroller>
-{{-- 			@foreach ($publicaciones as $publicacion)
-				<div class="panel panel-default">
-					<div class="panel panel-heading">
-						{{$publicacion->titulo}}
-						<br>
-					</div>
-					<div class="panel panel">
-						<img width="100px" height="100px" src={{ URL::asset($publicacion->contenidoMinRuta) }}>
-					</div>
-				</div>
-			@endforeach --}}
+				<publicacion-scroller src="/publicacion/inicio"></publicacion-scroller>
 			</div>
 		</div>
 	</div>
