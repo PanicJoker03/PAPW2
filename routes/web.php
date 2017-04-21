@@ -1,5 +1,5 @@
 <?php
-
+use App\Publicacion;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +21,7 @@ Route::get('/cerrarSesion', 'InicioControl@cerrarSesion');
 //Clubs
 Route::group(['prefix' => 'club'], function(){
 	Route::post('crear', 'ClubControl@crearClub');
-	Route::get('{id}', 'ViewsControl@club');
+	Route::get('{id}/vista', 'ViewsControl@club');
 });
 //Subscripción
 Route::group(['prefix' => 'subscripcion'], function(){
@@ -30,7 +30,15 @@ Route::group(['prefix' => 'subscripcion'], function(){
 //Publicación
 Route::group(['prefix' => 'publicacion'], function(){
 	Route::post('crear', 'PublicacionControl@crearPublicacion');
-	Route::post('aprobar/{id}', 'PublicacionControl@aprobarPublicacion');
-	Route::post('rechazar/{id}', 'PublicacionControl@rechazarPublicacion');
+	Route::get('{id}/vista', 'ViewsControl@publicacion');
+	Route::post('{id}/aprobar', 'PublicacionControl@aprobarPublicacion');
+	Route::post('{id}/rechazar', 'PublicacionControl@rechazarPublicacion');
+	//Route::post('{id}/megusta');
+	Route::get('inicio', 'PublicacionControl@inicio');
 	Route::get('{id}', 'PublicacionControl@publicacion');
+	//Route::get('inicio', 'PublicacionControl@inicio');
+});
+//Comentario
+Route::group(['prefix' => 'comentario'], function(){
+	Route::post('crear', 'ComentarioControl@crearComentario');
 });

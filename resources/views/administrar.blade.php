@@ -18,7 +18,7 @@
 			<div class=" list-group">
 			<li class="list-group-item">Mis clubs</li>
 			@foreach ($clubs as $club)
-			<a href="/club/{{$club->id}}" class="list-group-item">
+			<a href="/club/{{$club->id}}/vista" class="list-group-item">
 				<img src="{{ URL::asset($club->avatarMinRuta) }}" class="pull-left" width="40" height="40">
 				<h4 class="list-group-item-heading"> {{ str_limit($club->nombreClub, 15, '...') }} </h4>
 				<p class="list-group-item-text"> {{ str_limit($club->descripcion, 20,'...') }} </p>

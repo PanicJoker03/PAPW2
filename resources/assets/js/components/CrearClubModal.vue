@@ -112,7 +112,7 @@
         			.then((response) => {
                         $('#crearClubModal').modal('hide');
                         $('#crearClubForm').trigger('reset');
-        				window.location = '/club/' + response.data.id;
+        				window.location = '/club/' + response.data.id + '/vista';
         			});
         	}
         }

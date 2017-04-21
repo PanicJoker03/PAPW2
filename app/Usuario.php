@@ -2,9 +2,11 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use App\Club;
+use App\Publicacion;
 class Usuario extends Model implements Authenticatable
 {
     protected $table = 'usuario';
@@ -32,7 +34,29 @@ class Usuario extends Model implements Authenticatable
                 'aprobado' => false,
             ])->orderBy('publicacion.created_at','desc');
     }
-
+    /* Regresa un numero determinado de publicaciones a partir de cierto parametro*/
+    public function publicacionesInicioPaginado($paramGuía = PHP_INT_MAX, $numero = 4, string $orderBy = 'id' /*, bool $desc = true*/){
+        //Clubs propios y subscritos
+        $clubs = $this->clubsSubscrito_id() + $this->clubs_id();
+        //Este subquery hace toda la magia de la paginación
+        //$subquery = 'publicacion.' . $orderBy .' > (select '. $orderBy .' from publicacion where publicacion.id >= '. $idGuía .' limit 1)';
+        $publicaciones = DB::table('publicacion')
+            ->leftJoin('comentario', 'publicacion.id', '=', 'comentario.publicacion')
+            ->whereIn('club', $clubs)
+            ->where('publicacion.'.$orderBy, "<", $paramGuía)
+            //->whereRaw($subquery)
+            ->select(
+                'publicacion.*',
+                DB::raw("sum(ifnull(comentario.activo,0)) as comentarios"))
+            ->groupBy('publicacion.id')
+            ->orderBy('publicacion.'.$orderBy, 'desc')
+            ->take($numero)
+            ->get();
+        return $publicaciones;
+/*      return Publicacion::whereIn('club', $clubs)
+            ->where('activo', true)
+            ->orderBy($orderBy, $desc? 'desc' : 'asc')->get();*/
+    }
     public function getAuthIdentifierName()
     {
     	return $this->nombreUsuario;

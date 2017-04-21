@@ -22,7 +22,7 @@
 			<div class=" list-group sidepanel">
 			<li class="list-group-item">Nuevos grupos</li>
 			@foreach ($nuevosClubs as $club)
-			<a href="/club/{{$club->id}}" class="list-group-item">
+			<a href="/club/{{$club->id}}/vista" class="list-group-item">
 				<img src="{{ URL::asset($club->avatarMinRuta) }}" class="pull-left" width="40" height="40">
 				<h4 class="list-group-item-heading"> {{ str_limit($club->nombreClub, 15, '...') }} </h4>
 				<p class="list-group-item-text"> {{ str_limit($club->descripcion, 20,'...') }} </p>
@@ -32,7 +32,8 @@
 		</div>
 		<div class="col-sm-6 col-sm-pull-3">
 			<div class="row">
-			@foreach ($publicaciones as $publicacion)
+				<publicacion-scroller></publicacion-scroller>
+{{-- 			@foreach ($publicaciones as $publicacion)
 				<div class="panel panel-default">
 					<div class="panel panel-heading">
 						{{$publicacion->titulo}}
@@ -42,7 +43,7 @@
 						<img width="100px" height="100px" src={{ URL::asset($publicacion->contenidoMinRuta) }}>
 					</div>
 				</div>
-			@endforeach
+			@endforeach --}}
 			</div>
 		</div>
 	</div>

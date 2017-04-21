@@ -34,14 +34,20 @@ class PublicacionControl extends Controller
     {
         return Publicacion::find($id);
     }
-    public function aprobarPublicacion($id){
+    public function aprobarPublicacion($id)
+    {
         $publicacion = Publicacion::find($id);
         $publicacion->aprobado = true;
         $publicacion->save();
     }
-    public function rechazarPublicacion($id){
+    public function rechazarPublicacion($id)
+    {
         $publicacion = Publicacion::find($id);
         $publicacion->activo = false;
         $publicacion->save();
+    }
+    public function inicio(Request $request)
+    {
+        return Auth::user()->publicacionesInicioPaginado($request->paramGuia, $request->cantidad);
     }
 }

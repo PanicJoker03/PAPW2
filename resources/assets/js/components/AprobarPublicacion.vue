@@ -56,7 +56,7 @@
 				/* envíar aprobacion */
         		//const token = new FormData();
         		//token.append('_token', window.Laravel.csrfToken);
-				this.$http.post('publicacion/aprobar/' + this.publicacion, this.formToken()).
+				this.$http.post('publicacion/' + this.publicacion + '/aprobar', this.formToken()).
 				then((response) => {
 					this.remover();
 				});
@@ -65,7 +65,7 @@
 				/* envíar rechazo */
         		//const token = new FormData();
         		//token.append('_token', window.Laravel.csrfToken);
-				this.$http.post('publicacion/rechazar/' + this.publicacion, this.formToken()).
+				this.$http.post('publicacion/' + this.publicacion + '/rechazar', this.formToken()).
 				then((response) => {
 					this.remover();
 				});
