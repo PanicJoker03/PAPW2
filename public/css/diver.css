@@ -18,7 +18,7 @@ body {
 	margin-bottom: 20px;
 }
 .sidepanel a {float: right;}
-.nav-diver, .nav-diver a, .panel-heading, li.list-group-item, .modal-header, .modal-header>.close, .btn-primary, button {
+.nav-diver, .nav-diver a, .panel-heading, li.list-group-item, .modal-header, .modal-header>.close, .btn-default, .btn-primary, button {
 	background-color: #242540 !important;
 	border-color: #090910 !important;
 	color: white !important;
@@ -95,12 +95,15 @@ button[type="submit"], .btn-primary {
 	transform: scaleY(1);
 }
 
-button[type="submit"]:hover, .btn-primary:hover {
+button[type="submit"]:hover, .btn-primary:hover, .btn-default:hover {
 	background-color: #18BC9C !important;
 	box-shadow: 0 0 8px #18BC9C;
 }
 
-input[type="text"] {
+input[type="text"], 
+input[type="password"], 
+input[type="date"], 
+input[type="email"] {
 	border: none;
 	border-bottom: #242540 solid 2px;
 	border-radius: 0px;
@@ -108,13 +111,19 @@ input[type="text"] {
 	color: #090910;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="date"]:focus, 
+input[type="email"]:focus {
 	outline: none;
 	border-bottom: #7c7eb6 solid 2px;
 	box-shadow: none;
 }
 
-input[type="text"]::placeholder {
+input[type="text"]::placeholder, 
+input[type="password"]:placeholder, 
+input[type="date"]:placeholder, 
+input[type="email"]:placeholder {
 	color: #adaed1;
 }
 
@@ -155,8 +164,8 @@ input[type="text"]::placeholder {
 	margin: 18px 0px 18px;
 }
 
-.shadow {
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.34)
+.shadow, div.comment-helper .form-group {
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.34);
 }
 
 .one-edge-shadow {
@@ -180,14 +189,25 @@ div.container-comments {
 	padding: 10px;
 }
 
-div.container-comments textarea {
+div.comment-helper .form-group label {
+	display: none;
+} 
+
+div.comment-helper .list-group .list-group-item {
+	background-color: white !important;
+	border: none;
+	color: #242540 !important;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.34);
+}
+
+div.container-comments textarea, div.comment-helper .form-group textarea {
 	max-width: 99%;
 	width: 600px;
 	height: 100px;
 	margin-bottom: 10px;
 }
 
-div.container-comments textarea:focus {
+div.container-comments textarea:focus, div.comment-helper .form-group textarea:focus {
 	outline: none !important;
 	border: 1px solid #7c7eb6;
 	box-shadow: 0 0 10px #7c7eb6;
@@ -246,4 +266,10 @@ div.comment-data {
 div.comment-data h4 {
 	font-weight: bolder;
 	margin: 0px;
+}
+
+div.comment-helper .form-group {
+	margin-bottom: 20px;
+	background-color: white;
+	padding: 10px;
 }

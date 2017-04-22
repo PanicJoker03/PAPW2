@@ -19,8 +19,8 @@
 			</div>
 		</div>
 		<div class="col-sm-3 col-sm-push-6 hidden-xs">
-			<div class=" list-group sidepanel">
-			<li class="list-group-item">Nuevos grupos</li>
+			<div class=" list-group">
+			<li class="list-group-item">Nuevos clubes</li>
 			@foreach ($nuevosClubs as $club)
 			<a href="/club/{{$club->id}}/vista" class="list-group-item">
 				<img src="{{ URL::asset($club->avatarMinRuta) }}" class="pull-left" width="40" height="40">
