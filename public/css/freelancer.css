@@ -584,3 +584,19 @@ div#maincontent {
   background-color: #242540;
 
 }
+
+.panel-footer {
+  background-color: #242540 !important;
+}
+
+.modal-body-diver input[type="text"],
+.modal-body-diver input[type="email"],
+.modal-body-diver input[type="password"],
+.modal-body-diver input[type="date"]
+{
+    border: none;
+    border-bottom: #242540 solid 2px;
+    border-radius: 0px;
+    box-shadow: none;
+    color: #090910;
+}

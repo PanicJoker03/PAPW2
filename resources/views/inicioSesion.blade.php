@@ -1,92 +1,4 @@
 <!DOCTYPE html>
-
-<html>
-<head>
-	<title>Inicio de sesión</title>
-	{{-- <link rel="stylesheet" type="text/css" href="css/theme.min.css"> --}}
-	<link rel="stylesheet" type="text/css" href="css/app.css">
-	<link rel="stylesheet" type="text/css" href="css/diver.css">
-</head>
-<body>
-	<nav class="navbar navbar-default navbar-toggleable-sm">
-		<div class="navbar-header">
-			<button class="navbar-toggle navbar-toggler-right" type="button" data-toggle="collapse" data-target="#barraInicioSesion" aria-expanded="false" aria-label="Toggle navigation">
-				Inicio de sesión
-			</button>
-		</div>
-		<div class="collapse navbar-collapse navbar-collapse text-right" id="barraInicioSesion">
-			{{ Form::open(
-				array(
-					{{-- 'novalidate' => 'novalidate', --}}
-					'url' => '/iniciarSesion',
-					'class' => 'navbar-form'
-					))
-			}}
-			<div class="form-group">
-				<label class="text-left" for="usuario">Nombre de usuario</label>
-				{{ Form::text('usuario', null, ['class' => 'form-control', 'placeholder' => 'Nombre de usuario'])}}
-			</div>
-			<div class="form-group">
-				<label class="text-left" for="contraseña">Contraseña</label>
-				{{ Form::password('contraseña', ['class' => 'form-control', 'placeholder' => 'Contraseña']) }}
-			</div>
-			{{ Form::submit('Iniciar sesión', ['class' => 'btn btn-default']) }}
-			{{ Form::close() }}
-		</div>
-	</nav>
-	<div class="container">
-		<h1 class="text-center">Diver</h1>
-		<div class="row">
-			<div class="panel panel-default form-login margin-auto">
-				<div class="panel-heading text-center">
-					Regístrate para seguir clubes y ver todo tipo de contenido
-				</div>
-				<div class="panel-body">
-					{{ Form::open(
-						array(
-							{{-- 'novalidate' => 'novalidate', --}}
-							'url' => '/registrar',
-							'files' => true
-							))
-					}}
-					<div class="form-group">
-						{{ Form::text('usuario', null, ['class' => 'form-control', 'placeholder' => 'Nombre de usuario', 'required' => 'required']) }}
-						{{ Form::email('correo', null, ['class' => 'form-control', 'placeholder' => 'Correo electrónico', 'required' => 'required']) }}
-						{{ Form::password('contraseña', ['class' => 'form-control', 'placeholder' => 'Contraseña', 'required' => 'required']) }}
-					</div>
-					<div class="form-group">
-						<h5>Fecha de nacimiento</h5>
-						{{ Form::date('nacimiento', null, ['class' => 'form-control', 'required' => 'required']) }}
-					</div>
-					<div class="form-group">
-						<h5>Género</h5>
-						<div class="form-check">
-							<label class="form-check-label">
-								{{ Form::radio('genero','Hombre', null, ['class' => 'form-check-input', 'required' => 'required']) }}
-								Hombre
-							</label>
-						</div>
-						<div class="form-check">
-							<label class="form-check-label">
-								{{ Form::radio('genero','Mujer', null, ['class' => 'form-check-input', 'required' => 'required']) }}
-								Mujer
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="panel-footer text-center">
-						{{ Form::submit('Registrarse', ['class' => 'btn btn-default']) }}
-					{{ Form::close() }}
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
-<script type="text/javascript" src="js/app.js"></script>
-</html>
-
-
-<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -125,17 +37,23 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <form class="form-inline" style="margin-top: 10px">
-                            <div class="form-group">
-                                <label class="sr-only">Nombre de Usuario</label>
-                                <input type="text" name="txtNombreUsuario" class="form-control txt-diver" id="txtNombreUsuario" placeholder="Usuario">
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only">Contraseña</label>
-                                <input type="text" name="txtContraseña" class="form-control" id="txtContraseña" placeholder="Contraseña">
-                            </div>
-                            <input type="submit" name="btnLogin" class="btn btn-diver" value="Iniciar Sesión">
-                        </form>
+                        {{ Form::open(
+							array(
+								{{-- 'novalidate' => 'novalidate', --}}
+								'url' => '/iniciarSesion',
+								'class' => 'navbar-form'
+								))
+						}}
+						<div class="form-group">
+							<label class="sr-only" for="usuario">Nombre de usuario</label>
+							{{ Form::text('usuario', null, ['class' => 'form-control txt-diver', 'placeholder' => 'Nombre de usuario'])}}
+						</div>
+						<div class="form-group">
+							<label class="sr-only" for="contraseña">Contraseña</label>
+							{{ Form::password('contraseña', ['class' => 'form-control', 'placeholder' => 'Contraseña']) }}
+						</div>
+						{{ Form::submit('Iniciar sesión', ['class' => 'btn btn-diver']) }}
+						{{ Form::close() }}
                     </li>
                 </ul>
             </div>
@@ -275,43 +193,46 @@
             <h4 class="light">Registro</h4>
           </div>
           <div class="modal-body modal-body-diver">
-            <form>
-                <div class="form-group">
-                    <label for="txtNombre">Nombre(s)</label>
-                    <input type="text" class="form-control" id="txtNombre">
-                </div>
-                <div class="form-group">
-                    <label for="txtApellidos">Apellido(s)</label>
-                    <input type="text" class="form-control" id="txtApellidos">
-                </div>
-                <div class="form-group">
-                    <label>Sexo</label><br>
-                    <label class="checkbox-inline">
-                        <input type="radio" name="radSexo" id="radSexoM" value="Mujer">
-                        Mujer
-                    </label>
-                    <label class="checkbox-inline">
-                        <input type="radio" name="radSexo" id="radSexoH" value="Hombre">
-                        Hombre
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label for="txtUsuario">Nombre de Usuario</label>
-                    <input type="text" class="form-control" id="txtUsuario">
-                </div>
-                <div class="form-group">
-                    <label for="txtCorreo">Correo Electronico</label>
-                    <input type="email" class="form-control" id="txtCorreo">
-                </div>
-                <div class="form-group">
-                    <label for="txtContra">Contraseña</label>
-                    <input type="password" class="form-control" id="txtContra">
-                </div>
-            </form>
+            {{ Form::open(
+						array(
+							{{-- 'novalidate' => 'novalidate', --}}
+							'url' => '/registrar',
+							'files' => true
+							))
+					}}
+					<div class="form-group">
+						{{ Form::text('usuario', null, ['class' => 'form-control', 'placeholder' => 'Nombre de usuario', 'required' => 'required']) }}
+					</div>
+					<div class="form-group">
+						{{ Form::email('correo', null, ['class' => 'form-control', 'placeholder' => 'Correo electrónico', 'required' => 'required']) }}
+					</div>
+					<div class="form-group">
+						{{ Form::password('contraseña', ['class' => 'form-control', 'placeholder' => 'Contraseña', 'required' => 'required']) }}
+					</div>
+					<div class="form-group">
+						<h5>Fecha de nacimiento</h5>
+						{{ Form::date('nacimiento', null, ['class' => 'form-control', 'required' => 'required']) }}
+					</div>
+					<div class="form-group">
+						<label>Género</label><br>
+						<label class="checkbox-inline">
+							{{ Form::radio('genero','Hombre', null, ['class' => 'form-check-input', 'required' => 'required']) }}
+							Hombre
+						</label>
+						<label class="checkbox-inline">
+							{{ Form::radio('genero','Mujer', null, ['class' => 'form-check-input', 'required' => 'required']) }}
+							Mujer
+						</label>
+					</div>
+				</div>
+				<div class="panel-footer text-center">
+						{{ Form::submit('Registrarse', ['class' => 'btn btn-diver']) }}
+					{{ Form::close() }}
+
           </div>
-          <div class="modal-footer modal-footer-diver">
+<!--           <div class="modal-footer modal-footer-diver">
             <button type="button" class="btn btn-diver" data-dismiss="modal">Registrarme</button>
-          </div>
+          </div> -->
         </div>
 
       </div>
@@ -327,6 +248,7 @@
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
 
+  	<script src="https://use.fontawesome.com/6349ef0231.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
@@ -339,4 +261,3 @@
 </body>
 
 </html>
- -->
