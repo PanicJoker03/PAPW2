@@ -12542,6 +12542,11 @@ module.exports = function spread(callback) {
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	props: ['src'],
@@ -12550,7 +12555,7 @@ module.exports = function spread(callback) {
 			parametroOrdenamiento: 'id',
 			paramGuia: Number.MAX_SAFE_INTEGER,
 			items: [],
-			entradasPorPaginacion: 15,
+			entradasPorPaginacion: 12,
 			cargandoEntradas: false
 		};
 	},
@@ -12583,6 +12588,9 @@ module.exports = function spread(callback) {
 		},
 		ultimo: function ultimo(_objeto) {
 			return _objeto[Object.keys(_objeto)[Object.keys(_objeto).length - 1]];
+		},
+		limitarTexto: function limitarTexto(texto, longitud) {
+			return texto.length > longitud ? texto.substring(0, longitud - 3) + "..." : texto;
 		}
 	}
 };
@@ -32676,16 +32684,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._l((_vm.items), function(item) {
     return [_c('div', {
-      staticClass: "col-sm-4"
+      staticClass: "publicacion-thumbnail col-sm-4 col-md-3 col-xs-4"
     }, [_c('a', {
+      staticClass: "thumbnail",
       attrs: {
         "href": '/publicacion/' + item.id + '/vista'
       }
     }, [_c('img', {
+      staticClass: "img-responsive",
       attrs: {
         "src": '/' + item.contenidoMinRuta
       }
-    })]), _vm._v(" "), _c('p', [_vm._v("Titulo: " + _vm._s(item.titulo))]), _vm._v(" "), _c('p', [_vm._v("Comentarios: " + _vm._s(item.comentarios))]), _vm._v(" "), _c('p', [_vm._v("Visitas: " + _vm._s(item.visitas))])])]
+    }), _vm._v(" "), _c('div', {
+      staticClass: "caption"
+    }, [_c('p', [_c('strong', [_vm._v(_vm._s(_vm.limitarTexto(item.titulo, 8)))])]), _vm._v(" "), _c('p', {
+      staticClass: "badge"
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon-heart"
+    }), _vm._v(" " + _vm._s(item.megusta) + " \n\t\t\t\t\t\t"), _c('span', {
+      staticClass: "glyphicon glyphicon-comment"
+    }), _vm._v(" " + _vm._s(item.comentarios) + " \n\t\t\t\t\t\t"), _c('span', {
+      staticClass: "glyphicon glyphicon-eye-open"
+    }), _vm._v(_vm._s(item.visitas) + "\n\t\t\t\t\t")])])])])]
   })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true

@@ -2,13 +2,18 @@
 	<div id="publicacion-scroller">
 		<template v-for="item in items">
 			<!-- Aquí puedes escribir todo el formato que quieras para las entradas de las publicaciones -->
-			<div class="col-sm-4">
-				<a :href="'/publicacion/' + item.id + '/vista'">
-					<img :src="'/'+item.contenidoMinRuta">
+			<div class="publicacion-thumbnail col-sm-4 col-md-3 col-xs-4">
+				<a :href="'/publicacion/' + item.id + '/vista'"class="thumbnail">
+					<img class="img-responsive" :src="'/'+item.contenidoMinRuta">
+					<div class="caption">
+						<p><strong>{{limitarTexto(item.titulo, 8)}}</strong></p>
+						<p class="badge">
+							<span class="glyphicon glyphicon-heart"></span> {{item.megusta}} 
+							<span class="glyphicon glyphicon-comment"></span> {{item.comentarios}} 
+							<span class="glyphicon glyphicon-eye-open"></span>{{item.visitas}}
+						</p>
+					</div>
 				</a>
-				<p>Titulo: {{item.titulo}}</p>
-				<p>Comentarios: {{item.comentarios}}</p>
-				<p>Visitas: {{item.visitas}}</p>
 			</div>
 		</template>
 	</div>
@@ -21,7 +26,7 @@
 				parametroOrdenamiento: 'id',
 				paramGuia: Number.MAX_SAFE_INTEGER,
 				items: [],
-				entradasPorPaginacion: 15,
+				entradasPorPaginacion: 12,
 				cargandoEntradas: false
 			}
 		},
@@ -57,6 +62,10 @@
 			ultimo(_objeto)
 			{
 				return _objeto[Object.keys(_objeto)[Object.keys(_objeto).length - 1]];
+			},
+			limitarTexto(texto, longitud)
+			{
+				return texto.length  > longitud ? texto.substring(0, longitud - 3) + "..." : texto;
 			}
 		}
 	}
