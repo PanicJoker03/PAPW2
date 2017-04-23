@@ -18,7 +18,7 @@
 					<h4 class="list-group-item-heading">{{item.nombreUsuario}}<small>&emsp;{{item.created_at}}</small>
 						<!-- Esta parte solo se va a generar si el usuario es autor del comentario -->
 						<!-- Es importante que el botón tenga el atributo :comentario="item.id" -->
-						<a v-if="item.usuario == usuario" :comentario="item.id" class=" badge btn btn-default pull-right" v-on:click="borrarEntrada">Borrar</a>
+						<a v-if="item.usuario == usuario" :comentario="item.id" class=" badge btn btn-default pull-right" v-on:click="borrarEntrada"><span class="glyphicon glyphicon glyphicon-trash"></span></a>
 					</h4>
 					<p class="list-group-item-text">{{item.comentario}}</p>
 				</li>
@@ -73,7 +73,7 @@
 			},
 			borrarEntrada(event)
 			{
-				const comentario = $(event.target).attr("comentario");
+				const comentario = $(event.target).closest('a').attr("comentario");
 				const items = this.items;
 				this.$http.post('/comentario/'+ comentario +'/borrar', this.formToken())
 				.then((response) => {

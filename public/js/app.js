@@ -12285,7 +12285,7 @@ module.exports = function spread(callback) {
 			return _objeto[Object.keys(_objeto)[Object.keys(_objeto).length - 1]];
 		},
 		borrarEntrada: function borrarEntrada(event) {
-			var comentario = $(event.target).attr("comentario");
+			var comentario = $(event.target).closest('a').attr("comentario");
 			var items = this.items;
 			this.$http.post('/comentario/' + comentario + '/borrar', this.formToken()).then(function (response) {
 				//selecciona el contenedor del comentario
@@ -12527,6 +12527,7 @@ module.exports = function spread(callback) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -32649,7 +32650,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       on: {
         "click": _vm.borrarEntrada
       }
-    }, [_vm._v("Borrar")]) : _vm._e()]), _vm._v(" "), _c('p', {
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon glyphicon-trash"
+    })]) : _vm._e()]), _vm._v(" "), _c('p', {
       staticClass: "list-group-item-text"
     }, [_vm._v(_vm._s(item.comentario))])])]
   })], 2)])
@@ -32682,7 +32685,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "src": '/' + item.contenidoMinRuta
       }
-    })]), _vm._v(" "), _c('p', [_vm._v("Titulo: " + _vm._s(item.titulo))]), _vm._v(" "), _c('p', [_vm._v("Comentarios: " + _vm._s(item.comentarios))])])]
+    })]), _vm._v(" "), _c('p', [_vm._v("Titulo: " + _vm._s(item.titulo))]), _vm._v(" "), _c('p', [_vm._v("Comentarios: " + _vm._s(item.comentarios))]), _vm._v(" "), _c('p', [_vm._v("Visitas: " + _vm._s(item.visitas))])])]
   })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true

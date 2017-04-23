@@ -7,6 +7,7 @@ use Auth;
 use DB;
 use App\Publicacion;
 use App\Usuario;
+use App\Visita;
 class Publicacion extends Model
 {
     protected $table = 'publicacion';
@@ -15,13 +16,15 @@ class Publicacion extends Model
         //$subquery = 'publicacion.' . $orderBy .' > (select '. $orderBy .' from publicacion where publicacion.id >= '. $idGuía .' limit 1)';
         $publicaciones = DB::table('publicacion')
             ->leftJoin('comentario', 'publicacion.id', '=', 'comentario.publicacion')
+            ->leftJoin('visita', 'publicacion.id', '=', 'visita.publicacion')
             ->whereIn('club', $clubs)
             ->where('publicacion.'.$orderBy, "<", $paramGuía)
             ->where('publicacion.activo', true)
             //->whereRaw($subquery)
             ->select(
                 'publicacion.*',
-                DB::raw("sum(ifnull(comentario.activo,0)) as comentarios"))
+                DB::raw("count(distinct case when comentario.activo = true then comentario.id else null end) as comentarios"),
+                DB::raw("count(distinct case when visita.activo = true then visita.id else null end) as visitas"))
             ->groupBy('publicacion.id')
             ->orderBy('publicacion.'.$orderBy, 'desc')
             ->take($numero)
@@ -40,5 +43,13 @@ class Publicacion extends Model
     			])
     		->get();
     	return $comentarios;
+    }
+    public function visitas()
+    {
+        $visitas = Visita::where([
+                'publicacion' => $this->id,
+                'activo' => true
+            ])->count();
+        return $visitas;
     }
 }

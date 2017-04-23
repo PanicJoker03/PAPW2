@@ -8,6 +8,7 @@
 				</a>
 				<p>Titulo: {{item.titulo}}</p>
 				<p>Comentarios: {{item.comentarios}}</p>
+				<p>Visitas: {{item.visitas}}</p>
 			</div>
 		</template>
 	</div>
