@@ -18,6 +18,7 @@ Vue.component('crear-publicacion-modal', require('./components/CrearPublicacionM
 Vue.component('aprobar-publicacion', require('./components/AprobarPublicacion.vue'));
 Vue.component('publicacion-scroller', require('./components/PublicacionScroller.vue'));
 Vue.component('comentario-scroller', require('./components/ComentarioScroller.vue'));
+Vue.component('boton-megusta', require('./components/BotonMeGusta.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -28,7 +28,7 @@ class PublicacionControl extends Controller
             $publicacion->aprobado = true;
         }
     	$publicacion->save();
-    	return 'Club creado';
+    	return $publicacion;
     }
     public function publicacion($id)
     {

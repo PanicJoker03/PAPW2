@@ -41,6 +41,16 @@ class Usuario extends Model implements Authenticatable
         $publicaciones = Publicacion::publicacionesPaginado($clubs, $paramGuía, $numero, $orderBy);
         return $publicaciones;
     }
+    public function publicacionMeGusta($publicacion)
+    {
+        $megusta = Publicacion::find($publicacion)
+            ->hasMany('App\MeGusta', 'publicacion')
+            ->where([
+                'activo' => true,
+                'usuario' => $this->id])
+            ->first();
+        return $megusta;
+    }
     public function getAuthIdentifierName()
     {
     	return $this->nombreUsuario;

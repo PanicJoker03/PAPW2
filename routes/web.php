@@ -45,3 +45,8 @@ Route::group(['prefix' => 'comentario'], function(){
 	Route::post('{id}/borrar', 'ComentarioControl@borrar');
 	Route::get('publicacion/{id}/paginado', 'ComentarioControl@comentariosPaginado');
 });
+//Me gusta
+Route::group(['prefix' => 'megusta'], function(){
+	Route::post('crear', 'MeGustaControl@crearMeGusta');
+	Route::post('{id}/borrar', 'MeGustaControl@borrarMeGusta');
+});

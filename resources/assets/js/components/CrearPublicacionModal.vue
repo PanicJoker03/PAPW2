@@ -47,7 +47,7 @@
             var _this = this;
             $('#prevPublicacion').attr('src', '/images/subir-imagen.png');
         },
-        props: ['club', 'nombreClub'],
+        props: ['club', 'nombreClub', 'autorClub'],
         methods: {
             //previsualizar la imagen seleccionada...
             //http://stackoverflow.com/questions/18457340/how-to-preview-selected-image-in-input-type-file-in-popup-using-jquery
@@ -65,6 +65,7 @@
                 }
         	},
         	crearPublicacion(){
+        		const _this = this;
         		const form = document.getElementById('crearPublicacionForm');
         		const datosPublicacion = new FormData(form);
         		datosPublicacion.append('_token', window.Laravel.csrfToken);
@@ -73,7 +74,20 @@
         			.then((response) => {
                         $('#crearPublicacionModal').modal('hide');
                         $('#crearPublicacionForm').trigger('reset');
+                        if(response.data.autor == _this.autorClub){
+                        	_this.concatenarPublicacion(response.data);
+                        }
         			});
+        	},
+        	concatenarPublicacion(_data){
+                $("#publicacion-scroller").trigger("crearPublicacion", [{
+                	id: _data.id,
+                	titulo: _data.titulo,
+                	contenidoMinRuta: _data.contenidoMinRuta,
+                	megusta:"0", 
+                	comentarios:"0", 
+                	visitas:"0"
+                }]);
         	}
         }
     }

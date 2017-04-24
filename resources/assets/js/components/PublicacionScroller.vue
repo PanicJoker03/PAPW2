@@ -26,7 +26,7 @@
 				parametroOrdenamiento: 'id',
 				paramGuia: Number.MAX_SAFE_INTEGER,
 				items: [],
-				entradasPorPaginacion: 12,
+				entradasPorPaginacion: 24,
 				cargandoEntradas: false
 			}
 		},
@@ -42,6 +42,11 @@
 					if(!_this.cargandoEntradas)
 						_this.cargarEntradas();
 				}
+			});
+			//Comenzamos a escuchar el evento de crearPublicacion
+			$("#publicacion-scroller").on("crearPublicacion", function(event, _params){
+				console.log("chidori");
+				_this.concatenarEntrada(_params);
 			});
 		},
 		methods: {
@@ -66,6 +71,10 @@
 			limitarTexto(texto, longitud)
 			{
 				return texto.length  > longitud ? texto.substring(0, longitud - 3) + "..." : texto;
+			},
+			concatenarEntrada(_params)
+			{
+				this.items.unshift(_params);
 			}
 		}
 	}

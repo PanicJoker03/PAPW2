@@ -3,7 +3,8 @@
 <div class="container">
 	<crear-publicacion-modal 
 		club={{ $club->id }}
-		nombre-club="{{ $club->nombreClub }}">
+		nombre-club="{{ $club->nombreClub }}"
+		autor-club={{ $club->creador }}>
 	</crear-publicacion-modal>
 	<div class="club-header one-edge-shadow">
 		<img src="{{URL::asset($club->avatarRuta)}}">

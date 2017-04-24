@@ -11255,6 +11255,7 @@ Vue.component('crear-publicacion-modal', __webpack_require__(43));
 Vue.component('aprobar-publicacion', __webpack_require__(40));
 Vue.component('publicacion-scroller', __webpack_require__(44));
 Vue.component('comentario-scroller', __webpack_require__(41));
+Vue.component('boton-megusta', __webpack_require__(64));
 
 var app = new Vue({
   el: '#app'
@@ -12491,7 +12492,7 @@ module.exports = function spread(callback) {
         $('#prevPublicacion').attr('src', '/images/subir-imagen.png');
     },
 
-    props: ['club', 'nombreClub'],
+    props: ['club', 'nombreClub', 'autorClub'],
     methods: {
         //previsualizar la imagen seleccionada...
         //http://stackoverflow.com/questions/18457340/how-to-preview-selected-image-in-input-type-file-in-popup-using-jquery
@@ -12508,6 +12509,7 @@ module.exports = function spread(callback) {
             }
         },
         crearPublicacion: function crearPublicacion() {
+            var _this = this;
             var form = document.getElementById('crearPublicacionForm');
             var datosPublicacion = new FormData(form);
             datosPublicacion.append('_token', window.Laravel.csrfToken);
@@ -12515,7 +12517,20 @@ module.exports = function spread(callback) {
             this.$http.post('/publicacion/crear', datosPublicacion).then(function (response) {
                 $('#crearPublicacionModal').modal('hide');
                 $('#crearPublicacionForm').trigger('reset');
+                if (response.data.autor == _this.autorClub) {
+                    _this.concatenarPublicacion(response.data);
+                }
             });
+        },
+        concatenarPublicacion: function concatenarPublicacion(_data) {
+            $("#publicacion-scroller").trigger("crearPublicacion", [{
+                id: _data.id,
+                titulo: _data.titulo,
+                contenidoMinRuta: _data.contenidoMinRuta,
+                megusta: "0",
+                comentarios: "0",
+                visitas: "0"
+            }]);
         }
     }
 };
@@ -12555,7 +12570,7 @@ module.exports = function spread(callback) {
 			parametroOrdenamiento: 'id',
 			paramGuia: Number.MAX_SAFE_INTEGER,
 			items: [],
-			entradasPorPaginacion: 12,
+			entradasPorPaginacion: 24,
 			cargandoEntradas: false
 		};
 	},
@@ -12570,6 +12585,11 @@ module.exports = function spread(callback) {
 			if (_window.scrollTop() + _window.height() == _document.height()) {
 				if (!_this.cargandoEntradas) _this.cargarEntradas();
 			}
+		});
+		//Comenzamos a escuchar el evento de crearPublicacion
+		$("#publicacion-scroller").on("crearPublicacion", function (event, _params) {
+			console.log("chidori");
+			_this.concatenarEntrada(_params);
 		});
 	},
 
@@ -12591,6 +12611,9 @@ module.exports = function spread(callback) {
 		},
 		limitarTexto: function limitarTexto(texto, longitud) {
 			return texto.length > longitud ? texto.substring(0, longitud - 3) + "..." : texto;
+		},
+		concatenarEntrada: function concatenarEntrada(_params) {
+			this.items.unshift(_params);
 		}
 	}
 };
@@ -43072,6 +43095,137 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            peticionTerminada: true,
+            botonSpan: '',
+            _id: ''
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+        _this._id = _this.id;
+        _this.botonSpan = $("#megusta span");
+        $("#megusta").click(function () {
+            if (_this.peticionTerminada) {
+                _this.peticionTerminada = false;
+                _this._id == -1 ? _this.darMegusta() : _this.quitarMeGusta();
+            }
+        });
+    },
+
+    props: ['id', 'publicacion'],
+    methods: {
+        darMegusta: function darMegusta() {
+            var _this = this;
+            var datosMegusta = _this.formToken();
+            datosMegusta.append('publicacion', _this.publicacion);
+            $("#megusta").addClass("procesando");
+            _this.$http.post('/megusta/crear', datosMegusta).then(function (response) {
+                $("#megusta").removeClass("procesando");
+                _this.botonSpan.addClass("glyphicon-heart").removeClass("glyphicon-heart-empty");
+                _this._id = response.data.id;
+                _this.peticionTerminada = true;
+            });
+        },
+        quitarMeGusta: function quitarMeGusta() {
+            var _this = this;
+            $("#megusta").addClass("procesando");
+            _this.$http.post('/megusta/' + _this._id + '/borrar', _this.formToken()).then(function (response) {
+                $("#megusta").removeClass("procesando");
+                _this.botonSpan.addClass("glyphicon-heart-empty").removeClass("glyphicon-heart");
+                _this._id = -1;
+                _this.peticionTerminada = true;
+            });
+        },
+        formToken: function formToken() {
+            var token = new FormData();
+            token.append('_token', window.Laravel.csrfToken);
+            return token;
+        }
+    }
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(63),
+  /* template */
+  __webpack_require__(65),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\w7\\papw2\\resources\\assets\\js\\components\\BotonMeGusta.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] BotonMeGusta.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-23b33e96", Component.options)
+  } else {
+    hotAPI.reload("data-v-23b33e96", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "btn btn-default btn-block",
+    attrs: {
+      "id": "megusta"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon",
+    class: [_vm.id == -1 ? 'glyphicon-heart-empty' : 'glyphicon-heart']
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-23b33e96", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

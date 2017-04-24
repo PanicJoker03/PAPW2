@@ -47,15 +47,18 @@ class ViewsControl extends Controller
     }
     public function publicacion($id)
     {
+    	$usuario = Auth::user();
     	//Crear un visto
     	$visto = new Visita();
-    	$visto->usuario = Auth::user()->id;
+    	$visto->usuario = $usuario->id;
     	$visto->publicacion = $id;
     	$visto->save();
     	//
     	$publicacion = Publicacion::find($id);
     	return view('publicacion', [
-    		'publicacion' => $publicacion
+    		'publicacion' => $publicacion,
+    		'club' => Club::find($publicacion->club),
+    		'megusta' => $usuario->publicacionMegusta($publicacion->id)
     		//'comentarios' => Comentario::comentariosPaginado($publicacion->id)//$publicacion->comentariosVista()
     		]);
     }
