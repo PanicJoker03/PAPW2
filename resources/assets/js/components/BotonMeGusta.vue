@@ -17,6 +17,7 @@
     		const _this = this;
     		_this._id = _this.id;
     		_this.botonSpan = $("#megusta span");
+    		//TODO: mover este código en funcion onClick que sea llamado en v-on:click
         	$("#megusta").click(function(){
         		if(_this.peticionTerminada){
         			_this.peticionTerminada = false;

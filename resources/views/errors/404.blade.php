@@ -12,7 +12,7 @@
 <div id="app">
 	<div class="container">
 		<h1>Error 404:</h1>
-		<h2>Ups... al parecer la página que buscas no se encuentra :(</h2>
+		<h2>Ups... No podemos encontrar la página que estas buscando :(</h2>
 	</div>
 </div>
 </body>

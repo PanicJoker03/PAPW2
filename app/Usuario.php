@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use App\Club;
 use App\Publicacion;
+use App\Subscripcion;
 class Usuario extends Model implements Authenticatable
 {
     protected $table = 'usuario';
@@ -23,13 +24,26 @@ class Usuario extends Model implements Authenticatable
     //Solo regresa los id's
     public function clubsSubscrito_id()
     {
-        return $this->HasMany('App\Subscripcion', 'usuario')->where('activo', true)->pluck('id')->toArray();
+        return $this->HasMany('App\Subscripcion', 'usuario')->where('activo', true)->pluck('club')->toArray();
     }
 
+    public function clubsSubscrito()
+    {
+        $subscripciones = DB::table('subscripcion')
+            ->join('club', 'subscripcion.club', '=', 'club.id')
+            ->where([
+                'club.activo' => true,
+                'subscripcion.activo' => true,
+                'usuario' => $this->id
+                ])
+            ->get();
+        return $subscripciones;
+    }
     public function publicacionesPorAprobar()
     {
         return $this->HasManyThrough('App\Publicacion', 'App\Club', 'creador', 'club')
             ->where([
+                'club.activo' => true,
                 'publicacion.activo' => true,
                 'aprobado' => false,
             ])->orderBy('publicacion.created_at','desc');
@@ -50,6 +64,16 @@ class Usuario extends Model implements Authenticatable
                 'usuario' => $this->id])
             ->first();
         return $megusta;
+    }
+    public function clubSubscripcion($club)
+    {
+        $subscripcion = Club::find($club)
+            ->hasMany('App\Subscripcion', 'club')
+            ->where([
+                'activo' => true,
+                'usuario' => $this->id])
+            ->first();
+        return $subscripcion;
     }
     public function getAuthIdentifierName()
     {

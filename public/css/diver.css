@@ -15,7 +15,10 @@ body {
 .sidepanel{
 	float: right;
 	width: 200px;
-	margin-bottom: 20px;
+	margin-bottom: 20px !important;
+}
+.sidepanel .list-group-item{
+	width: 100%;
 }
 .sidepanel a {float: right;}
 .nav-diver, .nav-diver a, .panel-heading, li.list-group-item, .modal-header, .modal-header>.close, .btn-default, .btn-primary, button {
@@ -216,6 +219,7 @@ div.container-comments textarea:focus, div.comment-helper .form-group textarea:f
 
 div.container-post {
 	width: 80%;
+	max-width: 900px;
 }
 
 div.horizontal {
@@ -311,6 +315,33 @@ div.club-thumbnail hr{
 	margin-bottom: 10px;
 }
 
+.usuario-button{
+	background: transparent !important;
+	border-color: LightSteelBlue !important;
+	position: relative;
+	float: right;
+	width: 200px;
+	height: 40px;
+	text-align: left;
+	padding: 1px;
+	color: SlateGrey !important;
+	margin-bottom: 6px;
+}
+.usuario-button:hover{
+	background: AliceBlue !important;
+}
+.usuario-button img{
+	width: 18%;
+}
+.usuario-button p{
+    position: absolute;
+	width: 80%;
+	margin: 0;
+	/*height: 36px;*/
+	margin-left: 40px;
+    bottom: 0;
+    font-weight: bold;
+}
 #megusta.procesando{
 	background-color: #404040 !important;
 }

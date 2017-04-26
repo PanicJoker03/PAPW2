@@ -19,6 +19,7 @@ Vue.component('aprobar-publicacion', require('./components/AprobarPublicacion.vu
 Vue.component('publicacion-scroller', require('./components/PublicacionScroller.vue'));
 Vue.component('comentario-scroller', require('./components/ComentarioScroller.vue'));
 Vue.component('boton-megusta', require('./components/BotonMeGusta.vue'));
+Vue.component('boton-subscripcion', require('./components/BotonSubscripcion.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 54);
+/******/ 	return __webpack_require__(__webpack_require__.s = 60);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11242,20 +11242,21 @@ module.exports = g;
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(36);
-__webpack_require__(37);
+__webpack_require__(38);
+__webpack_require__(39);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('crear-club-modal', __webpack_require__(42));
-Vue.component('crear-publicacion-modal', __webpack_require__(43));
-Vue.component('aprobar-publicacion', __webpack_require__(40));
-Vue.component('publicacion-scroller', __webpack_require__(44));
-Vue.component('comentario-scroller', __webpack_require__(41));
-Vue.component('boton-megusta', __webpack_require__(64));
+Vue.component('crear-club-modal', __webpack_require__(46));
+Vue.component('crear-publicacion-modal', __webpack_require__(47));
+Vue.component('aprobar-publicacion', __webpack_require__(42));
+Vue.component('publicacion-scroller', __webpack_require__(48));
+Vue.component('comentario-scroller', __webpack_require__(45));
+Vue.component('boton-megusta', __webpack_require__(43));
+Vue.component('boton-subscripcion', __webpack_require__(44));
 
 var app = new Vue({
   el: '#app'
@@ -12221,6 +12222,137 @@ module.exports = function spread(callback) {
 //
 //
 //
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            peticionTerminada: true,
+            botonSpan: '',
+            _id: ''
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+        _this._id = _this.id;
+        _this.botonSpan = $("#megusta span");
+        //TODO: mover este código en funcion onClick que sea llamado en v-on:click
+        $("#megusta").click(function () {
+            if (_this.peticionTerminada) {
+                _this.peticionTerminada = false;
+                _this._id == -1 ? _this.darMegusta() : _this.quitarMeGusta();
+            }
+        });
+    },
+
+    props: ['id', 'publicacion'],
+    methods: {
+        darMegusta: function darMegusta() {
+            var _this = this;
+            var datosMegusta = _this.formToken();
+            datosMegusta.append('publicacion', _this.publicacion);
+            $("#megusta").addClass("procesando");
+            _this.$http.post('/megusta/crear', datosMegusta).then(function (response) {
+                $("#megusta").removeClass("procesando");
+                _this.botonSpan.addClass("glyphicon-heart").removeClass("glyphicon-heart-empty");
+                _this._id = response.data.id;
+                _this.peticionTerminada = true;
+            });
+        },
+        quitarMeGusta: function quitarMeGusta() {
+            var _this = this;
+            $("#megusta").addClass("procesando");
+            _this.$http.post('/megusta/' + _this._id + '/borrar', _this.formToken()).then(function (response) {
+                $("#megusta").removeClass("procesando");
+                _this.botonSpan.addClass("glyphicon-heart-empty").removeClass("glyphicon-heart");
+                _this._id = -1;
+                _this.peticionTerminada = true;
+            });
+        },
+        formToken: function formToken() {
+            var token = new FormData();
+            token.append('_token', window.Laravel.csrfToken);
+            return token;
+        }
+    }
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            peticionTerminada: true,
+            _id: ''
+        };
+    },
+    mounted: function mounted() {
+        this._id = this.id;
+    },
+
+    props: ['id', 'club'],
+    methods: {
+        darSeguir: function darSeguir(boton) {
+            var _this = this;
+            var datosSubscripcion = _this.formToken();
+            datosSubscripcion.append('club', _this.club);
+            boton.addClass('procesando');
+            _this.$http.post('/subscripcion/crear', datosSubscripcion).then(function (response) {
+                boton.removeClass("procesando");
+                boton.html('Dejar de seguir');
+                _this._id = response.data.id;
+                _this.peticionTerminada = true;
+            });
+        },
+        quitarSeguir: function quitarSeguir(boton) {
+            var _this = this;
+            boton.addClass("procesando");
+            _this.$http.post('/subscripcion/' + _this._id + '/borrar', _this.formToken()).then(function (response) {
+                boton.removeClass("procesando");
+                boton.html('Seguir');
+                _this._id = -1;
+                _this.peticionTerminada = true;
+            });
+        },
+        formToken: function formToken() {
+            var token = new FormData();
+            token.append('_token', window.Laravel.csrfToken);
+            return token;
+        },
+        onClick: function onClick(event) {
+            var boton = $(event.target);
+            if (this.peticionTerminada) {
+                this.peticionTerminada = false;
+                this._id == -1 ? this.darSeguir(boton) : this.quitarSeguir(boton);
+            }
+        }
+    }
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 34 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12315,7 +12447,7 @@ module.exports = function spread(callback) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12437,7 +12569,7 @@ module.exports = function spread(callback) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12537,7 +12669,7 @@ module.exports = function spread(callback) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12620,10 +12752,10 @@ module.exports = function spread(callback) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {window._ = __webpack_require__(39);
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {window._ = __webpack_require__(41);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12633,7 +12765,7 @@ module.exports = function spread(callback) {
 
 window.$ = __webpack_provided_window_dot_jQuery = __webpack_require__(1);
 
-__webpack_require__(38);
+__webpack_require__(40);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -12641,8 +12773,8 @@ __webpack_require__(38);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(51);
-Vue.use(__webpack_require__(50));
+window.Vue = __webpack_require__(57);
+Vue.use(__webpack_require__(56));
 /*
 Vue.http.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;*/
 
@@ -12692,7 +12824,7 @@ Vue.http.options.emulateJSON = true;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* jQuery-crop v1.0.2, based on jWindowCrop v1.0.0
@@ -12823,7 +12955,7 @@ Vue.http.options.emulateJSON = true;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -15207,7 +15339,7 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32296,17 +32428,17 @@ if (typeof jQuery === 'undefined') {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(52)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(58)(module)))
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
   __webpack_require__(31),
   /* template */
-  __webpack_require__(48),
+  __webpack_require__(54),
   /* scopeId */
   null,
   /* cssModules */
@@ -32333,14 +32465,82 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(46),
+  __webpack_require__(51),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\w7\\papw2\\resources\\assets\\js\\components\\BotonMeGusta.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] BotonMeGusta.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-23b33e96", Component.options)
+  } else {
+    hotAPI.reload("data-v-23b33e96", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(33),
+  /* template */
+  __webpack_require__(49),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\w7\\papw2\\resources\\assets\\js\\components\\BotonSubscripcion.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] BotonSubscripcion.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0a49e0bc", Component.options)
+  } else {
+    hotAPI.reload("data-v-0a49e0bc", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(34),
+  /* template */
+  __webpack_require__(52),
   /* scopeId */
   null,
   /* cssModules */
@@ -32367,14 +32567,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(33),
+  __webpack_require__(35),
   /* template */
-  __webpack_require__(49),
+  __webpack_require__(55),
   /* scopeId */
   null,
   /* cssModules */
@@ -32401,14 +32601,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(34),
+  __webpack_require__(36),
   /* template */
-  __webpack_require__(45),
+  __webpack_require__(50),
   /* scopeId */
   null,
   /* cssModules */
@@ -32435,14 +32635,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(35),
+  __webpack_require__(37),
   /* template */
-  __webpack_require__(47),
+  __webpack_require__(53),
   /* scopeId */
   null,
   /* cssModules */
@@ -32469,7 +32669,32 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 45 */
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "btn btn-default btn-block",
+    attrs: {
+      "id": "subscripcion"
+    },
+    on: {
+      "click": function($event) {
+        _vm.onClick($event)
+      }
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.id == -1 ? 'Seguir' : 'Dejar de seguir') + "\n\t")])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-0a49e0bc", module.exports)
+  }
+}
+
+/***/ }),
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32605,7 +32830,30 @@ if (false) {
 }
 
 /***/ }),
-/* 46 */
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "btn btn-default btn-block",
+    attrs: {
+      "id": "megusta"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon",
+    class: [_vm.id == -1 ? 'glyphicon-heart-empty' : 'glyphicon-heart']
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-23b33e96", module.exports)
+  }
+}
+
+/***/ }),
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32697,7 +32945,7 @@ if (false) {
 }
 
 /***/ }),
-/* 47 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32740,7 +32988,7 @@ if (false) {
 }
 
 /***/ }),
-/* 48 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32809,7 +33057,7 @@ if (false) {
 }
 
 /***/ }),
-/* 49 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32947,7 +33195,7 @@ if (false) {
 }
 
 /***/ }),
-/* 50 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34025,7 +34273,7 @@ var xhrClient = function (request) {
 
 var nodeClient = function (request) {
 
-    var client = __webpack_require__(53);
+    var client = __webpack_require__(59);
 
     return new PromiseObj(function (resolve) {
 
@@ -34479,7 +34727,7 @@ module.exports = plugin;
 
 
 /***/ }),
-/* 51 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43055,7 +43303,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(10)))
 
 /***/ }),
-/* 52 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -43083,149 +43331,18 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 53 */
+/* 59 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 54 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
-
-/***/ }),
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = {
-    data: function data() {
-        return {
-            peticionTerminada: true,
-            botonSpan: '',
-            _id: ''
-        };
-    },
-    mounted: function mounted() {
-        var _this = this;
-        _this._id = _this.id;
-        _this.botonSpan = $("#megusta span");
-        $("#megusta").click(function () {
-            if (_this.peticionTerminada) {
-                _this.peticionTerminada = false;
-                _this._id == -1 ? _this.darMegusta() : _this.quitarMeGusta();
-            }
-        });
-    },
-
-    props: ['id', 'publicacion'],
-    methods: {
-        darMegusta: function darMegusta() {
-            var _this = this;
-            var datosMegusta = _this.formToken();
-            datosMegusta.append('publicacion', _this.publicacion);
-            $("#megusta").addClass("procesando");
-            _this.$http.post('/megusta/crear', datosMegusta).then(function (response) {
-                $("#megusta").removeClass("procesando");
-                _this.botonSpan.addClass("glyphicon-heart").removeClass("glyphicon-heart-empty");
-                _this._id = response.data.id;
-                _this.peticionTerminada = true;
-            });
-        },
-        quitarMeGusta: function quitarMeGusta() {
-            var _this = this;
-            $("#megusta").addClass("procesando");
-            _this.$http.post('/megusta/' + _this._id + '/borrar', _this.formToken()).then(function (response) {
-                $("#megusta").removeClass("procesando");
-                _this.botonSpan.addClass("glyphicon-heart-empty").removeClass("glyphicon-heart");
-                _this._id = -1;
-                _this.peticionTerminada = true;
-            });
-        },
-        formToken: function formToken() {
-            var token = new FormData();
-            token.append('_token', window.Laravel.csrfToken);
-            return token;
-        }
-    }
-};
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(2)(
-  /* script */
-  __webpack_require__(63),
-  /* template */
-  __webpack_require__(65),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\Users\\w7\\papw2\\resources\\assets\\js\\components\\BotonMeGusta.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] BotonMeGusta.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-23b33e96", Component.options)
-  } else {
-    hotAPI.reload("data-v-23b33e96", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    staticClass: "btn btn-default btn-block",
-    attrs: {
-      "id": "megusta"
-    }
-  }, [_c('span', {
-    staticClass: "glyphicon",
-    class: [_vm.id == -1 ? 'glyphicon-heart-empty' : 'glyphicon-heart']
-  })])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-23b33e96", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);
