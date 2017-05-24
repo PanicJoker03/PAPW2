@@ -12375,6 +12375,12 @@ module.exports = function spread(callback) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	props: ['src', 'usuario', 'publicacion'],
@@ -12436,6 +12442,23 @@ module.exports = function spread(callback) {
 				$('#comentario-textarea').val('');
 				items.unshift(response.data[0]);
 			});
+		},
+		abrirEdicion: function abrirEdicion(comentario) {
+			$(".botonEditar[comentario='" + comentario + "']").hide("fast");
+			$(".form-editarComentario[comentario='" + comentario + "']").show("fast");
+		},
+		cerrarEdicion: function cerrarEdicion(comentario) {
+			$(".botonEditar[comentario='" + comentario + "']").show("fast");
+			$(".form-editarComentario[comentario='" + comentario + "']").hide("fast");
+		},
+		editarEntrada: function editarEntrada(comentario) {
+			var comentarioText = $(".form-editarComentario[comentario='" + comentario + "'] input[type='text']").val();
+			var datosComentario = this.formToken();
+			datosComentario.append('comentario', comentarioText);
+			this.$http.post('/comentario/' + comentario + '/editar', datosComentario).then(function (response) {
+				$("#comentarioTexto[comentario='" + comentario + "']").text(comentarioText);
+			});
+			this.cerrarEdicion(comentario);
 		},
 		formToken: function formToken() {
 			var token = new FormData();
@@ -32931,9 +32954,61 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "glyphicon glyphicon glyphicon-trash"
+    })]) : _vm._e(), _vm._v(" "), (item.usuario == _vm.usuario) ? _c('a', {
+      staticClass: "botonEditar badge btn btn-default pull-right",
+      attrs: {
+        "comentario": item.id
+      },
+      on: {
+        "click": function($event) {
+          _vm.abrirEdicion(item.id)
+        }
+      }
+    }, [_c('span', {
+      staticClass: "glyphicon glyphicon glyphicon-pencil"
     })]) : _vm._e()]), _vm._v(" "), _c('p', {
-      staticClass: "list-group-item-text"
-    }, [_vm._v(_vm._s(item.comentario))])])]
+      staticClass: "list-group-item-text",
+      attrs: {
+        "id": "comentarioTexto",
+        "comentario": item.id
+      }
+    }, [_vm._v(_vm._s(item.comentario))]), _vm._v(" "), (item.usuario == _vm.usuario) ? _c('form', {
+      staticClass: "form-editarComentario",
+      attrs: {
+        "comentario": item.id,
+        "method": "post",
+        "hidden": ""
+      },
+      on: {
+        "submit": function($event) {
+          $event.preventDefault();
+          _vm.editarEntrada(item.id)
+        }
+      }
+    }, [_c('input', {
+      staticClass: "form-control",
+      attrs: {
+        "type": "text",
+        "name": "comentario"
+      },
+      domProps: {
+        "value": item.comentario
+      }
+    }), _vm._v(" "), _c('button', {
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Editar")]), _vm._v(" "), _c('a', {
+      staticClass: "btn",
+      attrs: {
+        "comentario": item.id
+      },
+      on: {
+        "click": function($event) {
+          _vm.cerrarEdicion(item.id)
+        }
+      }
+    }, [_vm._v("Omitir")])]) : _vm._e()])]
   })], 2)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true

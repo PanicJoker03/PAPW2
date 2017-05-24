@@ -26,4 +26,10 @@ class ComentarioControl extends Controller
         $comentario->activo = false;
         $comentario->save();
     }
+    public function editar(Request $request, $id)
+    {
+        $comentario = Comentario::find($id);
+        $comentario->comentario = $request->comentario;
+        $comentario->save();
+    }
 }

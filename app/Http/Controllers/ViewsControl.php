@@ -64,4 +64,10 @@ class ViewsControl extends Controller
     		'megusta' => $usuario->publicacionMegusta($publicacion->id)
     		]);
     }
+    public function usuario()
+    {
+    	return view('usuario', [
+    		Auth::user()
+    		]);
+    }
 }

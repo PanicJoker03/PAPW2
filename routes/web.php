@@ -14,6 +14,7 @@ use App\Publicacion;
 //La creación/modificacion en post
 Route::get('/', 'ViewsControl@inicio');
 Route::get('/administrar', 'ViewsControl@administrar');
+Route::get('/usuario', 'ViewsControl@usuario');
 //Sesión
 Route::post('/registrar', 'InicioControl@registrar');
 Route::post('/iniciarSesion', 'InicioControl@iniciarSesion');
@@ -44,6 +45,7 @@ Route::group(['prefix' => 'publicacion'], function(){
 Route::group(['prefix' => 'comentario'], function(){
 	Route::post('crear', 'ComentarioControl@crearComentario');
 	Route::post('{id}/borrar', 'ComentarioControl@borrar');
+	Route::post('{id}/editar', 'ComentarioControl@editar');
 	Route::get('publicacion/{id}/paginado', 'ComentarioControl@comentariosPaginado');
 });
 //Me gusta

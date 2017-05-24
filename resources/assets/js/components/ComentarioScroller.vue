@@ -19,8 +19,14 @@
 						<!-- Esta parte solo se va a generar si el usuario es autor del comentario -->
 						<!-- Es importante que el botón tenga el atributo :comentario="item.id" -->
 						<a v-if="item.usuario == usuario" :comentario="item.id" class=" badge btn btn-default pull-right" v-on:click="borrarEntrada"><span class="glyphicon glyphicon glyphicon-trash"></span></a>
+						<a v-if="item.usuario == usuario" :comentario="item.id" class="botonEditar badge btn btn-default pull-right" v-on:click="abrirEdicion(item.id)"><span class="glyphicon glyphicon glyphicon-pencil"></span></a>
 					</h4>
-					<p class="list-group-item-text">{{item.comentario}}</p>
+					<p id="comentarioTexto" :comentario="item.id" class="list-group-item-text">{{item.comentario}}</p>
+					<form v-if="item.usuario == usuario" :comentario="item.id" @submit.prevent="editarEntrada(item.id)" class="form-editarComentario" method="post" hidden>
+						<input type="text" class="form-control" name="comentario" :value="item.comentario">
+						<button type="submit">Editar</button>
+						<a class="btn" :comentario="item.id" v-on:click="cerrarEdicion(item.id)">Omitir</a>
+					</form>
 				</li>
 			</template>
 		</ul>
@@ -94,6 +100,27 @@
 					$('#comentario-textarea').val('');
 					items.unshift(response.data[0]);
 				});
+			},
+			abrirEdicion(comentario)
+			{
+				$(".botonEditar[comentario='"+ comentario +"']").hide("fast");
+				$(".form-editarComentario[comentario='"+ comentario +"']").show("fast");
+			},
+			cerrarEdicion(comentario)
+			{
+				$(".botonEditar[comentario='"+ comentario +"']").show("fast");
+				$(".form-editarComentario[comentario='"+ comentario +"']").hide("fast");
+			},
+			editarEntrada(comentario)
+			{
+        		const comentarioText = $(".form-editarComentario[comentario='"+ comentario +"'] input[type='text']").val();
+        		const datosComentario = this.formToken();
+        		datosComentario.append('comentario', comentarioText);
+				this.$http.post('/comentario/'+ comentario +'/editar', datosComentario)
+				.then((response) => {
+					$("#comentarioTexto[comentario='"+comentario+"']").text(comentarioText);
+				});
+				this.cerrarEdicion(comentario);
 			},
 			formToken(){
         		let token = new FormData();
