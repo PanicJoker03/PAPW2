@@ -149,7 +149,7 @@
             <div class="container">
                 <div class="row">
                     <div class="footer-col col-md-6">
-                        <h3 class="light">Redes Sociales</h3>
+                        <h3>Redes Sociales</h3>
                         <ul class="list-inline">
                             <li>
                                 <a href="#" class="btn-social btn-outline"><span class="sr-only">Facebook</span><i class="fa fa-fw fa-facebook"></i></a>
@@ -163,7 +163,7 @@
                         </ul>
                     </div>
                     <div class="footer-col col-md-6">
-                        <h3 class="light">Acerca de</h3>
+                        <h3>Acerca de</h3>
                         <div class="row">
                             <div class="col-sm-12"><a href="" class="link-diver">Acerca de nosotros</a></div>
                             <div class="col-sm-12"><a href="" class="link-diver">Nuestras politicas</a></div>

@@ -1,7 +1,38 @@
+button, .btn-default {
+	border: none !important;
+	border-radius: 2px !important;
+	color: white !important;
+	padding: 6px 12px !important;
+	font-size: 16px !important;
+	position: relative !important;
+	box-sizing: border-box !important;
+	z-index: 1 !important;
+	background-color: #242540 !important;
+}
+
+button:after, .btn-default:after {
+	content:'';
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	transform: scaleY(0);
+	transform-origin: bottom center;
+	background: #18BC9C;
+	transition: all 0.2s ease;
+	z-index: -1;
+}
+
+button:hover:after, .btn-default:hover:after {
+	transform: scaleY(1);
+}
+
+/***************************************/
+
 body {
 	background-color: #eef3f6 !important;
 }
-
 .form-login
 {
 	min-width: 270px;
@@ -21,7 +52,7 @@ body {
 	width: 100%;
 }
 .sidepanel a {float: right;}
-.nav-diver, .nav-diver a, .panel-heading, li.list-group-item, .modal-header, .modal-header>.close, .btn-default, .btn-primary, button {
+.nav-diver, .nav-diver a, .panel-heading, li.list-group-item, .modal-header, .modal-header>.close {
 	background-color: #242540 !important;
 	border-color: #090910 !important;
 	color: white !important;
@@ -68,12 +99,12 @@ body {
 	border-bottom-left-radius: 0px;
 }
 
-button[type="submit"], .btn-primary {
+/*button[type="submit"], .btn-primary {
 	border-radius: 2px;
 	border-width: 1px;
 	min-width: 150px;
 	box-shadow: 0 0 4px #7c7eb6;
-}
+}*/
  
 .navbar-brand, .dropdown-toggle, .nav-link, .dropdown-menu > li > a {
 	position: relative;
@@ -98,10 +129,10 @@ button[type="submit"], .btn-primary {
 	transform: scaleY(1);
 }
 
-button[type="submit"]:hover, .btn-primary:hover, .btn-default:hover {
+/*button[type="submit"]:hover, .btn-primary:hover, .btn-default:hover {
 	background-color: #18BC9C !important;
 	box-shadow: 0 0 8px #18BC9C;
-}
+}*/
 
 input[type="text"], 
 input[type="password"], 
@@ -201,6 +232,10 @@ div.comment-helper .list-group .list-group-item {
 	border: none;
 	color: #242540 !important;
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.34);
+}
+
+div.comment-helper .list-group .list-group-item > img {
+	margin-right: 10px;
 }
 
 div.container-comments textarea, div.comment-helper .form-group textarea {
@@ -344,4 +379,12 @@ div.club-thumbnail hr{
 }
 #megusta.procesando{
 	background-color: #404040 !important;
+}
+p.badge {
+	margin: 0% 50%;
+	transform: translateX(-50%);
+	background-color: #242540 !important;
+}
+div.caption > p {
+	text-align: center;
 }
