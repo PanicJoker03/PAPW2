@@ -43479,6 +43479,13 @@ module.exports = __webpack_require__(12);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -43489,11 +43496,13 @@ module.exports = __webpack_require__(12);
             cropH: ''
         };
     },
+
+    props: ['nombreUsuario', 'correoUsuario', 'generoUsuario', 'fechaUsuario', 'avatarRuta', 'token'],
     mounted: function mounted() {
         //console.log('Component mounted.');
         var _this = this;
         var timeStamp = 0;
-        $('#prevUsuario').attr('src', '/images/subir-imagen.png');
+        $('#prevUsuario').attr('src', this.avatarRuta);
         $('#prevUsuario').crop({
             width: 100,
             height: 100,
@@ -43531,21 +43540,21 @@ module.exports = __webpack_require__(12);
                 };
                 reader.readAsDataURL(files[0]);
             } else {
-                $('#prevUsuario').attr('src', '/images/subir-imagen.png');
+                $('#prevUsuario').attr('src', this.avatarRuta);
             }
         },
         editarUsuario: function editarUsuario() {
             var form = document.getElementById('editarUsuarioForm');
-            var datosClub = new FormData(form);
-            datosClub.append('_token', window.Laravel.csrfToken);
-            datosClub.append('cropX', this.cropX);
-            datosClub.append('cropY', this.cropY);
-            datosClub.append('cropW', this.cropW);
-            datosClub.append('cropH', this.cropH);
-            this.$http.post('/usuario/editar', datosClub).then(function (response) {
+            var datosUsuario = new FormData(form);
+            //datosClub.append('_token', window.Laravel.csrfToken);
+            datosUsuario.append('cropX', this.cropX);
+            datosUsuario.append('cropY', this.cropY);
+            datosUsuario.append('cropW', this.cropW);
+            datosUsuario.append('cropH', this.cropH);
+            this.$http.post('/usuario/editar', datosUsuario).then(function (response) {
                 $('#editaUsuarioModal').modal('hide');
-                $('#editarUsuarioForm').trigger('reset');
-                window.location = '/' + response.data.id + '/vista';
+                //$('#editarUsuarioForm').trigger('reset');
+                window.location = window.location;
             });
         }
     }
@@ -43620,9 +43629,97 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.editarUsuario($event)
       }
     }
-  }, [_c('div', {
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.token
+    }
+  }), _vm._v(" "), _c('div', {
     staticClass: "modal-body"
-  }, [_c('h5', [_vm._v("Información de usuario")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
+  }, [_c('h5', [_vm._v("Información de usuario")]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "nombreUsuario"
+    }
+  }, [_vm._v("Nombre")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "nombreUsuario",
+      "id": "nombreUsuario",
+      "placeholder": "¿Como te gustaría llamarte?",
+      "required": ""
+    },
+    domProps: {
+      "value": _vm.nombreUsuario
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "correo"
+    }
+  }, [_vm._v("Correo electrónico")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "email",
+      "name": "correo",
+      "id": "correoUsuario",
+      "placeholder": "Dirección de correo electrónico",
+      "required": ""
+    },
+    domProps: {
+      "value": _vm.correoUsuario
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "control-label"
+  }, [_vm._v("Género")]), _vm._v(" "), _c('div', {
+    staticClass: "radio"
+  }, [_c('label', [_c('input', {
+    attrs: {
+      "type": "radio",
+      "name": "genero",
+      "id": "generoUsuario",
+      "value": "Hombre",
+      "required": ""
+    },
+    domProps: {
+      "checked": _vm.generoUsuario == 'Hombre'
+    }
+  }), _vm._v("Hombre")])]), _vm._v(" "), _c('div', {
+    staticClass: "radio"
+  }, [_c('label', [_c('input', {
+    attrs: {
+      "type": "radio",
+      "name": "genero",
+      "id": "generoUsuario",
+      "value": "Mujer",
+      "required": ""
+    },
+    domProps: {
+      "checked": _vm.generoUsuario == 'Mujer'
+    }
+  }), _vm._v("Mujer")])]), _vm._v(" "), _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "fechaNacimiento"
+    }
+  }, [_vm._v("Fecha de nacimiento")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "date",
+      "name": "fechaNacimiento",
+      "id": "fechaUsuario",
+      "required": ""
+    },
+    domProps: {
+      "value": _vm.fechaUsuario
+    }
+  })]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
@@ -43630,7 +43727,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Imagen de usuario")]), _vm._v(" "), _c('div', {
     staticClass: "row"
-  }, [_vm._m(2), _vm._v(" "), _c('div', {
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "col-xs-9"
   }, [_c('input', {
     staticClass: "form-control",
@@ -43643,7 +43740,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "change": _vm.archivoSeleccionado
     }
-  }), _vm._v(" "), _c('small', [_vm._v("Elige la imagen avatar de usuario")])])])])]), _vm._v(" "), _vm._m(3)])])])])
+  }), _vm._v(" "), _c('small', [_vm._v("Elige la imagen avatar de usuario")])])])])]), _vm._v(" "), _vm._m(2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header"
@@ -43660,60 +43757,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "editarUsuarioTitulo"
     }
   }, [_vm._v("Editar información personal")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    staticClass: "control-label",
-    attrs: {
-      "for": "nombreUsuario"
-    }
-  }, [_vm._v("Nombre")]), _vm._v(" "), _c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "text",
-      "name": "nombreUsuario",
-      "id": "nombreUsuario",
-      "placeholder": "¿Como te gustaría llamarte?"
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "control-label",
-    attrs: {
-      "for": "correoUsuario"
-    }
-  }, [_vm._v("Correo electrónico")]), _vm._v(" "), _c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "email",
-      "name": "correoUsuario",
-      "id": "correoUsuario",
-      "placeholder": "Dirección de correo electrónico"
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "control-label",
-    attrs: {
-      "for": "generoUsuario"
-    }
-  }, [_vm._v("Género")]), _vm._v(" "), _c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "text",
-      "name": "generoUsuario",
-      "id": "generoUsuario"
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "control-label",
-    attrs: {
-      "for": "fechaUsuario"
-    }
-  }, [_vm._v("Fecha de nacimiento")]), _vm._v(" "), _c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "date",
-      "name": "fechaUsuario",
-      "id": "fechaUsuario"
-    }
-  })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-xs-3"
@@ -43734,7 +43777,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("Crear")])])])
+  }, [_vm._v("Editar")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

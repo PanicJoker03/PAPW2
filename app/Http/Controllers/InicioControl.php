@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Usuario;
 use App\Club;
+use Helper;
+use Image;
 class InicioControl extends Controller
 {
     public function registrar(Request $request)
@@ -38,5 +40,31 @@ class InicioControl extends Controller
     {
         Auth::logout();
         return redirect('/');
+    }
+
+    public function editarUsuario(Request $request)
+    {
+        
+        $user = Auth::user();
+        $user->nombreUsuario = $request->nombreUsuario;
+        $user->correo = $request->correo;
+        $user->genero = $request->genero;
+        $user->fechaNacimiento = $request->fechaNacimiento;
+        if($request->file('imagen'))
+        {
+            $imagen = Image::make($request->file('imagen'));
+            Helper::recortarImagen(
+                $imagen,
+                $request->cropW,
+                $request->cropH,
+                $request->cropX,
+                $request->cropY
+            );
+            $rutas = Helper::guardarImagenAvatar($imagen);
+            $user->avatarRuta = $rutas['imagenRuta'];
+            $user->avatarMinRuta = $rutas['imagenMinRuta'];
+        }
+        $user->save();
+        return $user;
     }
 }

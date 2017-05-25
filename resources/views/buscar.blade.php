@@ -2,11 +2,12 @@
 @section('content')
 <div class="container">
 	<editar-usuario-modal 
-		nombre-usuario={{ $usuario->nombreUsuario }}
+		nombre-usuario="{{ $usuario->nombreUsuario }}"
 		correo-usuario={{ $usuario->correo }}
 		genero-usuario={{ $usuario->genero }}
 		fecha-usuario={{ $usuario->fechaNacimiento }}
-		avatar-min-ruta={{ $usuario->avatarMinRuta }}>
+		avatar-ruta={{ $usuario->avatarRuta }}
+		token={{csrf_token()}}>
 	</editar-usuario-modal>
 	<div class="row">
 		<div class="col-sm-3 hidden-xs">

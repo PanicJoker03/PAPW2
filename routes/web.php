@@ -15,6 +15,7 @@ use App\Publicacion;
 Route::get('/', 'ViewsControl@inicio');
 Route::get('/administrar', 'ViewsControl@administrar');
 Route::get('/buscar', 'ViewsControl@buscar');
+Route::post('/usuario/editar', 'InicioControl@editarUsuario');
 //Sesión
 Route::post('/registrar', 'InicioControl@registrar');
 Route::post('/iniciarSesion', 'InicioControl@iniciarSesion');

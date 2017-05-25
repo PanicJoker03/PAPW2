@@ -7,17 +7,24 @@
 					<h5 class="modal-title" id="editarUsuarioTitulo">Editar información personal</h5>
 				</div>
 				<form id="editarUsuarioForm" class="post-action" @submit.prevent="editarUsuario" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="_token" :value="token">
 					<div class="modal-body">
 						<h5>Información de usuario</h5>
 						<div class="form-group">
 							<label class="control-label" for="nombreUsuario">Nombre</label>
-							<input type="text" name="nombreUsuario" id="nombreUsuario" class="form-control" placeholder="¿Como te gustaría llamarte?">
-                            <label class="control-label" for="correoUsuario">Correo electrónico</label>
-                            <input type="email" name="correoUsuario" id="correoUsuario" class="form-control" placeholder="Dirección de correo electrónico">
-                            <label class="control-label" for="generoUsuario">Género</label>
-                            <input type="text" name="generoUsuario" id="generoUsuario" class="form-control">
-                            <label class="control-label" for="fechaUsuario">Fecha de nacimiento</label>
-                            <input type="date" name="fechaUsuario" id="fechaUsuario" class="form-control">
+							<input type="text" name="nombreUsuario" id="nombreUsuario" class="form-control" placeholder="¿Como te gustaría llamarte?" :value="nombreUsuario" required>
+                            <label class="control-label" for="correo">Correo electrónico</label>
+                            <input type="email" name="correo" id="correoUsuario" class="form-control" placeholder="Dirección de correo electrónico" :value="correoUsuario" required>
+                            <label class="control-label">Género</label>
+                            <div class="radio">
+                                <label><input type="radio" name="genero" id="generoUsuario" value="Hombre" :checked="generoUsuario=='Hombre'" required>Hombre</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="genero" id="generoUsuario" value="Mujer" :checked="generoUsuario=='Mujer'" required>Mujer</label>
+                            </div>
+                            
+                            <label class="control-label" for="fechaNacimiento">Fecha de nacimiento</label>
+                            <input type="date" name="fechaNacimiento" id="fechaUsuario" class="form-control" :value="fechaUsuario" required>
 						</div>
 						<div class="form-group">
 							<label for="imagen">Imagen de usuario</label>
@@ -34,7 +41,7 @@
 					</div>
 					<div class="modal-footer">
 						<div class="form-group text-center">
-							<button type="submit">Crear</button>
+							<button type="submit">Editar</button>
 						</div>
 					</div>
 				</form>
@@ -52,12 +59,20 @@
                 cropW : '',
                 cropH : '',
     		}
-    	},										
+    	},			
+        props: [
+            'nombreUsuario', 
+            'correoUsuario', 
+            'generoUsuario', 
+            'fechaUsuario', 
+            'avatarRuta',
+            'token'
+            ],                         
         mounted() {
             //console.log('Component mounted.');
             var _this = this;
             var timeStamp = 0;
-            $('#prevUsuario').attr('src', '/images/subir-imagen.png');
+            $('#prevUsuario').attr('src', this.avatarRuta);
             $('#prevUsuario')
             .crop({
                     width : 100,
@@ -99,22 +114,22 @@
             		reader.readAsDataURL(files[0]);
             	}
                 else{
-                    $('#prevUsuario').attr('src', '/images/subir-imagen.png');
+                    $('#prevUsuario').attr('src', this.avatarRuta);
                 }
         	},
         	editarUsuario(){
         		const form = document.getElementById('editarUsuarioForm');
-        		const datosClub = new FormData(form);
-        		datosClub.append('_token', window.Laravel.csrfToken);
-                datosClub.append('cropX', this.cropX);
-                datosClub.append('cropY', this.cropY);
-                datosClub.append('cropW', this.cropW);
-                datosClub.append('cropH', this.cropH);
-        		this.$http.post('/usuario/editar', datosClub)
+        		const datosUsuario = new FormData(form);
+        		//datosClub.append('_token', window.Laravel.csrfToken);
+                datosUsuario.append('cropX', this.cropX);
+                datosUsuario.append('cropY', this.cropY);
+                datosUsuario.append('cropW', this.cropW);
+                datosUsuario.append('cropH', this.cropH);
+        		this.$http.post('/usuario/editar', datosUsuario)
         			.then((response) => {
                         $('#editaUsuarioModal').modal('hide');
-                        $('#editarUsuarioForm').trigger('reset');
-        				window.location = '/' + response.data.id + '/vista';
+                        //$('#editarUsuarioForm').trigger('reset');
+        				window.location = window.location;
         			});
         	}
         }
