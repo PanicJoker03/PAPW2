@@ -12,31 +12,46 @@
 			<p>{{$club->nombreClub}}</p>
 		</div>
 	</div>
-	<div>
-	@if ($club->creador == $usuario_id)
-		Es mi club
-	@else
-		<boton-subscripcion
-			@if(isset($subscripcion))
-			id={{$subscripcion->id}}
-			@else
-			id='-1'
-			@endif
-			club={{ $club->id }}>
-		</boton-subscripcion>
-	@endif
+	<div id="options-panel-xs" class="visible-xs-block">
+		<p class="club-desc visible-xs-block">{{$club->descripcion}}</p>
+		<button class="btn btn-default btn-block" data-toggle="modal" data-target="#crearPublicacionModal">
+			<span class="glyphicon glyphicon-plus">&nbsp;</span>Compartir imagen
+		</button>
+		<div class="list-group">
+			<li class="list-group-item">Actividad</li>
+			<a class="list-group-item">
+				[Rellenar]
+			</a>
+		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-3 col-sm-push-9 hidden-xs">
-			<div class="sidepanel">
-				<a class="btn btn-primary" data-toggle="modal" data-target="#crearPublicacionModal"><span class = "glyphicon glyphicon-plus">&nbsp;</span>Compartir imagen</a>
-			</div>
-			<div class="list-group sidepanel">
-				<li class="list-group-item">Ultima actividad (comenantarios, likes)</li>
+		<div id="club-sidepanel" class="col-sm-3 col-sm-push-9 col-xs-12 hidden-xs">
+			<p class="club-desc">{{$club->descripcion}}</p>
+			<hr>
+		@if ($club->creador != $usuario_id)
+			<boton-subscripcion
+				@if(isset($subscripcion))
+				id={{$subscripcion->id}}
+				@else
+				id='-1'
+				@endif
+				club={{ $club->id }}>
+			</boton-subscripcion>
+		@endif
+			<button class="btn btn-default btn-block" data-toggle="modal" data-target="#crearPublicacionModal">
+				<span class="glyphicon glyphicon-plus">&nbsp;</span>Compartir imagen
+			</button>
+			<div class="list-group">
+				<li class="list-group-item">Actividad</li>
+				<a class="list-group-item">
+					[Rellenar]
+				</a>
 			</div>
 		</div>
-		<div class="col-sm-9 col-sm-pull-3 container-diver shadow">
-			<publicacion-scroller src="/publicacion/club/{{$club->id}}/paginado"></publicacion-scroller>
+		<div class="col-sm-9 col-sm-pull-3">
+			<div class="container-fluid container-diver shadow">
+				<publicacion-scroller src="/publicacion/club/{{$club->id}}/paginado"></publicacion-scroller>
+			</div>
 		</div>
 	</div>
 </div>

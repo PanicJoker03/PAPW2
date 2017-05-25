@@ -28,6 +28,19 @@ button:hover:after, .btn-default:hover:after {
 	transform: scaleY(1);
 }
 
+
+img.img-rounded {
+	border-radius: 2px;
+}
+
+p.post-title + img {
+	border-bottom-left-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+}
+button#megusta {
+	border-top-left-radius: 0px !important;
+	border-top-right-radius: 0px !important;
+}
 /***************************************/
 
 body {
@@ -43,10 +56,23 @@ body {
 {
 	margin: auto;
 }
+div#club-sidepanel div.list-group {
+	margin-top: 10px;
+}
+div#club-sidepanel + div {
+	padding-left: 0px;
+}
+div#options-panel-xs button {
+	margin-bottom: 5px;
+}
 .sidepanel{
 	float: right;
 	width: 200px;
 	margin-bottom: 20px !important;
+}
+#subs-list > a.list-group-item img, #clubes-list > a.list-group-item img {
+	margin-right: 10px;
+	border-radius: 2px;
 }
 .sidepanel .list-group-item{
 	width: 100%;
@@ -98,13 +124,6 @@ body {
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 0px;
 }
-
-/*button[type="submit"], .btn-primary {
-	border-radius: 2px;
-	border-width: 1px;
-	min-width: 150px;
-	box-shadow: 0 0 4px #7c7eb6;
-}*/
  
 .navbar-brand, .dropdown-toggle, .nav-link, .dropdown-menu > li > a {
 	position: relative;
@@ -128,11 +147,6 @@ body {
 .navbar-brand:hover::after, .dropdown-toggle:hover::after, .nav-link:hover::after, .dropdown-menu > li > a:hover::after {
 	transform: scaleY(1);
 }
-
-/*button[type="submit"]:hover, .btn-primary:hover, .btn-default:hover {
-	background-color: #18BC9C !important;
-	box-shadow: 0 0 8px #18BC9C;
-}*/
 
 input[type="text"], 
 input[type="password"], 
@@ -180,22 +194,34 @@ input[type="email"]:placeholder {
     margin-top: -50%;
 }
 
-.club-title {
+div.club-title {
 	position: absolute;
 	bottom: 0;
-	/*Falta responsividad*/
 	width: 100%;
 	height: 40px;
 	background: rgba(26,27,64,0.5);
 }
 
-.club-title p {
+div.club-title p {
 	opacity: 1;
 	color: white;
 	position: absolute;
 	transform: translate(20%, -50%);
 	font-size: 14pt;
 	margin: 18px 0px 18px;
+}
+div.club-title p + p {
+	font-size: 10pt;
+	transform: translate(100%, -50%);
+	margin: 18px 0px 18px;
+}
+p.club-desc {
+	font-size: 14pt;
+	font-weight: normal;
+	color: #242540;
+}
+p.club-desc.visible-xs-block {
+	font-size: 12pt;
 }
 
 .shadow, div.comment-helper .form-group {
@@ -216,7 +242,7 @@ div.container-diver, div.container-comments {
 }
 
 div.container-diver {
-	padding: 10px 0px 10px;
+	padding: 10px 10px;
 }
 
 div.container-comments {
@@ -251,10 +277,15 @@ div.container-comments textarea:focus, div.comment-helper .form-group textarea:f
 	box-shadow: 0 0 10px #7c7eb6;
 	color: #242540;
 }
-
 div.container-post {
-	width: 80%;
+	width: 100%;
 	max-width: 900px;
+}
+@media (min-width: @screen-sm-min) {
+	div.container-post {
+		width: 80%;
+		max-width: 900px;
+	}
 }
 
 div.horizontal {
@@ -274,37 +305,36 @@ div.post {
 	margin-bottom: 20px;
 }
 
-.post-title {
-	color: #242540;
-	font-size: 14pt;
+p.post-title {
 	font-weight: bold;
 	text-align: center;
+	font-size: 14pt;
+}
+p.post-desc {
+	font-size: 12pt;
+}
+p.post-title, p.post-desc {
+	color: #242540;
 }
 
-.post-img {
+img.post-img {
 	margin: auto;
 	max-width: 100%;
 	max-height: 100%;
 	border-radius: 4px;
 }
 
-div.comentario {
-	display: flex;
+form#form-comentar textarea {
+	resize: none;
 }
 
-div.comment-img {
-	display: inline-block;
-	flex: 1;
+div.comment-helper ul.list-group a[comentario] {
+	margin: 0px 2px;
 }
 
-div.comment-data {
-	flex: 20;
-	display: inline-block;
-}
-
-div.comment-data h4 {
-	font-weight: bolder;
-	margin: 0px;
+form.form-editarComentario button[type="submit"] {
+	margin-top: 4px;
+	margin-right: 2px;
 }
 
 div.comment-helper .form-group {
@@ -345,18 +375,17 @@ div.club-thumbnail p{
 	font-weight: bold;
 }
 
-div.club-thumbnail hr{
+div.club-thumbnail hr, div#club-sidepanel hr {
 	margin-top:0;
 	margin-bottom: 10px;
 }
-
-.usuario-button{
+.usuario-button {
 	background: transparent !important;
-	border-color: LightSteelBlue !important;
+	border-color: #7d7fb5 !important;
 	position: relative;
-	float: right;
 	width: 200px;
 	height: 40px;
+	float: right;
 	text-align: left;
 	padding: 1px;
 	color: SlateGrey !important;
@@ -387,4 +416,20 @@ p.badge {
 }
 div.caption > p {
 	text-align: center;
+}
+#barraSesion form.navbar-form input[type="text"], #barraSesion form.navbar-form button {
+	margin-left: 10px;
+}
+#barraSesion form.navbar-form input[type="text"] {
+	width: 230px;
+	border-radius: 2px !important;
+}
+div.navbar-header button {
+	height: 100%;
+	margin-right: 10px;
+	
+}
+div.navbar-header button.navbar-toggle {
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
 }

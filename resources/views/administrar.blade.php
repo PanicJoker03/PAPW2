@@ -8,9 +8,11 @@
 					Publicaciones por aprobar
 				</div>
 				<div class="panel-body">
-					@foreach ($publicacionesPorAprobar as $publicacion)
+					@forelse ($publicacionesPorAprobar as $publicacion)
 						<aprobar-publicacion publicacion="{{$publicacion->id}}"></aprobar-publicacion>
-					@endforeach
+					@empty
+						<p>No tienes publicaciones pendientes de aprobar.</p>
+					@endforelse
 				</div>
 			</div>
 		</div>

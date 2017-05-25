@@ -22,6 +22,7 @@
 					@endif
 					publicacion={{ $publicacion->id }}>
 				</boton-megusta>
+				<p class="post-desc">{{$publicacion->descripcion}}</p>
 			</div>
 		</div>
 	</div>
