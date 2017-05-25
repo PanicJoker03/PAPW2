@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('content')
+
 <div class="container container-post">
 	<div class="post shadow">
 			<div class="club-thumbnail">
@@ -13,7 +14,6 @@
 			<div class="vertical">
 				<p class="post-title">{{$publicacion->titulo}}</p>
 				<img src="{{ URL::asset($publicacion->contenidoRuta) }}" class="post-img one-edge-shadow">
-				<p class="post-description">{{$publicacion->descripcion}}</p>
 				<boton-megusta
 					@if(isset($megusta))
 					id={{$megusta->id}}
