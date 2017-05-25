@@ -37,5 +37,9 @@
 				<a class="nav-link" href="/cerrarSesion">Cerrar sesión</a>
 			</li>
 		</ul>
+		<form class="navbar-form" action="/buscar">
+			<input class="form-control" type="text" name="busquedaInput" required>
+			<button class="btn btn-default" type="submit">Buscar</button>
+		</form>
 	</div>
 </nav>

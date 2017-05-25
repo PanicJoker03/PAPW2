@@ -14,6 +14,7 @@ require('./jquery.crop.js');
  */
 
 Vue.component('crear-club-modal', require('./components/CrearClubModal.vue'));
+Vue.component('editar-usuario-modal', require('./components/EditarUsuarioModal.vue'));
 Vue.component('crear-publicacion-modal', require('./components/CrearPublicacionModal.vue'));
 Vue.component('aprobar-publicacion', require('./components/AprobarPublicacion.vue'));
 Vue.component('publicacion-scroller', require('./components/PublicacionScroller.vue'));

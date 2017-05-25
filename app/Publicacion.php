@@ -36,7 +36,14 @@ class Publicacion extends Model
             ->get();
         return $publicaciones;
     }
-
+    public static function buscar($string)
+    {
+        $param = '%'.$string.'%';
+        return Publicacion::where(function($query) use($param){
+            $query->where('titulo','like', $param)
+                ->orWhere('descripcion','like', $param);
+        })->where('activo', true)->get();
+    }
     /*Para los casos en donde se deba de emplear un join es mejor usar el query builder*/
     public function comentariosVista()
     {

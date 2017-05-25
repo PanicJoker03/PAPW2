@@ -11251,6 +11251,7 @@ __webpack_require__(39);
  */
 
 Vue.component('crear-club-modal', __webpack_require__(46));
+Vue.component('editar-usuario-modal', __webpack_require__(70));
 Vue.component('crear-publicacion-modal', __webpack_require__(47));
 Vue.component('aprobar-publicacion', __webpack_require__(42));
 Vue.component('publicacion-scroller', __webpack_require__(48));
@@ -43418,6 +43419,330 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            cropX: '',
+            cropY: '',
+            cropW: '',
+            cropH: ''
+        };
+    },
+    mounted: function mounted() {
+        //console.log('Component mounted.');
+        var _this = this;
+        var timeStamp = 0;
+        $('#prevUsuario').attr('src', '/images/subir-imagen.png');
+        $('#prevUsuario').crop({
+            width: 100,
+            height: 100,
+            loading: '',
+            controls: ''
+        }).click(function (e) {
+            e.preventDefault();
+        }).on('crop', function (event) {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            event.preventDefault();
+            //El hack más grande en la historia de jquery :(
+            if (event.timeStamp - timeStamp > 5) {
+                //console.log(event);
+                _this.cropX = event.cropX;
+                _this.cropY = event.cropY;
+                _this.cropW = event.cropW;
+                _this.cropH = event.cropH;
+                timeStamp = event.timeStamp;
+            }
+            return false;
+        });
+    },
+
+    methods: {
+        //previsualizar la imagen seleccionada...
+        //http://stackoverflow.com/questions/18457340/how-to-preview-selected-image-in-input-type-file-in-popup-using-jquery
+        archivoSeleccionado: function archivoSeleccionado(input) {
+            var files = input.target.files;
+            if (files && files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#prevUsuario').attr('src', e.target.result);
+                    //this.archivo = files[0];
+                };
+                reader.readAsDataURL(files[0]);
+            } else {
+                $('#prevUsuario').attr('src', '/images/subir-imagen.png');
+            }
+        },
+        editarUsuario: function editarUsuario() {
+            var form = document.getElementById('editarUsuarioForm');
+            var datosClub = new FormData(form);
+            datosClub.append('_token', window.Laravel.csrfToken);
+            datosClub.append('cropX', this.cropX);
+            datosClub.append('cropY', this.cropY);
+            datosClub.append('cropW', this.cropW);
+            datosClub.append('cropH', this.cropH);
+            this.$http.post('/usuario/editar', datosClub).then(function (response) {
+                $('#editaUsuarioModal').modal('hide');
+                $('#editarUsuarioForm').trigger('reset');
+                window.location = '/' + response.data.id + '/vista';
+            });
+        }
+    }
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(69),
+  /* template */
+  __webpack_require__(71),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\w7\\papw2\\resources\\assets\\js\\components\\EditarUsuarioModal.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] EditarUsuarioModal.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-536bfc9c", Component.options)
+  } else {
+    hotAPI.reload("data-v-536bfc9c", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "editarUsuarioModal",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "#editarUsuarioTitulo",
+      "aria-hidden": "true"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(0), _vm._v(" "), _c('form', {
+    staticClass: "post-action",
+    attrs: {
+      "id": "editarUsuarioForm",
+      "method": "post",
+      "enctype": "multipart/form-data"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.editarUsuario($event)
+      }
+    }
+  }, [_c('div', {
+    staticClass: "modal-body"
+  }, [_c('h5', [_vm._v("Información de usuario")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "imagen"
+    }
+  }, [_vm._v("Imagen de usuario")]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-9"
+  }, [_c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "file",
+      "name": "imagen",
+      "id": "editarUsuarioInput",
+      "accept": "image/*"
+    },
+    on: {
+      "change": _vm.archivoSeleccionado
+    }
+  }), _vm._v(" "), _c('small', [_vm._v("Elige la imagen avatar de usuario")])])])])]), _vm._v(" "), _vm._m(3)])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_vm._v("×")]), _vm._v(" "), _c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "editarUsuarioTitulo"
+    }
+  }, [_vm._v("Editar información personal")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "nombreUsuario"
+    }
+  }, [_vm._v("Nombre")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "nombreUsuario",
+      "id": "nombreUsuario",
+      "placeholder": "¿Como te gustaría llamarte?"
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "correoUsuario"
+    }
+  }, [_vm._v("Correo electrónico")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "email",
+      "name": "correoUsuario",
+      "id": "correoUsuario",
+      "placeholder": "Dirección de correo electrónico"
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "generoUsuario"
+    }
+  }, [_vm._v("Género")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "generoUsuario",
+      "id": "generoUsuario"
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "fechaUsuario"
+    }
+  }, [_vm._v("Fecha de nacimiento")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "date",
+      "name": "fechaUsuario",
+      "id": "fechaUsuario"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-xs-3"
+  }, [_c('img', {
+    staticClass: "crop pull-left",
+    attrs: {
+      "id": "prevUsuario",
+      "width": "100",
+      "height": "100"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('div', {
+    staticClass: "form-group text-center"
+  }, [_c('button', {
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Crear")])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-536bfc9c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

@@ -14,7 +14,7 @@ use App\Publicacion;
 //La creación/modificacion en post
 Route::get('/', 'ViewsControl@inicio');
 Route::get('/administrar', 'ViewsControl@administrar');
-Route::get('/usuario', 'ViewsControl@usuario');
+Route::get('/buscar', 'ViewsControl@buscar');
 //Sesión
 Route::post('/registrar', 'InicioControl@registrar');
 Route::post('/iniciarSesion', 'InicioControl@iniciarSesion');

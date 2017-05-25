@@ -64,10 +64,16 @@ class ViewsControl extends Controller
     		'megusta' => $usuario->publicacionMegusta($publicacion->id)
     		]);
     }
-    public function usuario()
+    public function buscar(Request $request)
     {
-    	return view('usuario', [
-    		Auth::user()
-    		]);
+		$usuario = Auth::user();
+		return view('buscar',[
+			'usuario' => $usuario,
+	        'misClubes' => $usuario->clubs(),
+	        'nuevosClubs' => Club::masRecientes(),
+	        'subscripciones' => $usuario->clubsSubscrito(),
+	        'clubsResultado' => Club::buscar($request->busquedaInput),
+	        'publicacionesResultado' => Publicacion::buscar($request->busquedaInput)
+	        ]);
     }
 }

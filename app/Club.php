@@ -12,6 +12,14 @@ class Club extends Model
     {
     	return Club::where('activo', '=', true)->orderBy('created_at', 'desc')->take(5)->get();
     }
+    public static function buscar($string)
+    {
+        $param = '%'.$string.'%';
+        return Club::where(function($query) use($param){
+            $query->where('nombreClub','like', $param)
+                ->orWhere('descripcion','like', $param);
+        })->where('activo', true)->get();
+    }
     /* Esta función puede quedar en desuso*/
     public function publicacionesAprobadas()
     {
