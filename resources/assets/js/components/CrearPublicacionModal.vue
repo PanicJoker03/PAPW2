@@ -4,7 +4,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-					<h5 class="modal-title" id="crearPublicacionTitulo">Subir imagen en {{ nombreClub }}</h5>
+					<h5 class="modal-title" id="crearPublicacionTitulo">Compartir imagen en {{ nombreClub }}</h5>
 				</div>
 				<form id="crearPublicacionForm" class="post-action" @submit.prevent="crearPublicacion" method="post" enctype="multipart/form-data">
 					<div class="modal-body">
@@ -32,7 +32,7 @@
 					</div>
 					<div class="modal-footer">
 						<div class="form-group text-center">
-							<button type="submit">Crear</button>
+							<button type="submit">Compartir</button>
 						</div>
 					</div>
 				</form>

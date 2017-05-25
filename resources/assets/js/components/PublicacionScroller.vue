@@ -26,7 +26,7 @@
 				parametroOrdenamiento: 'id',
 				paramGuia: Number.MAX_SAFE_INTEGER,
 				items: [],
-				entradasPorPaginacion: 24,
+				entradasPorPaginacion: 20,
 				cargandoEntradas: false
 			}
 		},

@@ -51,7 +51,8 @@ class Usuario extends Model implements Authenticatable
     /* Regresa un numero determinado de publicaciones a partir de cierto parametro*/
     public function publicacionesInicioPaginado($paramGuía = PHP_INT_MAX, $numero = 4, string $orderBy = 'id' /*, bool $desc = true*/){
         //Clubs propios y subscritos
-        $clubs = $this->clubsSubscrito_id() + $this->clubs_id();
+        $clubs = array_merge($this->clubsSubscrito_id(),$this->clubs_id());
+        //array_push($clubs, $this->clubs_id());
         $publicaciones = Publicacion::publicacionesPaginado($clubs, $paramGuía, $numero, $orderBy);
         return $publicaciones;
     }

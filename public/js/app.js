@@ -12859,7 +12859,7 @@ module.exports = function spread(callback) {
 			parametroOrdenamiento: 'id',
 			paramGuia: Number.MAX_SAFE_INTEGER,
 			items: [],
-			entradasPorPaginacion: 24,
+			entradasPorPaginacion: 20,
 			cargandoEntradas: false
 		};
 	},
@@ -32919,7 +32919,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "crearPublicacionTitulo"
     }
-  }, [_vm._v("Subir imagen en " + _vm._s(_vm.nombreClub))])]), _vm._v(" "), _c('form', {
+  }, [_vm._v("Compartir imagen en " + _vm._s(_vm.nombreClub))])]), _vm._v(" "), _c('form', {
     staticClass: "post-action",
     attrs: {
       "id": "crearPublicacionForm",
@@ -33010,7 +33010,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("Crear")])])])
+  }, [_vm._v("Compartir")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
