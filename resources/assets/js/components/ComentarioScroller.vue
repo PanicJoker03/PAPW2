@@ -25,7 +25,7 @@
 					<form v-if="item.usuario == usuario" :comentario="item.id" @submit.prevent="editarEntrada(item.id)" class="form-editarComentario" method="post" hidden>
 						<input type="text" class="form-control" name="comentario" :value="item.comentario">
 						<button type="submit">Editar</button>
-						<a class="btn btn-default botonCancelar" :comentario="item.id" v-on:click="cerrarEdicion(item.id)">Cancelar</a>
+						<button class="botonCancelar" :comentario="item.id" v-on:click="cerrarEdicion(item.id)">Cancelar</button>
 					</form>
 				</li>
 			</template>
