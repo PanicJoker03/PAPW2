@@ -30,7 +30,7 @@ class ViewsControl extends Controller
 			return view('inicioSesion');
 		}
 	}
-	public function club(int $id)
+	public function club($id)
 	{
 		$club = Club::find($id);
 		$usuario = Auth::user();
