@@ -72,7 +72,7 @@
             //console.log('Component mounted.');
             var _this = this;
             var timeStamp = 0;
-            $('#prevUsuario').attr('src', this.avatarRuta);
+            $('#prevUsuario').attr('src', "/"+this.avatarRuta);
             $('#prevUsuario')
             .crop({
                     width : 100,
@@ -114,7 +114,7 @@
             		reader.readAsDataURL(files[0]);
             	}
                 else{
-                    $('#prevUsuario').attr('src', this.avatarRuta);
+                    $('#prevUsuario').attr('src', "/"+this.avatarRuta);
                 }
         	},
         	editarUsuario(){

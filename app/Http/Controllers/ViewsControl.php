@@ -37,7 +37,8 @@ class ViewsControl extends Controller
 			'club' => $club,
 			'publicaciones' => $club->publicacionesAprobadas,
 			'subscripcion' => $usuario->clubSubscripcion($club->id),
-			'usuario_id' => $usuario->id
+			'usuario_id' => $usuario->id,
+			'usuario' => $usuario
 			]);
 	}
     public function administrar()
@@ -46,6 +47,7 @@ class ViewsControl extends Controller
 		return view('administrar', [
 			'clubs' => $usuario->clubs('nombreClub')->get(),
 			'publicacionesPorAprobar' => $usuario->publicacionesPorAprobar,
+			'usuario' => $usuario
 			]);
     }
     public function publicacion($id)
@@ -61,7 +63,8 @@ class ViewsControl extends Controller
     	return view('publicacion', [
     		'publicacion' => $publicacion,
     		'club' => Club::find($publicacion->club),
-    		'megusta' => $usuario->publicacionMegusta($publicacion->id)
+    		'megusta' => $usuario->publicacionMegusta($publicacion->id),
+			'usuario' => $usuario
     		]);
     }
     public function buscar(Request $request)

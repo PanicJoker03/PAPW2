@@ -12766,7 +12766,7 @@ module.exports = function spread(callback) {
         //console.log('Component mounted.');
         var _this = this;
         var timeStamp = 0;
-        $('#prevUsuario').attr('src', this.avatarRuta);
+        $('#prevUsuario').attr('src', "/" + this.avatarRuta);
         $('#prevUsuario').crop({
             width: 100,
             height: 100,
@@ -12804,7 +12804,7 @@ module.exports = function spread(callback) {
                 };
                 reader.readAsDataURL(files[0]);
             } else {
-                $('#prevUsuario').attr('src', this.avatarRuta);
+                $('#prevUsuario').attr('src', "/" + this.avatarRuta);
             }
         },
         editarUsuario: function editarUsuario() {
