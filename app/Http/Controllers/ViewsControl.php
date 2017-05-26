@@ -39,7 +39,8 @@ class ViewsControl extends Controller
 			'publicaciones' => $club->publicacionesAprobadas,
 			'subscripcion' => $usuario->clubSubscripcion($club->id),
 			'usuario_id' => $usuario->id,
-			'usuario' => $usuario
+			'usuario' => $usuario,
+			'actividadReciente' => $club->ultimaActividad()
 			]);
 	}
     public function administrar()
