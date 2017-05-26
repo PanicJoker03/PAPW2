@@ -78,7 +78,7 @@ class Usuario extends Model implements Authenticatable
     }
     public function getAuthIdentifierName()
     {
-    	return $this->nombreUsuario;
+    	return "id";//return $this->nombreUsuario;
     }
 
     public function getAuthIdentifier()
