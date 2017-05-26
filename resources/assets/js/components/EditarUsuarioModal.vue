@@ -32,7 +32,7 @@
 								<div class="col-xs-3">
 									<img class="crop pull-left" id="prevUsuario" width="100" height="100">
 								</div>
-								<div class="col-xs-9">
+								<div class="col-sm-9 col-xs-12">
 									<input type="file" @change="archivoSeleccionado" name="imagen" id="editarUsuarioInput" class="form-control" accept="image/*">
 									<small>Elige la imagen avatar de usuario</small>
 								</div>
