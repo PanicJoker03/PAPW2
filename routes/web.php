@@ -1,5 +1,6 @@
 <?php
 use App\Publicacion;
+use App\Club;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +11,9 @@ use App\Publicacion;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/testActividad', function(){
+	return Club::ultimaActividad();
+});
 //La consulta se maneja en get
 //La creación/modificacion en post
 Route::get('/', 'ViewsControl@inicio');

@@ -51,4 +51,40 @@ class Club extends Model
         		'aprobado' => false,
         	]);
     }
+    public static function ultimaActividad()
+    {
+/*        $publicaciones = DB::table('publicacion')
+            ->leftJoin('comentario', 'publicacion.id', '=', 'comentario.publicacion')
+            ->leftJoin('visita', 'publicacion.id', '=', 'visita.publicacion')
+            ->leftJoin('megusta', 'publicacion.id', '=', 'megusta.publicacion')
+            ->whereIn('club', $clubs)
+            ->where('publicacion.'.$orderBy, "<", $paramGuía)
+            ->where([
+                'publicacion.activo' => true,
+                'publicacion.aprobado' => true 
+                ])
+            //->whereRaw($subquery)
+            ->select(
+                'publicacion.*',
+                DB::raw("count(distinct case when comentario.activo = true then comentario.id else null end) as comentarios"),
+                DB::raw("count(distinct case when visita.activo = true then visita.id else null end) as visitas"),
+                DB::raw("count(distinct case when megusta.activo = true then megusta.id else null end) as megusta"))
+            ->groupBy('publicacion.id')
+            ->orderBy('publicacion.'.$orderBy, 'desc')
+            ->take($numero)
+            ->get();*/
+        $club = 23;
+        $likes = DB::table('megusta')
+            ->leftJoin('publicacion', 'megusta.publicacion', '=', 'publicacion.id')
+            ->where([
+                'club' => $club,
+                'megusta.activo' => true,
+                'publicacion.activo' => true
+                ])
+            ->orderBy('megusta.created_at', 'desc')
+            ->pluck('publicacion.id')
+            ->toArray();
+        $likes = array_unique($likes);
+        return $likes;
+    }
 }
