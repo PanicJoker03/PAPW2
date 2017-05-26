@@ -31,7 +31,7 @@ class Helper
         return $rutasImagenes;
     }
     //Reescalamos la imagen acorde a los parametros enviados del recorte
-    public static function recortarImagen($imagen, int $cropW, int $cropH, int $cropX, int $cropY)
+    public static function recortarImagen($imagen, $cropW, $cropH, $cropX, $cropY)
     {
         $imagen->crop($cropW, $cropH, $cropX, $cropY);
         return $imagen;
