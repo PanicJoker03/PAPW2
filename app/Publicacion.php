@@ -12,7 +12,7 @@ class Publicacion extends Model
 {
     protected $table = 'publicacion';
     /* Regresa un numero determinado de publicaciones a partir de cierto parametro*/
-    public static function publicacionesPaginado($clubs, $paramGuía = PHP_INT_MAX, $numero = 4, string $orderBy = 'id' /*, bool $desc = true*/){
+    public static function publicacionesPaginado($clubs, $paramGuía = PHP_INT_MAX, $numero = 4, $orderBy = 'id' /*, bool $desc = true*/){
         //$subquery = 'publicacion.' . $orderBy .' > (select '. $orderBy .' from publicacion where publicacion.id >= '. $idGuía .' limit 1)';
         $publicaciones = DB::table('publicacion')
             ->leftJoin('comentario', 'publicacion.id', '=', 'comentario.publicacion')
