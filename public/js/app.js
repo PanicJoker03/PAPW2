@@ -33320,7 +33320,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Imagen de usuario")]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_vm._m(1), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-9"
+    staticClass: "col-sm-9 col-xs-12"
   }, [_c('input', {
     staticClass: "form-control",
     attrs: {
