@@ -10,6 +10,11 @@ button, .btn-default {
 	background-color: #242540 !important;
 }
 
+button:hover, .btn-default:hover, button:focus, .btn-default:focus {
+  border-color: white;
+  outline: none;
+}
+
 button:after, .btn-default:after {
 	content:'';
 	position: absolute;
@@ -24,7 +29,7 @@ button:after, .btn-default:after {
 	z-index: -1;
 }
 
-button:hover:after, .btn-default:hover:after {
+button:hover:after, .btn-default:hover:after, button:focus:after, .btn-default:hover:after {
 	transform: scaleY(1);
 }
 
@@ -441,9 +446,11 @@ div.caption > p {
 div.navbar-header button {
 	height: 100%;
 	margin-right: 10px;
-	
+	margin-top: 5px;	
+	padding-top: 5px !important;
 }
 div.navbar-header button.navbar-toggle {
 	padding-top: 10px !important;
 	padding-bottom: 10px !important;
+	color: white;
 }
