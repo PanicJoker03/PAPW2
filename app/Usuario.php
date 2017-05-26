@@ -11,7 +11,7 @@ use App\Subscripcion;
 class Usuario extends Model implements Authenticatable
 {
     protected $table = 'usuario';
-    public function clubs(string $orderBy = 'id', bool $desc = false)
+    public function clubs($orderBy = 'id', $desc = false)
     {
         return $this->HasMany('App\Club', 'creador')->where('activo', true)->orderBy($orderBy, $desc? 'desc' : 'asc');
     }
@@ -49,7 +49,7 @@ class Usuario extends Model implements Authenticatable
             ])->orderBy('publicacion.created_at','desc');
     }
     /* Regresa un numero determinado de publicaciones a partir de cierto parametro*/
-    public function publicacionesInicioPaginado($paramGuía = PHP_INT_MAX, $numero = 4, string $orderBy = 'id' /*, bool $desc = true*/){
+    public function publicacionesInicioPaginado($paramGuía = PHP_INT_MAX, $numero = 4, $orderBy = 'id' /*, bool $desc = true*/){
         //Clubs propios y subscritos
         $clubs = array_merge($this->clubsSubscrito_id(),$this->clubs_id());
         //array_push($clubs, $this->clubs_id());
