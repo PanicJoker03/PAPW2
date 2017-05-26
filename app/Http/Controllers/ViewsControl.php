@@ -22,7 +22,8 @@ class ViewsControl extends Controller
 				'usuario' => $usuario,
 		        'misClubes' => $usuario->clubs(),
 		        'nuevosClubs' => Club::masRecientes(),
-		        'subscripciones' => $usuario->clubsSubscrito()
+		        'subscripciones' => $usuario->clubsSubscrito(),
+		        'esconderBarraUsuario' => true
 		        ]);
 		}
 		else {
@@ -76,7 +77,8 @@ class ViewsControl extends Controller
 	        'nuevosClubs' => Club::masRecientes(),
 	        'subscripciones' => $usuario->clubsSubscrito(),
 	        'clubsResultado' => Club::buscar($request->busquedaInput),
-	        'publicacionesResultado' => Publicacion::buscar($request->busquedaInput)
+	        'publicacionesResultado' => Publicacion::buscar($request->busquedaInput),
+	        'esconderBarraUsuario' => true
 	        ]);
     }
 }

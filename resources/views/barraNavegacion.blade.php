@@ -22,6 +22,7 @@
 		<a href="/" class="navbar-brand">Inicio</a>
 	</div>
 	<div class="collapse navbar-collapse" id="barraSesion">
+		@if (!isset($esconderBarraUsuario))
 		<ul class="nav navbar-nav hidden-xs">
 			<li class="nav-item active">
 				<a class="nav-link" data-toggle="modal" data-target="#editarUsuarioModal">
@@ -30,6 +31,7 @@
 				</a>
 			</li>
 		</ul>
+		@endif
 		<ul class="nav navbar-nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mis clubes
