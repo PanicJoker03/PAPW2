@@ -52,7 +52,8 @@
 							<label class="sr-only" for="contraseña">Contraseña</label>
 							{{ Form::password('contraseña', ['class' => 'form-control', 'placeholder' => 'Contraseña']) }}
 						</div>
-						{{ Form::submit('Iniciar sesión', ['class' => 'btn btn-diver']) }}
+						<!-- {{ Form::submit('Iniciar sesión', ['class' => 'btn btn-diver']) }} -->
+                        <button class="btn btn-default" type="submit">Iniciar sesión</button>
 						{{ Form::close() }}
                     </li>
                 </ul>
@@ -71,7 +72,10 @@
                         <span class="skills">Navega - Unete a clubes - Comparte contenido</span>
                     </div>
                     <br>
-                    <input type="button" name="btnRegistrarse" class="btn btn-lg btn-diver" value="Registrarse" data-toggle="modal" data-target="#myModal">
+                    <!-- <input type="button" name="btnRegistrarse" class="btn btn-lg btn-diver" value="Registrarse" data-toggle="modal" data-target="#myModal"> -->
+                    <button name="btnRegistrarse" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">
+                        Registrarse
+                    </button>
                 </div>
             </div>
         </div>
@@ -189,7 +193,7 @@
 
         <div class="modal-content">
           <div class="modal-header modal-header-diver">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">&times;</button>
             <h4 class="light">Registro</h4>
           </div>
           <div class="modal-body modal-body-diver">
@@ -226,7 +230,8 @@
 					</div>
 				</div>
 				<div class="panel-footer text-center">
-						{{ Form::submit('Registrarse', ['class' => 'btn btn-diver']) }}
+						<!-- {{ Form::submit('Registrarse', ['class' => 'btn-default']) }} -->
+                        <button type="submit" class="btn btn-default">Registrarse</button>
 					{{ Form::close() }}
 
           </div>

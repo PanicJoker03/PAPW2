@@ -1,8 +1,8 @@
 button, .btn-default {
-	border: none !important;
-	border-radius: 2px !important;
+	border: 1px solid white;
+	border-radius: 4px !important;
 	color: white !important;
-	padding: 6px 12px !important;
+	padding: 4px 10px !important;
 	font-size: 16px !important;
 	position: relative !important;
 	box-sizing: border-box !important;
@@ -40,6 +40,7 @@ p.post-title + img {
 button#megusta {
 	border-top-left-radius: 0px !important;
 	border-top-right-radius: 0px !important;
+	border: none;
 }
 /***************************************/
 html, body {
@@ -84,7 +85,7 @@ div#options-panel-xs button {
 	width: 100%;
 }
 .sidepanel a {float: right;}
-.nav-diver, .nav-diver a, .panel-heading, li.list-group-item, .modal-header, .modal-header>.close {
+.nav-diver, .nav-diver a, .panel-heading, li.list-group-item, .modal-header {
 	background-color: #242540 !important;
 	border-color: #090910 !important;
 	color: white !important;
