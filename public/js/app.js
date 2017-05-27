@@ -12142,6 +12142,12 @@ module.exports = function spread(callback) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	props: ['publicacion'],
@@ -33450,11 +33456,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('button', {
-    staticClass: "btn btn-success col-xs-6",
+    staticClass: "btn btn-default col-xs-6 hidden-xs",
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("Aprobar")])]), _vm._v(" "), _c('form', {
+  }, [_vm._v("Aprobar")]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('form', {
     staticClass: "post-action",
     on: {
       "submit": function($event) {
@@ -33463,11 +33469,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('button', {
-    staticClass: "btn btn-danger col-xs-6",
+    staticClass: "btn btn-default col-xs-6 hidden-xs",
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("Rechazar")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Rechazar")]), _vm._v(" "), _vm._m(1)])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [_c('div', {
     staticClass: "cargando text-center"
@@ -33482,7 +33488,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": _vm.imagenRuta
     }
   }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.descripcion))])])])])])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "btn btn-default col-xs-6 visible-xs-block",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-ok"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "btn btn-default col-xs-6 visible-xs-block",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-remove"
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
