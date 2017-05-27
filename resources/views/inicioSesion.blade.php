@@ -91,7 +91,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-1">
-                    <p>Un club es un espacio donde se pueden compartir imagenes de una tematica definida.</p><p>Busca alguno y subscribirte para que las publicaciones más recientes aparezcan en tu página de inicio.</p><p>Podras ver los clubes más recientes creados por la comunidad. Y a su vez, podras crear tus propios clubes y definir el contenido personalizado que los usuarios compartan en él.</p>
+                    <p>Un club es un espacio donde se pueden compartir imagenes de una tematica definida.</p><p>Busca alguno y suscribirte para que las publicaciones más recientes aparezcan en tu página de inicio.</p><p>Podras ver los clubes más recientes creados por la comunidad. Y a su vez, podras crear tus propios clubes y definir el contenido personalizado que los usuarios compartan en él.</p>
                 </div>
                 <div class="col-lg-7">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">

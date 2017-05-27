@@ -17,7 +17,7 @@
 				<span class="glyphicon glyphicon-edit pull-right"></span>
 			</a>
 			<div class="list-group subs-list">
-				<li class="list-group-item">Subscripciones</li>
+				<li class="list-group-item">Suscripciones</li>
 				@forelse ($subscripciones as $club)
 				<a href="/club/{{$club->id}}/vista" class="list-group-item">
 					<img src="{{ URL::asset($club->avatarMinRuta) }}" class="pull-left" width="40" height="40">
@@ -26,7 +26,7 @@
 				</a>
 				@empty
 					<a href="" class="list-group-item">
-						<h5>Aun no te subscribes a ningun club.</h5>
+						<h5>Aun no te suscribes a ningun club.</h5>
 					</a>
 				@endforelse
 			</div>
@@ -49,7 +49,7 @@
 		</div>
 		<div class="visible-xs-block">
 			<div class="list-group subs-list">
-				<li class="list-group-item">Subscripciones</li>
+				<li class="list-group-item">Suscripciones</li>
 				@forelse ($subscripciones as $club)
 				<a href="/club/{{$club->id}}/vista" class="list-group-item">
 					<img src="{{ URL::asset($club->avatarMinRuta) }}" class="pull-left" width="40" height="40">
@@ -58,7 +58,7 @@
 				</a>
 				@empty
 					<a href="" class="list-group-item">
-						<h5>Aun no te subscribes a ningun club.</h5>
+						<h5>Aun no te suscribes a ningun club.</h5>
 					</a>
 				@endforelse
 			</div>
