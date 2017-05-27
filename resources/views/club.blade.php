@@ -27,12 +27,20 @@
 		<button class="btn btn-default btn-block" data-toggle="modal" data-target="#crearPublicacionModal">
 			<span class="glyphicon glyphicon-plus">&nbsp;</span>Compartir imagen
 		</button>
-		<div class="list-group">
-			<li class="list-group-item">Actividad</li>
-			<a class="list-group-item">
-				[Rellenar]
-			</a>
-		</div>
+		<div class="list-group clubes-list">
+				<li class="list-group-item">Actividad</li>
+				@forelse ($actividadReciente as $publicacion)
+				<a href="/publicacion/{{$publicacion->id}}/vista" class="list-group-item">
+					<img src="{{ URL::asset($publicacion->contenidoMinRuta) }}" class="pull-left" width="40" height="40">
+					<h4 class="list-group-item-heading"> {{ str_limit($publicacion->titulo, 15, '...') }} </h4>
+					<p class="list-group-item-text"> {{ str_limit($publicacion->descripcion, 20,'...') }} </p>
+				</a>
+				@empty
+				<a href="" class="list-group-item">
+					<h4>No hay actividad reciente</h4>
+				</a>
+				@endforelse
+			</div>
 	</div>
 	<div class="row">
 		<div id="club-sidepanel" class="col-sm-3 col-sm-push-9 col-xs-12 hidden-xs">
@@ -51,7 +59,7 @@
 			<button class="btn btn-default btn-block" data-toggle="modal" data-target="#crearPublicacionModal">
 				<span class="glyphicon glyphicon-plus">&nbsp;</span>Compartir imagen
 			</button>
-			<div class="list-group">
+			<div class="list-group clubes-list">
 				<li class="list-group-item">Actividad</li>
 				@forelse ($actividadReciente as $publicacion)
 				<a href="/publicacion/{{$publicacion->id}}/vista" class="list-group-item">
