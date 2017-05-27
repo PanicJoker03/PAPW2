@@ -1,5 +1,10 @@
 <template>
 	<div id="publicacion-scroller">
+		<template v-if="items.length == 0">
+			<div class="cargandoPublicacionesDiv">
+				<h4 id="textoCargandoPublicacion">Cargando publicaciones...</h4>
+			</div>
+		</template>
 		<template v-for="item in items">
 			<!-- Aquí puedes escribir todo el formato que quieras para las entradas de las publicaciones -->
 			<div class="publicacion-thumbnail col-sm-4 col-md-3 col-xs-4">
@@ -56,6 +61,9 @@
         		_this.cargandoEntradas = true;
 				_this.$http.get(_this.src, {params: {paramGuia : _this.paramGuia, cantidad : _this.entradasPorPaginacion }})
 				.then((response) => {
+					if(jQuery.isEmptyObject(response.data)){
+						$("#textoCargandoPublicacion").text("No hay publicaciones que mostrar");
+					}
 					const _data = response.data;
 					for(var object in _data){
 						_this.items.push(_data[object]);

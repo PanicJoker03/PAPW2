@@ -12353,7 +12353,12 @@ module.exports = function spread(callback) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function($, jQuery) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12419,6 +12424,9 @@ module.exports = function spread(callback) {
 			var _this = this;
 			_this.cargandoEntradas = true;
 			_this.$http.get(_this.src, { params: { paramGuia: _this.paramGuia, cantidad: _this.entradasPorPaginacion } }).then(function (response) {
+				if (jQuery.isEmptyObject(response.data)) {
+					$("#textoCargarComentarios").text("No hay comentarios para esta publicacion");
+				}
 				var _data = response.data;
 				for (var object in _data) {
 					_this.items.push(_data[object]);
@@ -12474,7 +12482,7 @@ module.exports = function spread(callback) {
 		}
 	}
 };
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(1)))
 
 /***/ }),
 /* 35 */
@@ -12836,7 +12844,12 @@ module.exports = function spread(callback) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function($, jQuery) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12893,6 +12906,9 @@ module.exports = function spread(callback) {
 			var _this = this;
 			_this.cargandoEntradas = true;
 			_this.$http.get(_this.src, { params: { paramGuia: _this.paramGuia, cantidad: _this.entradasPorPaginacion } }).then(function (response) {
+				if (jQuery.isEmptyObject(response.data)) {
+					$("#textoCargandoPublicacion").text("No hay publicaciones que mostrar");
+				}
 				var _data = response.data;
 				for (var object in _data) {
 					_this.items.push(_data[object]);
@@ -12912,7 +12928,7 @@ module.exports = function spread(callback) {
 		}
 	}
 };
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(1)))
 
 /***/ }),
 /* 39 */
@@ -33105,7 +33121,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Comentar")])]), _vm._v(" "), _c('ul', {
     staticClass: "list-group"
-  }, [_vm._l((_vm.items), function(item) {
+  }, [(_vm.items.length == 0) ? [_vm._m(0)] : _vm._e(), _vm._v(" "), _vm._l((_vm.items), function(item) {
     return [_c('li', {
       staticClass: "list-group-item",
       attrs: {
@@ -33184,7 +33200,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("Cancelar")])]) : _vm._e()])]
   })], 2)])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "cargandoComentariosDiv"
+  }, [_c('p', {
+    attrs: {
+      "id": "textoCargarComentarios"
+    }
+  }, [_vm._v("Cargando comentarios...")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -33394,7 +33418,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "publicacion-scroller"
     }
-  }, [_vm._l((_vm.items), function(item) {
+  }, [(_vm.items.length == 0) ? [_vm._m(0)] : _vm._e(), _vm._v(" "), _vm._l((_vm.items), function(item) {
     return [_c('div', {
       staticClass: "publicacion-thumbnail col-sm-4 col-md-3 col-xs-4"
     }, [_c('a', {
@@ -33419,7 +33443,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "glyphicon glyphicon-eye-open"
     }), _vm._v(_vm._s(item.visitas) + "\n\t\t\t\t\t")])])])])]
   })], 2)
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "cargandoPublicacionesDiv"
+  }, [_c('h4', {
+    attrs: {
+      "id": "textoCargandoPublicacion"
+    }
+  }, [_vm._v("Cargando publicaciones...")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
