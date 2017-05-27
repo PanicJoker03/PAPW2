@@ -48,7 +48,7 @@ button#megusta {
 	border: none;
 }
 /***************************************/
-html, body {
+html, body, #barraSesion {
 	max-width: 100%;
 	overflow-x: hidden;
 }
@@ -73,6 +73,7 @@ div#club-sidepanel div.list-group {
 }
 div#club-sidepanel + div {
 	padding-left: 0px;
+	padding-right: 0px;
 }
 div#options-panel-xs button {
 	margin-bottom: 5px;
@@ -82,7 +83,7 @@ div#options-panel-xs button {
 	width: 200px;
 	margin-bottom: 20px !important;
 }
-#subs-list > a.list-group-item img, #clubes-list > a.list-group-item img {
+div.subs-list > a.list-group-item img, div.clubes-list > a.list-group-item img {
 	margin-right: 10px;
 	border-radius: 2px;
 }
@@ -246,6 +247,7 @@ p.club-desc.visible-xs-block {
 
 div.container > div.row {
 	margin-left: 0px;
+	margin-right: 0px;
 }
 
 div.container-diver, div.container-comments {

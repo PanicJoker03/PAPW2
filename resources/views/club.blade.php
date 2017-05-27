@@ -14,6 +14,16 @@
 	</div>
 	<div id="options-panel-xs" class="visible-xs-block">
 		<p class="club-desc visible-xs-block">{{$club->descripcion}}</p>
+		@if ($club->creador != $usuario_id)
+			<boton-subscripcion
+				@if(isset($subscripcion))
+				id={{$subscripcion->id}}
+				@else
+				id='-1'
+				@endif
+				club={{ $club->id }}>
+			</boton-subscripcion>
+		@endif
 		<button class="btn btn-default btn-block" data-toggle="modal" data-target="#crearPublicacionModal">
 			<span class="glyphicon glyphicon-plus">&nbsp;</span>Compartir imagen
 		</button>
@@ -56,6 +66,7 @@
 				@endforelse
 			</div>
 		</div>
+
 		<div class="col-sm-9 col-sm-pull-3">
 			<div class="container-fluid container-diver shadow">
 				<publicacion-scroller src="/publicacion/club/{{$club->id}}/paginado"></publicacion-scroller>

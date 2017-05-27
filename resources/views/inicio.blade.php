@@ -16,7 +16,7 @@
 				<p class="pull-right">{{ $usuario->nombreUsuario}}</p>
 				<span class="glyphicon glyphicon-edit pull-right"></span>
 			</a>
-			<div class="list-group" id="subs-list">
+			<div class="list-group subs-list">
 				<li class="list-group-item">Subscripciones</li>
 				@forelse ($subscripciones as $club)
 				<a href="/club/{{$club->id}}/vista" class="list-group-item">
@@ -32,7 +32,39 @@
 			</div>
 		</div>
 		<div class="col-sm-3 col-sm-push-6 hidden-xs">
-			<div class="list-group" id="clubes-list">
+			<div class="list-group clubes-list">
+			<li class="list-group-item">Nuevos clubes</li>
+				@forelse ($nuevosClubs as $club)
+				<a href="/club/{{$club->id}}/vista" class="list-group-item">
+					<img src="{{ URL::asset($club->avatarMinRuta) }}" class="pull-left" width="40" height="40">
+					<h4 class="list-group-item-heading"> {{ str_limit($club->nombreClub, 15, '...') }} </h4>
+					<p class="list-group-item-text"> {{ str_limit($club->descripcion, 20,'...') }} </p>
+				</a>
+				@empty
+					<a href="" class="list-group-item">
+						<h5>No parece haber clubes nuevos, ¿Por qué no creas uno nuevo?</h5>
+					</a>
+				@endforelse
+			</div>
+		</div>
+		<div class="visible-xs-block">
+			<div class="list-group subs-list">
+				<li class="list-group-item">Subscripciones</li>
+				@forelse ($subscripciones as $club)
+				<a href="/club/{{$club->id}}/vista" class="list-group-item">
+					<img src="{{ URL::asset($club->avatarMinRuta) }}" class="pull-left" width="40" height="40">
+					<h4 class="list-group-item-heading"> {{ str_limit($club->nombreClub, 15, '...') }} </h4>
+					<p class="list-group-item-text"> {{ str_limit($club->descripcion, 20,'...') }} </p>
+				</a>
+				@empty
+					<a href="" class="list-group-item">
+						<h5>Aun no te subscribes a ningun club.</h5>
+					</a>
+				@endforelse
+			</div>
+		</div>
+		<div class="visible-xs-block">
+			<div class="list-group clubes-list">
 			<li class="list-group-item">Nuevos clubes</li>
 				@forelse ($nuevosClubs as $club)
 				<a href="/club/{{$club->id}}/vista" class="list-group-item">

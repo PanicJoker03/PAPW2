@@ -4,10 +4,16 @@
 			<div class="contenido panel-heading" hidden>
 				<div class="btn-group btn-block">
 				<form class="post-action" @submit.prevent="aprobar">
-					<button type="submit" class="btn btn-success col-xs-6">Aprobar</button>
+					<button type="submit" class="btn btn-default col-xs-6 hidden-xs">Aprobar</button>
+					<button type="submit" class="btn btn-default col-xs-6 visible-xs-block">
+						<span class="glyphicon glyphicon-ok"></span>
+					</button>
 				</form>
 				<form class="post-action" @submit.prevent="rechazar">
-					<button type="submit" class="btn btn-danger col-xs-6">Rechazar</button>
+					<button type="submit" class="btn btn-default col-xs-6 hidden-xs">Rechazar</button>
+					<button type="submit" class="btn btn-default col-xs-6 visible-xs-block">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
 				</form>
 				</div>
 			</div>

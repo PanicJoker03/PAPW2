@@ -3,6 +3,14 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
+body, html, #bs-example-navbar-collapse-1 {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+#bs-example-navbar-collapse-1 {
+  margin-left: 0px;
+  border: none;
+}
 body {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   overflow-x: hidden;

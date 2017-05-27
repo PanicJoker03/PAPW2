@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class=" list-group">
+			<div class=" list-group clubes-list">
 			<li class="list-group-item">Mis clubs</li>
 			@foreach ($clubs as $club)
 			<a href="/club/{{$club->id}}/vista" class="list-group-item">

@@ -23,7 +23,7 @@
         <div class="container">
             <div class="navbar-header page-scroll">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Iniciar Sesión <i class="fa fa-bars"></i>
+                    <span class="sr-only">Toggle navigation</span>Iniciar
                 </button>
                 <div>
                     <img src="{{URL::asset('images/Diver-icon.png')}}" class="img-responsive img-centered pull-left">
